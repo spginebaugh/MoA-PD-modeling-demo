@@ -1,0 +1,77 @@
+[project]
+name = "moa-pd-prototype"
+version = "1.0.0"
+description = "Data-driven typed MoA graph compiler with mechanistic PD simulation and toy graph-patch prediction."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "fastapi>=0.136.3",
+  "uvicorn[standard]>=0.49.0",
+  "pydantic>=2.13.4",
+  "numpy>=2.4.6",
+  "scipy>=1.17.1",
+  "scikit-learn>=1.9.0",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=9.0.3",
+  "basedpyright>=1.39.6",
+  "scipy-stubs>=1.17.1.5",
+  "ruff>=0.15.16",
+  "httpx2>=2.3.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+src = ["apps", "services", "scripts", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "I",
+  "UP",
+  "B",
+  "C4",
+  "SIM",
+  "RUF",
+]
+ignore = [
+  # The formatter handles normal wrapping; long messages and URLs can stay readable.
+  "E501",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["apps", "services"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.basedpyright]
+include = ["apps", "services", "scripts", "tests"]
+exclude = [
+  ".venv",
+  "dist",
+  "demo_outputs",
+  "**/__pycache__",
+]
+pythonVersion = "3.13"
+typeCheckingMode = "strict"
+reportMissingTypeStubs = false
+
+[build-system]
+requires = ["uv_build>=0.9.8,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = ["apps", "services"]
+module-root = ""

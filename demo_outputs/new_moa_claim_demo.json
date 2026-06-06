@@ -1,0 +1,2038 @@
+{
+  "ok": true,
+  "claim": "Compound promotes CBL-mediated receptor degradation.",
+  "prediction": {
+    "predicted_operator": "edge_activation",
+    "confidence": 0.5,
+    "probabilities": [
+      {
+        "operator": "edge_activation",
+        "probability": 0.5
+      },
+      {
+        "operator": "edge_inhibition",
+        "probability": 0.5
+      }
+    ],
+    "recommendations": [
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_cbl_ubiquitinates_egfr",
+        "source": "Drug",
+        "target": "e_cbl_ubiquitinates_egfr",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "support_score": 0.85,
+        "rationale": "Claim matches CBL plus degradation language; include the turnover module and activate the two turnover edges."
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_ubiquitinated_egfr_degrades_total",
+        "source": "Drug",
+        "target": "e_ubiquitinated_egfr_degrades_total",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "support_score": 0.85,
+        "rationale": "Claim matches CBL plus degradation language; include the turnover module and activate the two turnover edges."
+      }
+    ],
+    "candidates": [
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_ligand_dimerizes_egfr",
+        "source": "Drug",
+        "target": "e_ligand_dimerizes_egfr",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.75,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit EGF ligand -> EGFR active dimer.",
+        "feature_summary": [
+          "training_positive:e_ligand_dimerizes_egfr:inhibits_edge",
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_egfr_phosphorylation",
+        "source": "Drug",
+        "target": "e_egfr_phosphorylation",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.75,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit EGFR active dimer -> Phosphorylated EGFR.",
+        "feature_summary": [
+          "training_positive:e_egfr_phosphorylation:inhibits_edge",
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_ras_drives_erk",
+        "source": "Drug",
+        "target": "e_ras_drives_erk",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.75,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit RAS-GTP -> Phospho-ERK.",
+        "feature_summary": [
+          "training_positive:e_ras_drives_erk:inhibits_edge",
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_cbl_ubiquitinates_egfr",
+        "source": "Drug",
+        "target": "e_cbl_ubiquitinates_egfr",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.75,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate Active CBL E3 ligase -> Ubiquitinated EGFR.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad",
+          "training_positive:e_cbl_ubiquitinates_egfr:activates_edge"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_ubiquitinated_egfr_degrades_total",
+        "source": "Drug",
+        "target": "e_ubiquitinated_egfr_degrades_total",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.75,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate Ubiquitinated EGFR -> Total EGFR.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad",
+          "training_positive:e_ubiquitinated_egfr_degrades_total:activates_edge"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_ligand_dimerizes_egfr",
+        "source": "Drug",
+        "target": "e_ligand_dimerizes_egfr",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate EGF ligand -> EGFR active dimer.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_egfr_pool_supports_dimer",
+        "source": "Drug",
+        "target": "e_egfr_pool_supports_dimer",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit Total EGFR -> EGFR active dimer.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_egfr_pool_supports_dimer",
+        "source": "Drug",
+        "target": "e_egfr_pool_supports_dimer",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate Total EGFR -> EGFR active dimer.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_egfr_phosphorylation",
+        "source": "Drug",
+        "target": "e_egfr_phosphorylation",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate EGFR active dimer -> Phosphorylated EGFR.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_pegfr_recruits_grb2_sos",
+        "source": "Drug",
+        "target": "e_pegfr_recruits_grb2_sos",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit Phosphorylated EGFR -> GRB2/SOS adaptor complex.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_pegfr_recruits_grb2_sos",
+        "source": "Drug",
+        "target": "e_pegfr_recruits_grb2_sos",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate Phosphorylated EGFR -> GRB2/SOS adaptor complex.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_grb2_sos_activates_ras",
+        "source": "Drug",
+        "target": "e_grb2_sos_activates_ras",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit GRB2/SOS adaptor complex -> RAS-GTP.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_grb2_sos_activates_ras",
+        "source": "Drug",
+        "target": "e_grb2_sos_activates_ras",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate GRB2/SOS adaptor complex -> RAS-GTP.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_ras_drives_erk",
+        "source": "Drug",
+        "target": "e_ras_drives_erk",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate RAS-GTP -> Phospho-ERK.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_pegfr_drives_akt",
+        "source": "Drug",
+        "target": "e_pegfr_drives_akt",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit Phosphorylated EGFR -> Phospho-AKT.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_pegfr_drives_akt",
+        "source": "Drug",
+        "target": "e_pegfr_drives_akt",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate Phosphorylated EGFR -> Phospho-AKT.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_erk_drives_phenotype",
+        "source": "Drug",
+        "target": "e_erk_drives_phenotype",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit Phospho-ERK -> Proliferation/survival phenotype.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_erk_drives_phenotype",
+        "source": "Drug",
+        "target": "e_erk_drives_phenotype",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate Phospho-ERK -> Proliferation/survival phenotype.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_akt_drives_phenotype",
+        "source": "Drug",
+        "target": "e_akt_drives_phenotype",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit Phospho-AKT -> Proliferation/survival phenotype.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_akt_drives_phenotype",
+        "source": "Drug",
+        "target": "e_akt_drives_phenotype",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate Phospho-AKT -> Proliferation/survival phenotype.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_pegfr_activates_cbl",
+        "source": "Drug",
+        "target": "e_pegfr_activates_cbl",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit Phosphorylated EGFR -> Active CBL E3 ligase.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_pegfr_activates_cbl",
+        "source": "Drug",
+        "target": "e_pegfr_activates_cbl",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should activate Phosphorylated EGFR -> Active CBL E3 ligase.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_cbl_ubiquitinates_egfr",
+        "source": "Drug",
+        "target": "e_cbl_ubiquitinates_egfr",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit Active CBL E3 ligase -> Ubiquitinated EGFR.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      },
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_ubiquitinated_egfr_degrades_total",
+        "source": "Drug",
+        "target": "e_ubiquitinated_egfr_degrades_total",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "score": 0.30000000000000004,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit Ubiquitinated EGFR -> Total EGFR.",
+        "feature_summary": [
+          "training_keyword:cbl",
+          "training_keyword:degrad"
+        ]
+      }
+    ],
+    "diagnostics": {
+      "decision_source": "guardrail",
+      "guardrail_applied": true,
+      "model_confidence": 0.5,
+      "model_score": 0.75,
+      "top_score": 0.75,
+      "score_margin": 0.0,
+      "low_support": false,
+      "matched_positive_features": [
+        "training_positive:e_ligand_dimerizes_egfr:inhibits_edge",
+        "training_keyword:cbl",
+        "training_keyword:degrad"
+      ],
+      "claim_keywords_used": [
+        "degradation",
+        "cbl"
+      ],
+      "negated_claim_keywords_used": [],
+      "included_modules": [
+        "cbl_turnover"
+      ]
+    },
+    "model_recommendations": [
+      {
+        "edge_id": "e_predicted_Drug_inhibits_edge_e_ligand_dimerizes_egfr",
+        "source": "Drug",
+        "target": "e_ligand_dimerizes_egfr",
+        "relation": "inhibits_edge",
+        "sign": "-",
+        "operator": "edge_inhibition",
+        "support_score": 0.75,
+        "rationale": "Data-defined graph-patch ranker proposes that the drug should inhibit EGF ligand -> EGFR active dimer."
+      }
+    ],
+    "guardrail_recommendations": [
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_cbl_ubiquitinates_egfr",
+        "source": "Drug",
+        "target": "e_cbl_ubiquitinates_egfr",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "support_score": 0.85,
+        "rationale": "Claim matches CBL plus degradation language; include the turnover module and activate the two turnover edges."
+      },
+      {
+        "edge_id": "e_predicted_Drug_activates_edge_e_ubiquitinated_egfr_degrades_total",
+        "source": "Drug",
+        "target": "e_ubiquitinated_egfr_degrades_total",
+        "relation": "activates_edge",
+        "sign": "+",
+        "operator": "edge_activation",
+        "support_score": 0.85,
+        "rationale": "Claim matches CBL plus degradation language; include the turnover module and activate the two turnover edges."
+      }
+    ]
+  },
+  "warnings": [
+    {
+      "category": "other",
+      "severity": "warning",
+      "message": "Toy data-defined graph-patch predictor: use as a compiler suggestion layer, not as evidence of biological truth.",
+      "source": null,
+      "details": {}
+    },
+    {
+      "category": "other",
+      "severity": "warning",
+      "message": "Data-defined guardrail applied; final recommendations are rule-based.",
+      "source": null,
+      "details": {}
+    }
+  ],
+  "applied_patches": [
+    {
+      "edge_id": "e_predicted_Drug_activates_edge_e_cbl_ubiquitinates_egfr",
+      "source": "Drug",
+      "target": "e_cbl_ubiquitinates_egfr",
+      "relation": "activates_edge",
+      "sign": "+",
+      "operator": "edge_activation",
+      "support_score": 0.85,
+      "rationale": "Claim matches CBL plus degradation language; include the turnover module and activate the two turnover edges."
+    },
+    {
+      "edge_id": "e_predicted_Drug_activates_edge_e_ubiquitinated_egfr_degrades_total",
+      "source": "Drug",
+      "target": "e_ubiquitinated_egfr_degrades_total",
+      "relation": "activates_edge",
+      "sign": "+",
+      "operator": "edge_activation",
+      "support_score": 0.85,
+      "rationale": "Claim matches CBL plus degradation language; include the turnover module and activate the two turnover edges."
+    }
+  ],
+  "patched_graph": {
+    "graph_id": "egfr_erbb_demo_custom_predicted_patches",
+    "label": "EGFR/ERBB demo pathway custom graph with predicted patches",
+    "source_claim": "Compound promotes CBL-mediated receptor degradation.",
+    "edge_count": 14,
+    "hypothesis_edges": [
+      {
+        "id": "e_predicted_Drug_activates_edge_e_cbl_ubiquitinates_egfr",
+        "source": "Drug",
+        "target": "e_cbl_ubiquitinates_egfr",
+        "relation": "activates_edge",
+        "sign": "+",
+        "confidence": 0.75,
+        "evidence": [
+          {
+            "source_type": "claim",
+            "source_label": "prediction",
+            "description": "Prediction-derived hypothesis from claim: Compound promotes CBL-mediated receptor degradation.",
+            "reference": null,
+            "confidence": 0.75
+          }
+        ],
+        "operator": null,
+        "expression": null,
+        "description": null,
+        "is_hypothesis": true,
+        "hypothesis_rationale": "Claim matches CBL plus degradation language; include the turnover module and activate the two turnover edges.",
+        "metadata": {
+          "assay_direction": null,
+          "temporal_order": null,
+          "extension": {
+            "prediction_decision_source": "guardrail",
+            "prediction_support_score": 0.85
+          }
+        }
+      },
+      {
+        "id": "e_predicted_Drug_activates_edge_e_ubiquitinated_egfr_degrades_total",
+        "source": "Drug",
+        "target": "e_ubiquitinated_egfr_degrades_total",
+        "relation": "activates_edge",
+        "sign": "+",
+        "confidence": 0.75,
+        "evidence": [
+          {
+            "source_type": "claim",
+            "source_label": "prediction",
+            "description": "Prediction-derived hypothesis from claim: Compound promotes CBL-mediated receptor degradation.",
+            "reference": null,
+            "confidence": 0.75
+          }
+        ],
+        "operator": null,
+        "expression": null,
+        "description": null,
+        "is_hypothesis": true,
+        "hypothesis_rationale": "Claim matches CBL plus degradation language; include the turnover module and activate the two turnover edges.",
+        "metadata": {
+          "assay_direction": null,
+          "temporal_order": null,
+          "extension": {
+            "prediction_decision_source": "guardrail",
+            "prediction_support_score": 0.85
+          }
+        }
+      }
+    ]
+  },
+  "compiled": {
+    "modifiers": [
+      {
+        "modifier_id": "e_predicted_Drug_activates_edge_e_cbl_ubiquitinates_egfr",
+        "target_edge": "e_cbl_ubiquitinates_egfr",
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "constant",
+              "value": 1.0
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "alpha_e_cbl_ubiquitinates_egfr"
+                },
+                {
+                  "kind": "divide",
+                  "numerator": {
+                    "kind": "state_ref",
+                    "state": "Drug"
+                  },
+                  "denominator": {
+                    "kind": "add",
+                    "terms": [
+                      {
+                        "kind": "parameter_ref",
+                        "parameter": "KD_e_cbl_ubiquitinates_egfr"
+                      },
+                      {
+                        "kind": "state_ref",
+                        "state": "Drug"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "operator": "edge_activation",
+        "source_edges": [
+          "e_predicted_Drug_activates_edge_e_cbl_ubiquitinates_egfr",
+          "e_cbl_ubiquitinates_egfr"
+        ],
+        "parameters": [
+          "alpha_e_cbl_ubiquitinates_egfr",
+          "KD_e_cbl_ubiquitinates_egfr"
+        ],
+        "description": "Drug modifier activates_edge on reaction edge e_cbl_ubiquitinates_egfr.",
+        "expression_text": "1 + alpha_e_cbl_ubiquitinates_egfr * Drug / (KD_e_cbl_ubiquitinates_egfr + Drug)"
+      },
+      {
+        "modifier_id": "e_predicted_Drug_activates_edge_e_ubiquitinated_egfr_degrades_total",
+        "target_edge": "e_ubiquitinated_egfr_degrades_total",
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "constant",
+              "value": 1.0
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "alpha_e_ubiquitinated_egfr_degrades_total"
+                },
+                {
+                  "kind": "divide",
+                  "numerator": {
+                    "kind": "state_ref",
+                    "state": "Drug"
+                  },
+                  "denominator": {
+                    "kind": "add",
+                    "terms": [
+                      {
+                        "kind": "parameter_ref",
+                        "parameter": "KD_e_ubiquitinated_egfr_degrades_total"
+                      },
+                      {
+                        "kind": "state_ref",
+                        "state": "Drug"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "operator": "edge_activation",
+        "source_edges": [
+          "e_predicted_Drug_activates_edge_e_ubiquitinated_egfr_degrades_total",
+          "e_ubiquitinated_egfr_degrades_total"
+        ],
+        "parameters": [
+          "alpha_e_ubiquitinated_egfr_degrades_total",
+          "KD_e_ubiquitinated_egfr_degrades_total"
+        ],
+        "description": "Drug modifier activates_edge on reaction edge e_ubiquitinated_egfr_degrades_total.",
+        "expression_text": "1 + alpha_e_ubiquitinated_egfr_degrades_total * Drug / (KD_e_ubiquitinated_egfr_degrades_total + Drug)"
+      }
+    ],
+    "terms": [
+      {
+        "state": "Drug",
+        "term_id": "term_pk_drug_elimination",
+        "expression": {
+          "kind": "first_order_loss",
+          "state": "Drug",
+          "rate": "kel"
+        },
+        "operator": "pk_elimination",
+        "sign": "-",
+        "source_edges": [],
+        "modifiers": [],
+        "parameters": [
+          "kel"
+        ],
+        "description": "One-compartment exponential PK input/removal.",
+        "expression_text": "- kel * Drug"
+      },
+      {
+        "state": "EGFR_total",
+        "term_id": "term_receptor_synthesis",
+        "expression": {
+          "kind": "parameter_ref",
+          "parameter": "k_syn_EGFR"
+        },
+        "operator": "synthesis",
+        "sign": "+",
+        "source_edges": [],
+        "modifiers": [],
+        "parameters": [
+          "k_syn_EGFR"
+        ],
+        "description": "Baseline receptor synthesis/recycling input.",
+        "expression_text": "k_syn_EGFR"
+      },
+      {
+        "state": "EGFR_total",
+        "term_id": "term_receptor_baseline_degradation",
+        "expression": {
+          "kind": "first_order_loss",
+          "state": "EGFR_total",
+          "rate": "k_deg_base"
+        },
+        "operator": "baseline_degradation",
+        "sign": "-",
+        "source_edges": [],
+        "modifiers": [],
+        "parameters": [
+          "k_deg_base"
+        ],
+        "description": "Baseline receptor turnover independent of drug MoA.",
+        "expression_text": "- k_deg_base * EGFR_total"
+      },
+      {
+        "state": "pEGFR",
+        "term_id": "term_pEGFR_first_order_loss",
+        "expression": {
+          "kind": "first_order_loss",
+          "state": "pEGFR",
+          "rate": "k_dephos_EGFR"
+        },
+        "operator": "first_order_loss",
+        "sign": "-",
+        "source_edges": [],
+        "modifiers": [],
+        "parameters": [
+          "k_dephos_EGFR"
+        ],
+        "description": "First-order phospho-receptor dephosphorylation.",
+        "expression_text": "- k_dephos_EGFR * pEGFR"
+      },
+      {
+        "state": "pERK",
+        "term_id": "term_pERK_first_order_loss",
+        "expression": {
+          "kind": "first_order_loss",
+          "state": "pERK",
+          "rate": "k_erk_off"
+        },
+        "operator": "first_order_loss",
+        "sign": "-",
+        "source_edges": [],
+        "modifiers": [],
+        "parameters": [
+          "k_erk_off"
+        ],
+        "description": "First-order ERK signal relaxation.",
+        "expression_text": "- k_erk_off * pERK"
+      },
+      {
+        "state": "pAKT",
+        "term_id": "term_pAKT_first_order_loss",
+        "expression": {
+          "kind": "first_order_loss",
+          "state": "pAKT",
+          "rate": "k_akt_off"
+        },
+        "operator": "first_order_loss",
+        "sign": "-",
+        "source_edges": [],
+        "modifiers": [],
+        "parameters": [
+          "k_akt_off"
+        ],
+        "description": "First-order AKT signal relaxation.",
+        "expression_text": "- k_akt_off * pAKT"
+      },
+      {
+        "state": "Phenotype",
+        "term_id": "term_phenotype_turnover_loss",
+        "expression": {
+          "kind": "first_order_loss",
+          "state": "Phenotype",
+          "rate": "k_pheno_turnover"
+        },
+        "operator": "phenotype_turnover_loss",
+        "sign": "-",
+        "source_edges": [],
+        "modifiers": [],
+        "parameters": [
+          "k_pheno_turnover"
+        ],
+        "description": "Slow phenotype turnover/relaxation term.",
+        "expression_text": "- k_pheno_turnover * Phenotype"
+      },
+      {
+        "state": "CBL_active",
+        "term_id": "term_CBL_active_first_order_loss",
+        "expression": {
+          "kind": "first_order_loss",
+          "state": "CBL_active",
+          "rate": "k_cbl_off"
+        },
+        "operator": "first_order_loss",
+        "sign": "-",
+        "source_edges": [],
+        "modifiers": [],
+        "parameters": [
+          "k_cbl_off"
+        ],
+        "description": "First-order removal of active CBL.",
+        "expression_text": "- k_cbl_off * CBL_active"
+      },
+      {
+        "state": "EGFR_ubiquitinated",
+        "term_id": "term_EGFR_ubiquitinated_first_order_loss",
+        "expression": {
+          "kind": "first_order_loss",
+          "state": "EGFR_ubiquitinated",
+          "rate": "k_ub_clear"
+        },
+        "operator": "first_order_loss",
+        "sign": "-",
+        "source_edges": [],
+        "modifiers": [],
+        "parameters": [
+          "k_ub_clear"
+        ],
+        "description": "First-order clearance of ubiquitinated receptor intermediate.",
+        "expression_text": "- k_ub_clear * EGFR_ubiquitinated"
+      },
+      {
+        "state": "pEGFR",
+        "term_id": "term_e_egfr_phosphorylation_phosphorylation",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            {
+              "kind": "parameter_ref",
+              "parameter": "k_phos_EGFR"
+            },
+            {
+              "kind": "state_ref",
+              "state": "EGFR_dimer"
+            }
+          ]
+        },
+        "operator": "phosphorylation",
+        "sign": "+",
+        "source_edges": [
+          "e_egfr_phosphorylation"
+        ],
+        "modifiers": [],
+        "parameters": [
+          "k_phos_EGFR"
+        ],
+        "description": "Receptor dimer phosphorylation forms active receptor signal.",
+        "expression_text": "k_phos_EGFR * EGFR_dimer"
+      },
+      {
+        "state": "pERK",
+        "term_id": "term_e_ras_drives_erk_activation",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            {
+              "kind": "parameter_ref",
+              "parameter": "k_erk_on"
+            },
+            {
+              "kind": "saturating_activation",
+              "signal": {
+                "kind": "state_ref",
+                "state": "RAS_GTP"
+              },
+              "half_max": {
+                "kind": "parameter_ref",
+                "parameter": "K_RAS"
+              }
+            },
+            {
+              "kind": "saturating_activation",
+              "signal": {
+                "kind": "state_ref",
+                "state": "pEGFR"
+              },
+              "half_max": {
+                "kind": "parameter_ref",
+                "parameter": "K_pEGFR"
+              }
+            }
+          ]
+        },
+        "operator": "activation",
+        "sign": "+",
+        "source_edges": [
+          "e_ras_drives_erk"
+        ],
+        "modifiers": [],
+        "parameters": [
+          "k_erk_on",
+          "K_RAS",
+          "K_pEGFR"
+        ],
+        "description": "RAS-GTP drives ERK output with receptor-signal support.",
+        "expression_text": "k_erk_on * RAS_GTP / (K_RAS + RAS_GTP) * pEGFR / (K_pEGFR + pEGFR)"
+      },
+      {
+        "state": "pAKT",
+        "term_id": "term_e_pegfr_drives_akt_activation",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            {
+              "kind": "parameter_ref",
+              "parameter": "k_akt_on"
+            },
+            {
+              "kind": "saturating_activation",
+              "signal": {
+                "kind": "state_ref",
+                "state": "pEGFR"
+              },
+              "half_max": {
+                "kind": "parameter_ref",
+                "parameter": "K_AKT"
+              }
+            }
+          ]
+        },
+        "operator": "activation",
+        "sign": "+",
+        "source_edges": [
+          "e_pegfr_drives_akt"
+        ],
+        "modifiers": [],
+        "parameters": [
+          "k_akt_on",
+          "K_AKT"
+        ],
+        "description": "pEGFR drives AKT output.",
+        "expression_text": "k_akt_on * pEGFR / (K_AKT + pEGFR)"
+      },
+      {
+        "state": "Phenotype",
+        "term_id": "term_e_erk_drives_phenotype_phenotype_drive",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            {
+              "kind": "parameter_ref",
+              "parameter": "k_pheno_turnover"
+            },
+            {
+              "kind": "parameter_ref",
+              "parameter": "w_erk"
+            },
+            {
+              "kind": "saturating_activation",
+              "signal": {
+                "kind": "state_ref",
+                "state": "pERK"
+              },
+              "half_max": {
+                "kind": "parameter_ref",
+                "parameter": "K_pheno"
+              }
+            }
+          ]
+        },
+        "operator": "phenotype_drive",
+        "sign": "+",
+        "source_edges": [
+          "e_erk_drives_phenotype"
+        ],
+        "modifiers": [],
+        "parameters": [
+          "k_pheno_turnover",
+          "w_erk",
+          "K_pheno"
+        ],
+        "description": "Slow phenotype turnover driven by ERK.",
+        "expression_text": "k_pheno_turnover * w_erk * pERK / (K_pheno + pERK)"
+      },
+      {
+        "state": "Phenotype",
+        "term_id": "term_e_akt_drives_phenotype_phenotype_drive",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            {
+              "kind": "parameter_ref",
+              "parameter": "k_pheno_turnover"
+            },
+            {
+              "kind": "parameter_ref",
+              "parameter": "w_akt"
+            },
+            {
+              "kind": "saturating_activation",
+              "signal": {
+                "kind": "state_ref",
+                "state": "pAKT"
+              },
+              "half_max": {
+                "kind": "parameter_ref",
+                "parameter": "K_pheno"
+              }
+            }
+          ]
+        },
+        "operator": "phenotype_drive",
+        "sign": "+",
+        "source_edges": [
+          "e_akt_drives_phenotype"
+        ],
+        "modifiers": [],
+        "parameters": [
+          "k_pheno_turnover",
+          "w_akt",
+          "K_pheno"
+        ],
+        "description": "Slow phenotype turnover driven by AKT.",
+        "expression_text": "k_pheno_turnover * w_akt * pAKT / (K_pheno + pAKT)"
+      },
+      {
+        "state": "CBL_active",
+        "term_id": "term_e_pegfr_activates_cbl_activation",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            {
+              "kind": "parameter_ref",
+              "parameter": "k_cbl_on"
+            },
+            {
+              "kind": "saturating_activation",
+              "signal": {
+                "kind": "state_ref",
+                "state": "pEGFR"
+              },
+              "half_max": {
+                "kind": "parameter_ref",
+                "parameter": "K_cbl"
+              }
+            }
+          ]
+        },
+        "operator": "activation",
+        "sign": "+",
+        "source_edges": [
+          "e_pegfr_activates_cbl"
+        ],
+        "modifiers": [],
+        "parameters": [
+          "k_cbl_on",
+          "K_cbl"
+        ],
+        "description": "pEGFR activates CBL-linked receptor downregulation.",
+        "expression_text": "k_cbl_on * pEGFR / (K_cbl + pEGFR)"
+      },
+      {
+        "state": "EGFR_ubiquitinated",
+        "term_id": "term_e_cbl_ubiquitinates_egfr_ubiquitination",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "k_ub"
+                },
+                {
+                  "kind": "state_ref",
+                  "state": "CBL_active"
+                },
+                {
+                  "kind": "state_ref",
+                  "state": "pEGFR"
+                }
+              ]
+            },
+            {
+              "kind": "add",
+              "terms": [
+                {
+                  "kind": "constant",
+                  "value": 1.0
+                },
+                {
+                  "kind": "multiply",
+                  "factors": [
+                    {
+                      "kind": "parameter_ref",
+                      "parameter": "alpha_e_cbl_ubiquitinates_egfr"
+                    },
+                    {
+                      "kind": "divide",
+                      "numerator": {
+                        "kind": "state_ref",
+                        "state": "Drug"
+                      },
+                      "denominator": {
+                        "kind": "add",
+                        "terms": [
+                          {
+                            "kind": "parameter_ref",
+                            "parameter": "KD_e_cbl_ubiquitinates_egfr"
+                          },
+                          {
+                            "kind": "state_ref",
+                            "state": "Drug"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "operator": "ubiquitination",
+        "sign": "+",
+        "source_edges": [
+          "e_cbl_ubiquitinates_egfr"
+        ],
+        "modifiers": [
+          "e_predicted_Drug_activates_edge_e_cbl_ubiquitinates_egfr"
+        ],
+        "parameters": [
+          "k_ub",
+          "alpha_e_cbl_ubiquitinates_egfr",
+          "KD_e_cbl_ubiquitinates_egfr"
+        ],
+        "description": "CBL-driven ubiquitinated receptor intermediate formation.",
+        "expression_text": "k_ub * CBL_active * pEGFR * (1 + alpha_e_cbl_ubiquitinates_egfr * Drug / (KD_e_cbl_ubiquitinates_egfr + Drug))"
+      },
+      {
+        "state": "EGFR_total",
+        "term_id": "term_e_ubiquitinated_egfr_degrades_total_degradation",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "constant",
+                  "value": -1.0
+                },
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "k_cbl_deg"
+                },
+                {
+                  "kind": "state_ref",
+                  "state": "EGFR_ubiquitinated"
+                },
+                {
+                  "kind": "state_ref",
+                  "state": "EGFR_total"
+                }
+              ]
+            },
+            {
+              "kind": "add",
+              "terms": [
+                {
+                  "kind": "constant",
+                  "value": 1.0
+                },
+                {
+                  "kind": "multiply",
+                  "factors": [
+                    {
+                      "kind": "parameter_ref",
+                      "parameter": "alpha_e_ubiquitinated_egfr_degrades_total"
+                    },
+                    {
+                      "kind": "divide",
+                      "numerator": {
+                        "kind": "state_ref",
+                        "state": "Drug"
+                      },
+                      "denominator": {
+                        "kind": "add",
+                        "terms": [
+                          {
+                            "kind": "parameter_ref",
+                            "parameter": "KD_e_ubiquitinated_egfr_degrades_total"
+                          },
+                          {
+                            "kind": "state_ref",
+                            "state": "Drug"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "operator": "degradation",
+        "sign": "-",
+        "source_edges": [
+          "e_ubiquitinated_egfr_degrades_total"
+        ],
+        "modifiers": [
+          "e_predicted_Drug_activates_edge_e_ubiquitinated_egfr_degrades_total"
+        ],
+        "parameters": [
+          "k_cbl_deg",
+          "alpha_e_ubiquitinated_egfr_degrades_total",
+          "KD_e_ubiquitinated_egfr_degrades_total"
+        ],
+        "description": "Ubiquitinated receptor drives receptor-pool loss.",
+        "expression_text": "- k_cbl_deg * EGFR_ubiquitinated * EGFR_total * (1 + alpha_e_ubiquitinated_egfr_degrades_total * Drug / (KD_e_ubiquitinated_egfr_degrades_total + Drug))"
+      }
+    ],
+    "state_equations": [
+      {
+        "state": "Drug",
+        "terms": [
+          "term_pk_drug_elimination"
+        ],
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "first_order_loss",
+              "state": "Drug",
+              "rate": "kel"
+            }
+          ]
+        },
+        "source_edges": [],
+        "parameters": [
+          "kel"
+        ],
+        "expression_text": "- kel * Drug"
+      },
+      {
+        "state": "EGFR_total",
+        "terms": [
+          "term_receptor_synthesis",
+          "term_receptor_baseline_degradation",
+          "term_e_ubiquitinated_egfr_degrades_total_degradation"
+        ],
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "parameter_ref",
+              "parameter": "k_syn_EGFR"
+            },
+            {
+              "kind": "first_order_loss",
+              "state": "EGFR_total",
+              "rate": "k_deg_base"
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "multiply",
+                  "factors": [
+                    {
+                      "kind": "constant",
+                      "value": -1.0
+                    },
+                    {
+                      "kind": "parameter_ref",
+                      "parameter": "k_cbl_deg"
+                    },
+                    {
+                      "kind": "state_ref",
+                      "state": "EGFR_ubiquitinated"
+                    },
+                    {
+                      "kind": "state_ref",
+                      "state": "EGFR_total"
+                    }
+                  ]
+                },
+                {
+                  "kind": "add",
+                  "terms": [
+                    {
+                      "kind": "constant",
+                      "value": 1.0
+                    },
+                    {
+                      "kind": "multiply",
+                      "factors": [
+                        {
+                          "kind": "parameter_ref",
+                          "parameter": "alpha_e_ubiquitinated_egfr_degrades_total"
+                        },
+                        {
+                          "kind": "divide",
+                          "numerator": {
+                            "kind": "state_ref",
+                            "state": "Drug"
+                          },
+                          "denominator": {
+                            "kind": "add",
+                            "terms": [
+                              {
+                                "kind": "parameter_ref",
+                                "parameter": "KD_e_ubiquitinated_egfr_degrades_total"
+                              },
+                              {
+                                "kind": "state_ref",
+                                "state": "Drug"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "source_edges": [
+          "e_predicted_Drug_activates_edge_e_ubiquitinated_egfr_degrades_total",
+          "e_ubiquitinated_egfr_degrades_total"
+        ],
+        "parameters": [
+          "k_syn_EGFR",
+          "k_deg_base",
+          "k_cbl_deg",
+          "alpha_e_ubiquitinated_egfr_degrades_total",
+          "KD_e_ubiquitinated_egfr_degrades_total"
+        ],
+        "expression_text": "k_syn_EGFR - k_deg_base * EGFR_total - k_cbl_deg * EGFR_ubiquitinated * EGFR_total * (1 + alpha_e_ubiquitinated_egfr_degrades_total * Drug / (KD_e_ubiquitinated_egfr_degrades_total + Drug))"
+      },
+      {
+        "state": "pEGFR",
+        "terms": [
+          "term_pEGFR_first_order_loss",
+          "term_e_egfr_phosphorylation_phosphorylation"
+        ],
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "first_order_loss",
+              "state": "pEGFR",
+              "rate": "k_dephos_EGFR"
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "k_phos_EGFR"
+                },
+                {
+                  "kind": "state_ref",
+                  "state": "EGFR_dimer"
+                }
+              ]
+            }
+          ]
+        },
+        "source_edges": [
+          "e_egfr_phosphorylation"
+        ],
+        "parameters": [
+          "k_dephos_EGFR",
+          "k_phos_EGFR"
+        ],
+        "expression_text": "- k_dephos_EGFR * pEGFR + k_phos_EGFR * EGFR_dimer"
+      },
+      {
+        "state": "pERK",
+        "terms": [
+          "term_pERK_first_order_loss",
+          "term_e_ras_drives_erk_activation"
+        ],
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "first_order_loss",
+              "state": "pERK",
+              "rate": "k_erk_off"
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "k_erk_on"
+                },
+                {
+                  "kind": "saturating_activation",
+                  "signal": {
+                    "kind": "state_ref",
+                    "state": "RAS_GTP"
+                  },
+                  "half_max": {
+                    "kind": "parameter_ref",
+                    "parameter": "K_RAS"
+                  }
+                },
+                {
+                  "kind": "saturating_activation",
+                  "signal": {
+                    "kind": "state_ref",
+                    "state": "pEGFR"
+                  },
+                  "half_max": {
+                    "kind": "parameter_ref",
+                    "parameter": "K_pEGFR"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "source_edges": [
+          "e_ras_drives_erk"
+        ],
+        "parameters": [
+          "k_erk_off",
+          "k_erk_on",
+          "K_RAS",
+          "K_pEGFR"
+        ],
+        "expression_text": "- k_erk_off * pERK + k_erk_on * RAS_GTP / (K_RAS + RAS_GTP) * pEGFR / (K_pEGFR + pEGFR)"
+      },
+      {
+        "state": "pAKT",
+        "terms": [
+          "term_pAKT_first_order_loss",
+          "term_e_pegfr_drives_akt_activation"
+        ],
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "first_order_loss",
+              "state": "pAKT",
+              "rate": "k_akt_off"
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "k_akt_on"
+                },
+                {
+                  "kind": "saturating_activation",
+                  "signal": {
+                    "kind": "state_ref",
+                    "state": "pEGFR"
+                  },
+                  "half_max": {
+                    "kind": "parameter_ref",
+                    "parameter": "K_AKT"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "source_edges": [
+          "e_pegfr_drives_akt"
+        ],
+        "parameters": [
+          "k_akt_off",
+          "k_akt_on",
+          "K_AKT"
+        ],
+        "expression_text": "- k_akt_off * pAKT + k_akt_on * pEGFR / (K_AKT + pEGFR)"
+      },
+      {
+        "state": "Phenotype",
+        "terms": [
+          "term_phenotype_turnover_loss",
+          "term_e_erk_drives_phenotype_phenotype_drive",
+          "term_e_akt_drives_phenotype_phenotype_drive"
+        ],
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "first_order_loss",
+              "state": "Phenotype",
+              "rate": "k_pheno_turnover"
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "k_pheno_turnover"
+                },
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "w_erk"
+                },
+                {
+                  "kind": "saturating_activation",
+                  "signal": {
+                    "kind": "state_ref",
+                    "state": "pERK"
+                  },
+                  "half_max": {
+                    "kind": "parameter_ref",
+                    "parameter": "K_pheno"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "k_pheno_turnover"
+                },
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "w_akt"
+                },
+                {
+                  "kind": "saturating_activation",
+                  "signal": {
+                    "kind": "state_ref",
+                    "state": "pAKT"
+                  },
+                  "half_max": {
+                    "kind": "parameter_ref",
+                    "parameter": "K_pheno"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "source_edges": [
+          "e_akt_drives_phenotype",
+          "e_erk_drives_phenotype"
+        ],
+        "parameters": [
+          "k_pheno_turnover",
+          "w_erk",
+          "K_pheno",
+          "w_akt"
+        ],
+        "expression_text": "- k_pheno_turnover * Phenotype + k_pheno_turnover * w_erk * pERK / (K_pheno + pERK) + k_pheno_turnover * w_akt * pAKT / (K_pheno + pAKT)"
+      },
+      {
+        "state": "CBL_active",
+        "terms": [
+          "term_CBL_active_first_order_loss",
+          "term_e_pegfr_activates_cbl_activation"
+        ],
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "first_order_loss",
+              "state": "CBL_active",
+              "rate": "k_cbl_off"
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "parameter_ref",
+                  "parameter": "k_cbl_on"
+                },
+                {
+                  "kind": "saturating_activation",
+                  "signal": {
+                    "kind": "state_ref",
+                    "state": "pEGFR"
+                  },
+                  "half_max": {
+                    "kind": "parameter_ref",
+                    "parameter": "K_cbl"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "source_edges": [
+          "e_pegfr_activates_cbl"
+        ],
+        "parameters": [
+          "k_cbl_off",
+          "k_cbl_on",
+          "K_cbl"
+        ],
+        "expression_text": "- k_cbl_off * CBL_active + k_cbl_on * pEGFR / (K_cbl + pEGFR)"
+      },
+      {
+        "state": "EGFR_ubiquitinated",
+        "terms": [
+          "term_EGFR_ubiquitinated_first_order_loss",
+          "term_e_cbl_ubiquitinates_egfr_ubiquitination"
+        ],
+        "expression": {
+          "kind": "add",
+          "terms": [
+            {
+              "kind": "first_order_loss",
+              "state": "EGFR_ubiquitinated",
+              "rate": "k_ub_clear"
+            },
+            {
+              "kind": "multiply",
+              "factors": [
+                {
+                  "kind": "multiply",
+                  "factors": [
+                    {
+                      "kind": "parameter_ref",
+                      "parameter": "k_ub"
+                    },
+                    {
+                      "kind": "state_ref",
+                      "state": "CBL_active"
+                    },
+                    {
+                      "kind": "state_ref",
+                      "state": "pEGFR"
+                    }
+                  ]
+                },
+                {
+                  "kind": "add",
+                  "terms": [
+                    {
+                      "kind": "constant",
+                      "value": 1.0
+                    },
+                    {
+                      "kind": "multiply",
+                      "factors": [
+                        {
+                          "kind": "parameter_ref",
+                          "parameter": "alpha_e_cbl_ubiquitinates_egfr"
+                        },
+                        {
+                          "kind": "divide",
+                          "numerator": {
+                            "kind": "state_ref",
+                            "state": "Drug"
+                          },
+                          "denominator": {
+                            "kind": "add",
+                            "terms": [
+                              {
+                                "kind": "parameter_ref",
+                                "parameter": "KD_e_cbl_ubiquitinates_egfr"
+                              },
+                              {
+                                "kind": "state_ref",
+                                "state": "Drug"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "source_edges": [
+          "e_cbl_ubiquitinates_egfr",
+          "e_predicted_Drug_activates_edge_e_cbl_ubiquitinates_egfr"
+        ],
+        "parameters": [
+          "k_ub_clear",
+          "k_ub",
+          "alpha_e_cbl_ubiquitinates_egfr",
+          "KD_e_cbl_ubiquitinates_egfr"
+        ],
+        "expression_text": "- k_ub_clear * EGFR_ubiquitinated + k_ub * CBL_active * pEGFR * (1 + alpha_e_cbl_ubiquitinates_egfr * Drug / (KD_e_cbl_ubiquitinates_egfr + Drug))"
+      }
+    ]
+  },
+  "simulation": {
+    "first_falling_state": {
+      "state": "Drug",
+      "time_to_10pct_drop_from_baseline": 0.8999999999999999
+    },
+    "summaries": {
+      "Drug": {
+        "state": "Drug",
+        "baseline": 1.0,
+        "final": 0.0031511115987674547,
+        "minimum": 0.0031511115987674547,
+        "maximum": 1.0,
+        "final_fraction_change_from_baseline": -0.9968488884012325,
+        "max_drop_fraction_from_baseline": 0.9968488884012325,
+        "time_to_nadir": 48.0,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 8.307971214769408,
+        "auc_change_from_baseline": -39.69202878523059,
+        "auc_below_baseline": 39.69202878523059,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": 0.8999999999999999,
+        "time_to_20pct_drop_from_baseline": 2.1
+      },
+      "EGFR_total": {
+        "state": "EGFR_total",
+        "baseline": 0.4955192350585745,
+        "final": 0.4972962639273766,
+        "minimum": 0.2176938664274674,
+        "maximum": 0.5121785132274407,
+        "final_fraction_change_from_baseline": 0.0035861955360664056,
+        "max_drop_fraction_from_baseline": 0.5606752452268897,
+        "time_to_nadir": 6.0,
+        "max_rise_fraction_from_baseline": 0.0336198415524615,
+        "time_to_peak": 22.8,
+        "auc": 20.456165903989035,
+        "auc_change_from_baseline": -3.3287573788225404,
+        "auc_below_baseline": 3.4113726906980504,
+        "auc_above_baseline": 0.08261531187551016,
+        "time_to_10pct_drop_from_baseline": 0.8999999999999999,
+        "time_to_20pct_drop_from_baseline": 1.5
+      },
+      "pEGFR": {
+        "state": "pEGFR",
+        "baseline": 1.5768771077219705,
+        "final": 1.5480513699950391,
+        "minimum": 0.6504857513084151,
+        "maximum": 1.5768771077219705,
+        "final_fraction_change_from_baseline": -0.018280269011308314,
+        "max_drop_fraction_from_baseline": 0.5874848153207469,
+        "time_to_nadir": 11.7,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 61.86686939471064,
+        "auc_change_from_baseline": -13.823231775943944,
+        "auc_below_baseline": 13.823231775943944,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": 3.3,
+        "time_to_20pct_drop_from_baseline": 4.5
+      },
+      "pERK": {
+        "state": "pERK",
+        "baseline": 1.2522078906962741,
+        "final": 1.2455150924623772,
+        "minimum": 1.0091305205039336,
+        "maximum": 1.2522078906962741,
+        "final_fraction_change_from_baseline": -0.005344798003289579,
+        "max_drop_fraction_from_baseline": 0.19411902128901334,
+        "time_to_nadir": 13.5,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 56.9016512838696,
+        "auc_change_from_baseline": -3.2043274695515622,
+        "auc_below_baseline": 3.2043274695515622,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": 8.4,
+        "time_to_20pct_drop_from_baseline": null
+      },
+      "pAKT": {
+        "state": "pAKT",
+        "baseline": 1.1820740390378097,
+        "final": 1.1757430657939585,
+        "minimum": 0.9605992215776348,
+        "maximum": 1.1820740390378097,
+        "final_fraction_change_from_baseline": -0.005355817854695929,
+        "max_drop_fraction_from_baseline": 0.18736120593634903,
+        "time_to_nadir": 13.5,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 53.796993822361166,
+        "auc_change_from_baseline": -2.942560051453696,
+        "auc_below_baseline": 2.942560051453696,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": 8.7,
+        "time_to_20pct_drop_from_baseline": null
+      },
+      "Phenotype": {
+        "state": "Phenotype",
+        "baseline": 0.7538213895959527,
+        "final": 0.7495704430361586,
+        "minimum": 0.7336115693451698,
+        "maximum": 0.7538213895959527,
+        "final_fraction_change_from_baseline": -0.005639195993194859,
+        "max_drop_fraction_from_baseline": 0.026809825947782303,
+        "time_to_nadir": 19.8,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 35.71799418482785,
+        "auc_change_from_baseline": -0.4654325157778767,
+        "auc_below_baseline": 0.4654325157778767,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": null,
+        "time_to_20pct_drop_from_baseline": null
+      },
+      "CBL_active": {
+        "state": "CBL_active",
+        "baseline": 1.122633550024897,
+        "final": 1.1149249001732555,
+        "minimum": 0.9154449837872691,
+        "maximum": 1.122633550024897,
+        "final_fraction_change_from_baseline": -0.00686657712257974,
+        "max_drop_fraction_from_baseline": 0.18455582966768894,
+        "time_to_nadir": 14.7,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 50.83576823727955,
+        "auc_change_from_baseline": -3.050642163915504,
+        "auc_below_baseline": 3.050642163915504,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": 9.299999999999999,
+        "time_to_20pct_drop_from_baseline": null
+      },
+      "EGFR_ubiquitinated": {
+        "state": "EGFR_ubiquitinated",
+        "baseline": 1.2644680628023115,
+        "final": 1.2314675752973971,
+        "minimum": 0.7127344998101955,
+        "maximum": 2.1471020892126993,
+        "final_fraction_change_from_baseline": -0.02609831634005745,
+        "max_drop_fraction_from_baseline": 0.4363364953396808,
+        "time_to_nadir": 15.6,
+        "max_rise_fraction_from_baseline": 0.6980279315669674,
+        "time_to_peak": 3.3,
+        "auc": 59.70232691019991,
+        "auc_change_from_baseline": -0.9921401043110406,
+        "auc_below_baseline": 6.306814382726095,
+        "auc_above_baseline": 5.3146742784150565,
+        "time_to_10pct_drop_from_baseline": 9.9,
+        "time_to_20pct_drop_from_baseline": 10.799999999999999
+      }
+    },
+    "biological_logic": [
+      {
+        "id": "total_receptor_falls_before_downstream_signal",
+        "label": "Receptor pool falls before ERK",
+        "result": true,
+        "rationale": "Receptor degradation should deplete receptor pool before downstream signaling falls.",
+        "source_states": [
+          "EGFR_total",
+          "pERK"
+        ],
+        "source_edges": [
+          "e_ubiquitinated_egfr_degrades_total"
+        ]
+      }
+    ],
+    "parameter_values": {
+      "kel": 0.12,
+      "Ki_EGFR": 0.55,
+      "Ki_ligand": 0.45,
+      "Ki_ERK": 0.5,
+      "KD_cbl": 0.75,
+      "alpha_cbl": 4.0,
+      "k_syn_EGFR": 0.08,
+      "k_deg_base": 0.035,
+      "k_dim": 0.75,
+      "K_dim": 0.75,
+      "k_pool_support": 0.05,
+      "k_dissoc": 0.3,
+      "k_phos_EGFR": 1.05,
+      "k_dephos_EGFR": 0.55,
+      "k_grb2_on": 0.9,
+      "K_pEGFR": 0.35,
+      "k_grb2_off": 0.42,
+      "k_ras_on": 0.95,
+      "K_GRB2": 0.35,
+      "k_ras_off": 0.48,
+      "k_erk_on": 0.95,
+      "K_RAS": 0.32,
+      "k_erk_off": 0.52,
+      "k_akt_on": 0.65,
+      "K_AKT": 0.35,
+      "k_akt_off": 0.45,
+      "k_cbl_on": 0.38,
+      "K_cbl": 0.4,
+      "k_cbl_off": 0.27,
+      "k_ub": 0.3,
+      "k_ub_clear": 0.42,
+      "k_cbl_deg": 0.1,
+      "k_pheno_turnover": 0.075,
+      "w_erk": 0.62,
+      "w_akt": 0.38,
+      "K_pheno": 0.4,
+      "alpha_e_cbl_ubiquitinates_egfr": 2.0,
+      "KD_e_cbl_ubiquitinates_egfr": 0.75,
+      "alpha_e_ubiquitinated_egfr_degrades_total": 2.0,
+      "KD_e_ubiquitinated_egfr_degrades_total": 0.75
+    }
+  },
+  "contrast": {
+    "configuration": "direct_kinase_inhibition",
+    "first_falling_state": {
+      "state": "pEGFR",
+      "time_to_10pct_drop_from_baseline": 0.6
+    },
+    "modifiers": [
+      {
+        "modifier_id": "e_drug_inhibits_egfr_kinase_edge",
+        "target_edge": "e_egfr_phosphorylation",
+        "expression": {
+          "kind": "hill_inhibition",
+          "signal": {
+            "kind": "state_ref",
+            "state": "Drug"
+          },
+          "half_max": {
+            "kind": "parameter_ref",
+            "parameter": "Ki_EGFR"
+          }
+        },
+        "operator": "edge_inhibition",
+        "source_edges": [
+          "e_drug_inhibits_egfr_kinase_edge",
+          "e_egfr_phosphorylation"
+        ],
+        "parameters": [
+          "Ki_EGFR"
+        ],
+        "description": "Drug modifier inhibits_edge on reaction edge e_egfr_phosphorylation.",
+        "expression_text": "1 / (1 + Drug / Ki_EGFR)"
+      }
+    ],
+    "summaries": {
+      "Drug": {
+        "state": "Drug",
+        "baseline": 1.0,
+        "final": 0.0031511115987674174,
+        "minimum": 0.0031511115987674174,
+        "maximum": 1.0,
+        "final_fraction_change_from_baseline": -0.9968488884012325,
+        "max_drop_fraction_from_baseline": 0.9968488884012325,
+        "time_to_nadir": 48.0,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 8.30797121476825,
+        "auc_change_from_baseline": -39.69202878523175,
+        "auc_below_baseline": 39.69202878523175,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": 0.8999999999999999,
+        "time_to_20pct_drop_from_baseline": 2.1
+      },
+      "EGFR_total": {
+        "state": "EGFR_total",
+        "baseline": 2.2809837922322482,
+        "final": 2.2848326448354106,
+        "minimum": 2.2809837922322482,
+        "maximum": 2.2848326448354106,
+        "final_fraction_change_from_baseline": 0.0016873651694805552,
+        "max_drop_fraction_from_baseline": 0.0,
+        "time_to_nadir": 0.0,
+        "max_rise_fraction_from_baseline": 0.0016873651694805552,
+        "time_to_peak": 48.0,
+        "auc": 109.60431748673057,
+        "auc_change_from_baseline": 0.11709545958265934,
+        "auc_below_baseline": 0.0,
+        "auc_above_baseline": 0.11709545958265934,
+        "time_to_10pct_drop_from_baseline": null,
+        "time_to_20pct_drop_from_baseline": null
+      },
+      "pEGFR": {
+        "state": "pEGFR",
+        "baseline": 4.5461352694902475,
+        "final": 4.514902321255837,
+        "minimum": 2.2307165884576716,
+        "maximum": 4.5461352694902475,
+        "final_fraction_change_from_baseline": -0.0068702197323557345,
+        "max_drop_fraction_from_baseline": 0.5093158350504166,
+        "time_to_nadir": 4.8,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 179.3009251163976,
+        "auc_change_from_baseline": -38.91356781913428,
+        "auc_below_baseline": 38.91356781913428,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": 0.6,
+        "time_to_20pct_drop_from_baseline": 0.8999999999999999
+      },
+      "pERK": {
+        "state": "pERK",
+        "baseline": 1.425329048397461,
+        "final": 1.4243623973283817,
+        "minimum": 1.336172559853705,
+        "maximum": 1.425329048397461,
+        "final_fraction_change_from_baseline": -0.0006781950246268904,
+        "max_drop_fraction_from_baseline": 0.06255151303062065,
+        "time_to_nadir": 6.8999999999999995,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 67.06575945051186,
+        "auc_change_from_baseline": -1.3500348725662723,
+        "auc_below_baseline": 1.3500348725662723,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": null,
+        "time_to_20pct_drop_from_baseline": null
+      },
+      "pAKT": {
+        "state": "pAKT",
+        "baseline": 1.3411843810952833,
+        "final": 1.3402702297737812,
+        "minimum": 1.2604032983984186,
+        "maximum": 1.3411843810952833,
+        "final_fraction_change_from_baseline": -0.000681600035302776,
+        "max_drop_fraction_from_baseline": 0.0602311537738715,
+        "time_to_nadir": 7.199999999999999,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 63.136520249905324,
+        "auc_change_from_baseline": -1.2403300426682655,
+        "auc_below_baseline": 1.2403300426682655,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": null,
+        "time_to_20pct_drop_from_baseline": null
+      },
+      "Phenotype": {
+        "state": "Phenotype",
+        "baseline": 0.776830920516462,
+        "final": 0.77568902187177,
+        "minimum": 0.771321237867908,
+        "maximum": 0.776830920516462,
+        "final_fraction_change_from_baseline": -0.0014699448934560565,
+        "max_drop_fraction_from_baseline": 0.007092512029375699,
+        "time_to_nadir": 15.899999999999999,
+        "max_rise_fraction_from_baseline": 0.0,
+        "time_to_peak": 0.0,
+        "auc": 37.135456829137766,
+        "auc_change_from_baseline": -0.1524273556524071,
+        "auc_below_baseline": 0.1524273556524071,
+        "auc_above_baseline": 0.0,
+        "time_to_10pct_drop_from_baseline": null,
+        "time_to_20pct_drop_from_baseline": null
+      }
+    },
+    "biological_logic": []
+  }
+}

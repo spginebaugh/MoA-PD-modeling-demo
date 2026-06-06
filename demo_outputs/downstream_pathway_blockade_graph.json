@@ -1,0 +1,690 @@
+{
+  "graph_id": "egfr_erbb_demo_downstream_pathway_blockade",
+  "label": "Downstream pathway blockade",
+  "context": {
+    "species": "human",
+    "cell_type": "A431",
+    "assay": "EGFR/pERK/pAKT time course with proliferation endpoint",
+    "endpoint": "proliferation_or_survival",
+    "notes": "Thin-slice assignment pathway encoded as data.",
+    "extension": {}
+  },
+  "nodes": [
+    {
+      "id": "Drug",
+      "label": "Test compound",
+      "type": "perturbation",
+      "aliases": [],
+      "roles": [
+        "drug"
+      ],
+      "state": {
+        "id": "Drug",
+        "executable": true,
+        "initial": 0.0
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "EGF_ligand",
+      "label": "EGF ligand",
+      "type": "ligand",
+      "aliases": [],
+      "roles": [],
+      "state": {
+        "id": "EGF_ligand",
+        "executable": true,
+        "initial": 1.0
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "EGFR_total",
+      "label": "Total EGFR",
+      "type": "receptor_pool",
+      "aliases": [],
+      "roles": [],
+      "state": {
+        "id": "EGFR_total",
+        "executable": true,
+        "initial": 0.5931
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "EGFR_dimer",
+      "label": "EGFR active dimer",
+      "type": "receptor_complex",
+      "aliases": [],
+      "roles": [],
+      "state": {
+        "id": "EGFR_dimer",
+        "executable": true,
+        "initial": 0.7126
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "pEGFR",
+      "label": "Phosphorylated EGFR",
+      "type": "phosphoprotein",
+      "aliases": [],
+      "roles": [],
+      "state": {
+        "id": "pEGFR",
+        "executable": true,
+        "initial": 1.2993
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "GRB2_SOS",
+      "label": "GRB2/SOS adaptor complex",
+      "type": "adaptor_complex",
+      "aliases": [],
+      "roles": [],
+      "state": {
+        "id": "GRB2_SOS",
+        "executable": true,
+        "initial": 1.6881
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "RAS_GTP",
+      "label": "RAS-GTP",
+      "type": "gtpase_state",
+      "aliases": [],
+      "roles": [],
+      "state": {
+        "id": "RAS_GTP",
+        "executable": true,
+        "initial": 1.6393
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "pERK",
+      "label": "Phospho-ERK",
+      "type": "downstream_signal",
+      "aliases": [],
+      "roles": [],
+      "state": {
+        "id": "pERK",
+        "executable": true,
+        "initial": 1.2042
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "pAKT",
+      "label": "Phospho-AKT",
+      "type": "downstream_signal",
+      "aliases": [],
+      "roles": [],
+      "state": {
+        "id": "pAKT",
+        "executable": true,
+        "initial": 1.1379
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "Phenotype",
+      "label": "Proliferation/survival phenotype",
+      "type": "phenotype",
+      "aliases": [],
+      "roles": [],
+      "state": {
+        "id": "Phenotype",
+        "executable": true,
+        "initial": 0.7466
+      },
+      "metadata": {
+        "database_refs": [],
+        "compartment": null,
+        "extension": {}
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_ligand_dimerizes_egfr",
+      "source": "EGF_ligand",
+      "target": "EGFR_dimer",
+      "relation": "dimerizes",
+      "sign": "+",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": null,
+          "description": "Ligand binding promotes receptor dimerization.",
+          "reference": null,
+          "confidence": 0.8
+        }
+      ],
+      "operator": "dimerization",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_dim"
+          },
+          {
+            "kind": "state_ref",
+            "state": "EGF_ligand"
+          },
+          {
+            "kind": "divide",
+            "numerator": {
+              "kind": "power",
+              "base": {
+                "kind": "state_ref",
+                "state": "EGFR_total"
+              },
+              "exponent": 2.0
+            },
+            "denominator": {
+              "kind": "add",
+              "terms": [
+                {
+                  "kind": "power",
+                  "base": {
+                    "kind": "parameter_ref",
+                    "parameter": "K_dim"
+                  },
+                  "exponent": 2.0
+                },
+                {
+                  "kind": "power",
+                  "base": {
+                    "kind": "state_ref",
+                    "state": "EGFR_total"
+                  },
+                  "exponent": 2.0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "description": "Ligand-supported receptor dimer formation.",
+      "is_hypothesis": false,
+      "hypothesis_rationale": null,
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "e_egfr_pool_supports_dimer",
+      "source": "EGFR_total",
+      "target": "EGFR_dimer",
+      "relation": "activates",
+      "sign": "+",
+      "confidence": 0.8,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": null,
+          "description": "Available receptor pool constrains dimer formation.",
+          "reference": null,
+          "confidence": 0.8
+        }
+      ],
+      "operator": "activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_pool_support"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "EGFR_total"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_dim"
+            }
+          }
+        ]
+      },
+      "description": "Available receptor pool supports receptor-complex formation.",
+      "is_hypothesis": false,
+      "hypothesis_rationale": null,
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "e_egfr_phosphorylation",
+      "source": "EGFR_dimer",
+      "target": "pEGFR",
+      "relation": "phosphorylates",
+      "sign": "+",
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": null,
+          "description": "Activated receptor dimers autophosphorylate receptor tails.",
+          "reference": null,
+          "confidence": 0.8
+        }
+      ],
+      "operator": "phosphorylation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_phos_EGFR"
+          },
+          {
+            "kind": "state_ref",
+            "state": "EGFR_dimer"
+          }
+        ]
+      },
+      "description": "Receptor dimer phosphorylation forms active receptor signal.",
+      "is_hypothesis": false,
+      "hypothesis_rationale": null,
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "e_pegfr_recruits_grb2_sos",
+      "source": "pEGFR",
+      "target": "GRB2_SOS",
+      "relation": "activates",
+      "sign": "+",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": null,
+          "description": "Phosphorylated receptor recruits adaptor signaling.",
+          "reference": null,
+          "confidence": 0.8
+        }
+      ],
+      "operator": "activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_grb2_on"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pEGFR"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_pEGFR"
+            }
+          }
+        ]
+      },
+      "description": "pEGFR-dependent adaptor recruitment.",
+      "is_hypothesis": false,
+      "hypothesis_rationale": null,
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "e_grb2_sos_activates_ras",
+      "source": "GRB2_SOS",
+      "target": "RAS_GTP",
+      "relation": "activates",
+      "sign": "+",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": null,
+          "description": "Adaptor complex promotes RAS-GTP loading.",
+          "reference": null,
+          "confidence": 0.8
+        }
+      ],
+      "operator": "activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_ras_on"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "GRB2_SOS"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_GRB2"
+            }
+          }
+        ]
+      },
+      "description": "Adaptor-dependent RAS-GTP loading.",
+      "is_hypothesis": false,
+      "hypothesis_rationale": null,
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "e_ras_drives_erk",
+      "source": "RAS_GTP",
+      "target": "pERK",
+      "relation": "activates",
+      "sign": "+",
+      "confidence": 0.85,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": null,
+          "description": "RAS-GTP activates downstream ERK output.",
+          "reference": null,
+          "confidence": 0.8
+        }
+      ],
+      "operator": "activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_erk_on"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "RAS_GTP"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_RAS"
+            }
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pEGFR"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_pEGFR"
+            }
+          }
+        ]
+      },
+      "description": "RAS-GTP drives ERK output with receptor-signal support.",
+      "is_hypothesis": false,
+      "hypothesis_rationale": null,
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "e_pegfr_drives_akt",
+      "source": "pEGFR",
+      "target": "pAKT",
+      "relation": "activates",
+      "sign": "+",
+      "confidence": 0.8,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": null,
+          "description": "Receptor signaling activates AKT output.",
+          "reference": null,
+          "confidence": 0.8
+        }
+      ],
+      "operator": "activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_akt_on"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pEGFR"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_AKT"
+            }
+          }
+        ]
+      },
+      "description": "pEGFR drives AKT output.",
+      "is_hypothesis": false,
+      "hypothesis_rationale": null,
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "e_erk_drives_phenotype",
+      "source": "pERK",
+      "target": "Phenotype",
+      "relation": "drives_phenotype",
+      "sign": "+",
+      "confidence": 0.8,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": null,
+          "description": "ERK output contributes to phenotype.",
+          "reference": null,
+          "confidence": 0.8
+        }
+      ],
+      "operator": "phenotype_drive",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_pheno_turnover"
+          },
+          {
+            "kind": "parameter_ref",
+            "parameter": "w_erk"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pERK"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_pheno"
+            }
+          }
+        ]
+      },
+      "description": "Slow phenotype turnover driven by ERK.",
+      "is_hypothesis": false,
+      "hypothesis_rationale": null,
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "e_akt_drives_phenotype",
+      "source": "pAKT",
+      "target": "Phenotype",
+      "relation": "drives_phenotype",
+      "sign": "+",
+      "confidence": 0.75,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": null,
+          "description": "AKT output contributes to phenotype.",
+          "reference": null,
+          "confidence": 0.8
+        }
+      ],
+      "operator": "phenotype_drive",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_pheno_turnover"
+          },
+          {
+            "kind": "parameter_ref",
+            "parameter": "w_akt"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pAKT"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_pheno"
+            }
+          }
+        ]
+      },
+      "description": "Slow phenotype turnover driven by AKT.",
+      "is_hypothesis": false,
+      "hypothesis_rationale": null,
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {}
+      }
+    },
+    {
+      "id": "e_drug_blocks_ras_to_erk_edge",
+      "source": "Drug",
+      "target": "e_ras_drives_erk",
+      "relation": "inhibits_edge",
+      "sign": "-",
+      "confidence": 0.75,
+      "evidence": [
+        {
+          "source_type": "curated_assumption",
+          "source_label": "Drug blocks downstream ERK signaling",
+          "description": "Drug inhibits the RAS to ERK signaling edge.",
+          "reference": null,
+          "confidence": 0.75
+        }
+      ],
+      "operator": null,
+      "expression": null,
+      "description": null,
+      "is_hypothesis": true,
+      "hypothesis_rationale": "Drug inhibits the RAS to ERK signaling edge.",
+      "metadata": {
+        "assay_direction": null,
+        "temporal_order": null,
+        "extension": {
+          "modifier_template": "hill_inhibition",
+          "parameters": {
+            "half_max": "Ki_ERK"
+          }
+        }
+      }
+    }
+  ],
+  "source_claim": null,
+  "version": "1.0",
+  "metadata": {
+    "pathway_id": "egfr_erbb_demo",
+    "configuration": "downstream_pathway_blockade",
+    "included_modules": [],
+    "drug_effects": [
+      "inhibit_ras_to_erk"
+    ],
+    "operations": [],
+    "drug_state": "Drug",
+    "endpoint_states": [
+      "Phenotype"
+    ],
+    "source": "pathway_composer",
+    "extension": {
+      "logic_checks": []
+    }
+  }
+}

@@ -1,0 +1,485 @@
+{
+  "pathway_id": "egfr_erbb_demo",
+  "label": "EGFR/ERBB demo pathway",
+  "version": "1.0",
+  "context": {
+    "species": "human",
+    "cell_type": "A431",
+    "assay": "EGFR/pERK/pAKT time course with proliferation endpoint",
+    "endpoint": "proliferation_or_survival",
+    "notes": "Thin-slice assignment pathway encoded as data."
+  },
+  "base_graph": {
+    "graph_id": "egfr_erbb_base",
+    "label": "Base receptor signaling scaffold",
+    "nodes": [
+      { "id": "Drug", "label": "Test compound", "type": "perturbation", "roles": ["drug"], "state": { "id": "Drug", "executable": true, "initial": 0.0 } },
+      { "id": "EGF_ligand", "label": "EGF ligand", "type": "ligand", "state": { "id": "EGF_ligand", "executable": true, "initial": 1.0 } },
+      { "id": "EGFR_total", "label": "Total EGFR", "type": "receptor_pool", "state": { "id": "EGFR_total", "executable": true, "initial": 0.5931 } },
+      { "id": "EGFR_dimer", "label": "EGFR active dimer", "type": "receptor_complex", "state": { "id": "EGFR_dimer", "executable": true, "initial": 0.7126 } },
+      { "id": "pEGFR", "label": "Phosphorylated EGFR", "type": "phosphoprotein", "state": { "id": "pEGFR", "executable": true, "initial": 1.2993 } },
+      { "id": "GRB2_SOS", "label": "GRB2/SOS adaptor complex", "type": "adaptor_complex", "state": { "id": "GRB2_SOS", "executable": true, "initial": 1.6881 } },
+      { "id": "RAS_GTP", "label": "RAS-GTP", "type": "gtpase_state", "state": { "id": "RAS_GTP", "executable": true, "initial": 1.6393 } },
+      { "id": "pERK", "label": "Phospho-ERK", "type": "downstream_signal", "state": { "id": "pERK", "executable": true, "initial": 1.2042 } },
+      { "id": "pAKT", "label": "Phospho-AKT", "type": "downstream_signal", "state": { "id": "pAKT", "executable": true, "initial": 1.1379 } },
+      { "id": "Phenotype", "label": "Proliferation/survival phenotype", "type": "phenotype", "state": { "id": "Phenotype", "executable": true, "initial": 0.7466 } }
+    ],
+    "edges": [
+      {
+        "id": "e_ligand_dimerizes_egfr",
+        "source": "EGF_ligand",
+        "target": "EGFR_dimer",
+        "relation": "dimerizes",
+        "operator": "dimerization",
+        "sign": "+",
+        "confidence": 0.9,
+        "evidence": [{ "source_type": "curated_assumption", "description": "Ligand binding promotes receptor dimerization.", "confidence": 0.8 }],
+        "description": "Ligand-supported receptor dimer formation.",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            { "kind": "parameter_ref", "parameter": "k_dim" },
+            { "kind": "state_ref", "state": "EGF_ligand" },
+            {
+              "kind": "divide",
+              "numerator": { "kind": "power", "base": { "kind": "state_ref", "state": "EGFR_total" }, "exponent": 2.0 },
+              "denominator": {
+                "kind": "add",
+                "terms": [
+                  { "kind": "power", "base": { "kind": "parameter_ref", "parameter": "K_dim" }, "exponent": 2.0 },
+                  { "kind": "power", "base": { "kind": "state_ref", "state": "EGFR_total" }, "exponent": 2.0 }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "e_egfr_pool_supports_dimer",
+        "source": "EGFR_total",
+        "target": "EGFR_dimer",
+        "relation": "activates",
+        "operator": "activation",
+        "sign": "+",
+        "confidence": 0.8,
+        "evidence": [{ "source_type": "curated_assumption", "description": "Available receptor pool constrains dimer formation.", "confidence": 0.8 }],
+        "description": "Available receptor pool supports receptor-complex formation.",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            { "kind": "parameter_ref", "parameter": "k_pool_support" },
+            { "kind": "saturating_activation", "signal": { "kind": "state_ref", "state": "EGFR_total" }, "half_max": { "kind": "parameter_ref", "parameter": "K_dim" } }
+          ]
+        }
+      },
+      {
+        "id": "e_egfr_phosphorylation",
+        "source": "EGFR_dimer",
+        "target": "pEGFR",
+        "relation": "phosphorylates",
+        "operator": "phosphorylation",
+        "sign": "+",
+        "confidence": 0.95,
+        "evidence": [{ "source_type": "curated_assumption", "description": "Activated receptor dimers autophosphorylate receptor tails.", "confidence": 0.8 }],
+        "description": "Receptor dimer phosphorylation forms active receptor signal.",
+        "expression": { "kind": "multiply", "factors": [{ "kind": "parameter_ref", "parameter": "k_phos_EGFR" }, { "kind": "state_ref", "state": "EGFR_dimer" }] }
+      },
+      {
+        "id": "e_pegfr_recruits_grb2_sos",
+        "source": "pEGFR",
+        "target": "GRB2_SOS",
+        "relation": "activates",
+        "operator": "activation",
+        "sign": "+",
+        "confidence": 0.9,
+        "evidence": [{ "source_type": "curated_assumption", "description": "Phosphorylated receptor recruits adaptor signaling.", "confidence": 0.8 }],
+        "description": "pEGFR-dependent adaptor recruitment.",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            { "kind": "parameter_ref", "parameter": "k_grb2_on" },
+            { "kind": "saturating_activation", "signal": { "kind": "state_ref", "state": "pEGFR" }, "half_max": { "kind": "parameter_ref", "parameter": "K_pEGFR" } }
+          ]
+        }
+      },
+      {
+        "id": "e_grb2_sos_activates_ras",
+        "source": "GRB2_SOS",
+        "target": "RAS_GTP",
+        "relation": "activates",
+        "operator": "activation",
+        "sign": "+",
+        "confidence": 0.9,
+        "evidence": [{ "source_type": "curated_assumption", "description": "Adaptor complex promotes RAS-GTP loading.", "confidence": 0.8 }],
+        "description": "Adaptor-dependent RAS-GTP loading.",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            { "kind": "parameter_ref", "parameter": "k_ras_on" },
+            { "kind": "saturating_activation", "signal": { "kind": "state_ref", "state": "GRB2_SOS" }, "half_max": { "kind": "parameter_ref", "parameter": "K_GRB2" } }
+          ]
+        }
+      },
+      {
+        "id": "e_ras_drives_erk",
+        "source": "RAS_GTP",
+        "target": "pERK",
+        "relation": "activates",
+        "operator": "activation",
+        "sign": "+",
+        "confidence": 0.85,
+        "evidence": [{ "source_type": "curated_assumption", "description": "RAS-GTP activates downstream ERK output.", "confidence": 0.8 }],
+        "description": "RAS-GTP drives ERK output with receptor-signal support.",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            { "kind": "parameter_ref", "parameter": "k_erk_on" },
+            { "kind": "saturating_activation", "signal": { "kind": "state_ref", "state": "RAS_GTP" }, "half_max": { "kind": "parameter_ref", "parameter": "K_RAS" } },
+            { "kind": "saturating_activation", "signal": { "kind": "state_ref", "state": "pEGFR" }, "half_max": { "kind": "parameter_ref", "parameter": "K_pEGFR" } }
+          ]
+        }
+      },
+      {
+        "id": "e_pegfr_drives_akt",
+        "source": "pEGFR",
+        "target": "pAKT",
+        "relation": "activates",
+        "operator": "activation",
+        "sign": "+",
+        "confidence": 0.8,
+        "evidence": [{ "source_type": "curated_assumption", "description": "Receptor signaling activates AKT output.", "confidence": 0.8 }],
+        "description": "pEGFR drives AKT output.",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            { "kind": "parameter_ref", "parameter": "k_akt_on" },
+            { "kind": "saturating_activation", "signal": { "kind": "state_ref", "state": "pEGFR" }, "half_max": { "kind": "parameter_ref", "parameter": "K_AKT" } }
+          ]
+        }
+      },
+      {
+        "id": "e_erk_drives_phenotype",
+        "source": "pERK",
+        "target": "Phenotype",
+        "relation": "drives_phenotype",
+        "operator": "phenotype_drive",
+        "sign": "+",
+        "confidence": 0.8,
+        "evidence": [{ "source_type": "curated_assumption", "description": "ERK output contributes to phenotype.", "confidence": 0.8 }],
+        "description": "Slow phenotype turnover driven by ERK.",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            { "kind": "parameter_ref", "parameter": "k_pheno_turnover" },
+            { "kind": "parameter_ref", "parameter": "w_erk" },
+            { "kind": "saturating_activation", "signal": { "kind": "state_ref", "state": "pERK" }, "half_max": { "kind": "parameter_ref", "parameter": "K_pheno" } }
+          ]
+        }
+      },
+      {
+        "id": "e_akt_drives_phenotype",
+        "source": "pAKT",
+        "target": "Phenotype",
+        "relation": "drives_phenotype",
+        "operator": "phenotype_drive",
+        "sign": "+",
+        "confidence": 0.75,
+        "evidence": [{ "source_type": "curated_assumption", "description": "AKT output contributes to phenotype.", "confidence": 0.8 }],
+        "description": "Slow phenotype turnover driven by AKT.",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            { "kind": "parameter_ref", "parameter": "k_pheno_turnover" },
+            { "kind": "parameter_ref", "parameter": "w_akt" },
+            { "kind": "saturating_activation", "signal": { "kind": "state_ref", "state": "pAKT" }, "half_max": { "kind": "parameter_ref", "parameter": "K_pheno" } }
+          ]
+        }
+      }
+    ]
+  },
+  "modules": {
+    "cbl_turnover": {
+      "id": "cbl_turnover",
+      "label": "CBL-mediated receptor turnover",
+      "default_included": false,
+      "nodes": [
+        { "id": "CBL_active", "label": "Active CBL E3 ligase", "type": "e3_ligase", "state": { "id": "CBL_active", "executable": true, "initial": 1.0761 } },
+        { "id": "EGFR_ubiquitinated", "label": "Ubiquitinated EGFR", "type": "degradation_intermediate", "state": { "id": "EGFR_ubiquitinated", "executable": true, "initial": 0.9988 } }
+      ],
+      "edges": [
+        {
+          "id": "e_pegfr_activates_cbl",
+          "source": "pEGFR",
+          "target": "CBL_active",
+          "relation": "activates",
+          "operator": "activation",
+          "sign": "+",
+          "confidence": 0.75,
+          "evidence": [{ "source_type": "curated_assumption", "description": "Activated receptor can recruit CBL-mediated downregulation.", "confidence": 0.8 }],
+          "description": "pEGFR activates CBL-linked receptor downregulation.",
+          "expression": {
+            "kind": "multiply",
+            "factors": [
+              { "kind": "parameter_ref", "parameter": "k_cbl_on" },
+              { "kind": "saturating_activation", "signal": { "kind": "state_ref", "state": "pEGFR" }, "half_max": { "kind": "parameter_ref", "parameter": "K_cbl" } }
+            ]
+          }
+        },
+        {
+          "id": "e_cbl_ubiquitinates_egfr",
+          "source": "CBL_active",
+          "target": "EGFR_ubiquitinated",
+          "relation": "ubiquitinates",
+          "operator": "ubiquitination",
+          "sign": "+",
+          "confidence": 0.85,
+          "evidence": [{ "source_type": "curated_assumption", "description": "Active CBL ubiquitinates activated receptor.", "confidence": 0.8 }],
+          "description": "CBL-driven ubiquitinated receptor intermediate formation.",
+          "expression": {
+            "kind": "multiply",
+            "factors": [
+              { "kind": "parameter_ref", "parameter": "k_ub" },
+              { "kind": "state_ref", "state": "CBL_active" },
+              { "kind": "state_ref", "state": "pEGFR" }
+            ]
+          }
+        },
+        {
+          "id": "e_ubiquitinated_egfr_degrades_total",
+          "source": "EGFR_ubiquitinated",
+          "target": "EGFR_total",
+          "relation": "degrades",
+          "operator": "degradation",
+          "sign": "-",
+          "confidence": 0.8,
+          "evidence": [{ "source_type": "curated_assumption", "description": "Ubiquitinated receptor is trafficked toward degradation.", "confidence": 0.8 }],
+          "description": "Ubiquitinated receptor drives receptor-pool loss.",
+          "expression": {
+            "kind": "multiply",
+            "factors": [
+              { "kind": "constant", "value": -1.0 },
+              { "kind": "parameter_ref", "parameter": "k_cbl_deg" },
+              { "kind": "state_ref", "state": "EGFR_ubiquitinated" },
+              { "kind": "state_ref", "state": "EGFR_total" }
+            ]
+          }
+        }
+      ],
+      "homeostasis": [
+        { "state": "CBL_active", "term_id": "term_CBL_active_first_order_loss", "operator": "first_order_loss", "sign": "-", "description": "First-order removal of active CBL.", "expression": { "kind": "first_order_loss", "state": "CBL_active", "rate": "k_cbl_off" } },
+        { "state": "EGFR_ubiquitinated", "term_id": "term_EGFR_ubiquitinated_first_order_loss", "operator": "first_order_loss", "sign": "-", "description": "First-order clearance of ubiquitinated receptor intermediate.", "expression": { "kind": "first_order_loss", "state": "EGFR_ubiquitinated", "rate": "k_ub_clear" } }
+      ],
+      "logic_checks": [
+        {
+          "id": "total_receptor_falls_before_downstream_signal",
+          "label": "Receptor pool falls before ERK",
+          "check": { "kind": "drop_before", "upstream_state": "EGFR_total", "downstream_state": "pERK", "fraction": 0.1 },
+          "source_edges": ["e_ubiquitinated_egfr_degrades_total"],
+          "rationale": "Receptor degradation should deplete receptor pool before downstream signaling falls."
+        }
+      ]
+    }
+  },
+  "configurations": {
+    "direct_kinase_inhibition": { "id": "direct_kinase_inhibition", "label": "Direct kinase inhibition", "drug_effects": ["inhibit_egfr_phosphorylation"] },
+    "ligand_blockade": { "id": "ligand_blockade", "label": "Ligand and dimerization blockade", "drug_effects": ["inhibit_ligand_dimerization"] },
+    "downstream_pathway_blockade": { "id": "downstream_pathway_blockade", "label": "Downstream pathway blockade", "drug_effects": ["inhibit_ras_to_erk"] },
+    "cbl_degradation": { "id": "cbl_degradation", "label": "CBL-mediated receptor degradation", "include_modules": ["cbl_turnover"], "drug_effects": ["activate_cbl_ubiquitination", "activate_receptor_degradation"] },
+    "base_signaling": { "id": "base_signaling", "label": "Base signaling scaffold" },
+    "cbl_module_only": { "id": "cbl_module_only", "label": "Base signaling with CBL module", "include_modules": ["cbl_turnover"] }
+  },
+  "drug_effects": {
+    "inhibit_egfr_phosphorylation": {
+      "id": "inhibit_egfr_phosphorylation",
+      "label": "Drug inhibits receptor phosphorylation",
+      "patches": [
+        { "id": "e_drug_inhibits_egfr_kinase_edge", "source_node": "Drug", "target_edge": "e_egfr_phosphorylation", "relation": "inhibits_edge", "sign": "-", "modifier_template": "hill_inhibition", "parameters": { "half_max": "Ki_EGFR" }, "rationale": "Drug inhibits the receptor dimer to phospho-receptor reaction." }
+      ]
+    },
+    "inhibit_ligand_dimerization": {
+      "id": "inhibit_ligand_dimerization",
+      "label": "Drug blocks ligand-driven dimerization",
+      "patches": [
+        { "id": "e_drug_blocks_ligand_dimerization_edge", "source_node": "Drug", "target_edge": "e_ligand_dimerizes_egfr", "relation": "inhibits_edge", "sign": "-", "modifier_template": "hill_inhibition", "parameters": { "half_max": "Ki_ligand" }, "rationale": "Drug inhibits ligand-dependent receptor dimer formation." }
+      ]
+    },
+    "inhibit_ras_to_erk": {
+      "id": "inhibit_ras_to_erk",
+      "label": "Drug blocks downstream ERK signaling",
+      "patches": [
+        { "id": "e_drug_blocks_ras_to_erk_edge", "source_node": "Drug", "target_edge": "e_ras_drives_erk", "relation": "inhibits_edge", "sign": "-", "modifier_template": "hill_inhibition", "parameters": { "half_max": "Ki_ERK" }, "rationale": "Drug inhibits the RAS to ERK signaling edge." }
+      ]
+    },
+    "activate_cbl_ubiquitination": {
+      "id": "activate_cbl_ubiquitination",
+      "label": "Drug promotes CBL ubiquitination",
+      "patches": [
+        { "id": "e_drug_promotes_cbl_ubiquitination_edge", "source_node": "Drug", "target_edge": "e_cbl_ubiquitinates_egfr", "relation": "activates_edge", "sign": "+", "modifier_template": "drug_activation", "parameters": { "alpha": "alpha_cbl", "kd": "KD_cbl" }, "rationale": "Drug increases CBL-mediated receptor ubiquitination." }
+      ]
+    },
+    "activate_receptor_degradation": {
+      "id": "activate_receptor_degradation",
+      "label": "Drug promotes receptor degradation",
+      "patches": [
+        { "id": "e_drug_promotes_egfr_degradation_edge", "source_node": "Drug", "target_edge": "e_ubiquitinated_egfr_degrades_total", "relation": "activates_edge", "sign": "+", "modifier_template": "drug_activation", "parameters": { "alpha": "alpha_cbl", "kd": "KD_cbl" }, "rationale": "Drug increases ubiquitinated receptor degradation." }
+      ]
+    }
+  },
+  "parameters": {
+    "generated_defaults": {
+      "patterns": {
+        "Ki_*": 0.5,
+        "KD_*": 0.75,
+        "alpha_*": 2.0,
+        "k_*": 0.1,
+        "K_*": 0.5,
+        "tau_*": 6.0
+      }
+    },
+    "priors": {
+      "kel": { "id": "kel", "value": 0.12 },
+      "Ki_EGFR": { "id": "Ki_EGFR", "value": 0.55 },
+      "Ki_ligand": { "id": "Ki_ligand", "value": 0.45 },
+      "Ki_ERK": { "id": "Ki_ERK", "value": 0.5 },
+      "KD_cbl": { "id": "KD_cbl", "value": 0.75 },
+      "alpha_cbl": { "id": "alpha_cbl", "value": 4.0 },
+      "k_syn_EGFR": { "id": "k_syn_EGFR", "value": 0.08 },
+      "k_deg_base": { "id": "k_deg_base", "value": 0.035 },
+      "k_dim": { "id": "k_dim", "value": 0.75 },
+      "K_dim": { "id": "K_dim", "value": 0.75 },
+      "k_pool_support": { "id": "k_pool_support", "value": 0.05 },
+      "k_dissoc": { "id": "k_dissoc", "value": 0.3 },
+      "k_phos_EGFR": { "id": "k_phos_EGFR", "value": 1.05 },
+      "k_dephos_EGFR": { "id": "k_dephos_EGFR", "value": 0.55 },
+      "k_grb2_on": { "id": "k_grb2_on", "value": 0.9 },
+      "K_pEGFR": { "id": "K_pEGFR", "value": 0.35 },
+      "k_grb2_off": { "id": "k_grb2_off", "value": 0.42 },
+      "k_ras_on": { "id": "k_ras_on", "value": 0.95 },
+      "K_GRB2": { "id": "K_GRB2", "value": 0.35 },
+      "k_ras_off": { "id": "k_ras_off", "value": 0.48 },
+      "k_erk_on": { "id": "k_erk_on", "value": 0.95 },
+      "K_RAS": { "id": "K_RAS", "value": 0.32 },
+      "k_erk_off": { "id": "k_erk_off", "value": 0.52 },
+      "k_akt_on": { "id": "k_akt_on", "value": 0.65 },
+      "K_AKT": { "id": "K_AKT", "value": 0.35 },
+      "k_akt_off": { "id": "k_akt_off", "value": 0.45 },
+      "k_cbl_on": { "id": "k_cbl_on", "value": 0.38 },
+      "K_cbl": { "id": "K_cbl", "value": 0.4 },
+      "k_cbl_off": { "id": "k_cbl_off", "value": 0.27 },
+      "k_ub": { "id": "k_ub", "value": 0.3 },
+      "k_ub_clear": { "id": "k_ub_clear", "value": 0.42 },
+      "k_cbl_deg": { "id": "k_cbl_deg", "value": 0.1 },
+      "k_pheno_turnover": { "id": "k_pheno_turnover", "value": 0.075 },
+      "w_erk": { "id": "w_erk", "value": 0.62 },
+      "w_akt": { "id": "w_akt", "value": 0.38 },
+      "K_pheno": { "id": "K_pheno", "value": 0.4 }
+    }
+  },
+  "initial_conditions": {
+    "values": {
+      "Drug": 0.0,
+      "EGF_ligand": 1.0,
+      "EGFR_total": 0.5931,
+      "EGFR_dimer": 0.7126,
+      "pEGFR": 1.2993,
+      "GRB2_SOS": 1.6881,
+      "RAS_GTP": 1.6393,
+      "pERK": 1.2042,
+      "pAKT": 1.1379,
+      "CBL_active": 1.0761,
+      "EGFR_ubiquitinated": 0.9988,
+      "Phenotype": 0.7466
+    }
+  },
+  "homeostasis": [
+    { "state": "Drug", "term_id": "term_pk_drug_elimination", "operator": "pk_elimination", "sign": "-", "description": "One-compartment exponential PK input/removal.", "expression": { "kind": "first_order_loss", "state": "Drug", "rate": "kel" } },
+    { "state": "EGF_ligand", "term_id": "term_ligand_constant_input", "operator": "constant_input", "sign": "?", "description": "Ligand is treated as fixed assay stimulation input.", "expression": { "kind": "constant", "value": 0.0 } },
+    { "state": "EGFR_total", "term_id": "term_receptor_synthesis", "operator": "synthesis", "sign": "+", "description": "Baseline receptor synthesis/recycling input.", "expression": { "kind": "parameter_ref", "parameter": "k_syn_EGFR" } },
+    { "state": "EGFR_total", "term_id": "term_receptor_baseline_degradation", "operator": "baseline_degradation", "sign": "-", "description": "Baseline receptor turnover independent of drug MoA.", "expression": { "kind": "first_order_loss", "state": "EGFR_total", "rate": "k_deg_base" } },
+    { "state": "EGFR_dimer", "term_id": "term_EGFR_dimer_first_order_loss", "operator": "first_order_loss", "sign": "-", "description": "First-order receptor dimer relaxation.", "expression": { "kind": "first_order_loss", "state": "EGFR_dimer", "rate": "k_dissoc" } },
+    { "state": "pEGFR", "term_id": "term_pEGFR_first_order_loss", "operator": "first_order_loss", "sign": "-", "description": "First-order phospho-receptor dephosphorylation.", "expression": { "kind": "first_order_loss", "state": "pEGFR", "rate": "k_dephos_EGFR" } },
+    { "state": "GRB2_SOS", "term_id": "term_GRB2_SOS_first_order_loss", "operator": "first_order_loss", "sign": "-", "description": "First-order adaptor relaxation.", "expression": { "kind": "first_order_loss", "state": "GRB2_SOS", "rate": "k_grb2_off" } },
+    { "state": "RAS_GTP", "term_id": "term_RAS_GTP_first_order_loss", "operator": "first_order_loss", "sign": "-", "description": "First-order RAS-GTP relaxation.", "expression": { "kind": "first_order_loss", "state": "RAS_GTP", "rate": "k_ras_off" } },
+    { "state": "pERK", "term_id": "term_pERK_first_order_loss", "operator": "first_order_loss", "sign": "-", "description": "First-order ERK signal relaxation.", "expression": { "kind": "first_order_loss", "state": "pERK", "rate": "k_erk_off" } },
+    { "state": "pAKT", "term_id": "term_pAKT_first_order_loss", "operator": "first_order_loss", "sign": "-", "description": "First-order AKT signal relaxation.", "expression": { "kind": "first_order_loss", "state": "pAKT", "rate": "k_akt_off" } },
+    { "state": "Phenotype", "term_id": "term_phenotype_turnover_loss", "operator": "phenotype_turnover_loss", "sign": "-", "description": "Slow phenotype turnover/relaxation term.", "expression": { "kind": "first_order_loss", "state": "Phenotype", "rate": "k_pheno_turnover" } }
+  ],
+  "presentation": {
+    "endpoint_states": ["Phenotype"],
+    "plot_states": [
+      { "state": "Drug", "label": "Drug", "color": "#7c3aed" },
+      { "state": "EGFR_total", "label": "Total EGFR", "color": "#0891b2" },
+      { "state": "pEGFR", "label": "pEGFR", "color": "#2563eb" },
+      { "state": "pERK", "label": "pERK", "color": "#16a34a" },
+      { "state": "pAKT", "label": "pAKT", "color": "#ea580c" },
+      { "state": "Phenotype", "label": "Phenotype", "color": "#db2777" },
+      { "state": "CBL_active", "label": "CBL", "color": "#059669" },
+      { "state": "EGFR_ubiquitinated", "label": "Ubiquitinated EGFR", "color": "#0f766e" }
+    ],
+    "graph_layout": [
+      { "node": "Drug", "x": 120, "y": 70 },
+      { "node": "EGF_ligand", "x": 110, "y": 185 },
+      { "node": "EGFR_total", "x": 110, "y": 300 },
+      { "node": "EGFR_dimer", "x": 300, "y": 240 },
+      { "node": "pEGFR", "x": 480, "y": 240 },
+      { "node": "GRB2_SOS", "x": 665, "y": 150 },
+      { "node": "RAS_GTP", "x": 840, "y": 150 },
+      { "node": "pERK", "x": 1010, "y": 150 },
+      { "node": "pAKT", "x": 665, "y": 320 },
+      { "node": "CBL_active", "x": 480, "y": 390 },
+      { "node": "EGFR_ubiquitinated", "x": 270, "y": 390 },
+      { "node": "Phenotype", "x": 1010, "y": 320 }
+    ],
+    "node_type_styles": [
+      { "node_type": "perturbation", "fill": "#ede9fe", "stroke": "#7c3aed", "text": "#5b21b6" },
+      { "node_type": "phenotype", "fill": "#fef3c7", "stroke": "#d97706", "text": "#92400e" },
+      { "node_type": "e3_ligase", "fill": "#dcfce7", "stroke": "#059669", "text": "#065f46" },
+      { "node_type": "degradation_intermediate", "fill": "#dcfce7", "stroke": "#059669", "text": "#065f46" },
+      { "node_type": "phosphoprotein", "fill": "#dbeafe", "stroke": "#2563eb", "text": "#1e3a8a" },
+      { "node_type": "downstream_signal", "fill": "#dbeafe", "stroke": "#2563eb", "text": "#1e3a8a" },
+      { "node_type": "ligand", "fill": "#f1f5f9", "stroke": "#64748b", "text": "#334155" },
+      { "node_type": "receptor_pool", "fill": "#f1f5f9", "stroke": "#64748b", "text": "#334155" },
+      { "node_type": "receptor_complex", "fill": "#f1f5f9", "stroke": "#64748b", "text": "#334155" },
+      { "node_type": "adaptor_complex", "fill": "#f1f5f9", "stroke": "#64748b", "text": "#334155" },
+      { "node_type": "gtpase_state", "fill": "#f1f5f9", "stroke": "#64748b", "text": "#334155" }
+    ],
+    "edge_relation_styles": [
+      { "relation": "inhibits", "label": "Inhibits", "color": "#b91c1c", "marker": "tee" },
+      { "relation": "dephosphorylates", "label": "Dephosphorylates", "color": "#b91c1c", "marker": "arrow" },
+      { "relation": "degrades", "label": "Degrades", "color": "#059669", "marker": "arrow" },
+      { "relation": "inhibits_edge", "label": "Inhibits edge", "color": "#7c3aed", "marker": "tee" },
+      { "relation": "activates_edge", "label": "Activates edge", "color": "#7c3aed", "marker": "arrow" },
+      { "relation": "activates", "label": "Activates", "color": "#64748b", "marker": "arrow" },
+      { "relation": "phosphorylates", "label": "Phosphorylates", "color": "#64748b", "marker": "arrow" },
+      { "relation": "dimerizes", "label": "Dimerizes", "color": "#64748b", "marker": "arrow" },
+      { "relation": "ubiquitinates", "label": "Ubiquitinates", "color": "#059669", "marker": "arrow" },
+      { "relation": "drives_phenotype", "label": "Drives phenotype", "color": "#64748b", "marker": "arrow" }
+    ]
+  },
+  "prediction": {
+    "enabled": true,
+    "allowed_modifier_relations": ["inhibits_edge", "activates_edge"],
+    "keyword_patterns": {
+      "kinase": ["kinase", "autophosphorylation"],
+      "inhibition": ["inhibit", "block"],
+      "ligand": ["ligand", "dimer"],
+      "downstream": ["erk", "mek", "downstream"],
+      "degradation": ["degrad", "turnover", "downregulat"],
+      "cbl": ["cbl", "ubiquitin"]
+    },
+    "training_cases": [
+      { "claim": "Compound directly inhibits receptor kinase activity.", "keywords": ["kinase", "inhibit"], "positives": [{ "target_edge": "e_egfr_phosphorylation", "relation": "inhibits_edge" }] },
+      { "claim": "Compound blocks ligand-dependent dimerization.", "keywords": ["ligand", "dimer"], "positives": [{ "target_edge": "e_ligand_dimerizes_egfr", "relation": "inhibits_edge" }] },
+      { "claim": "Compound blocks downstream ERK pathway signaling.", "keywords": ["erk", "downstream"], "positives": [{ "target_edge": "e_ras_drives_erk", "relation": "inhibits_edge" }] },
+      { "claim": "Compound promotes CBL-mediated receptor degradation.", "keywords": ["cbl", "degrad"], "positives": [{ "target_edge": "e_cbl_ubiquitinates_egfr", "relation": "activates_edge" }, { "target_edge": "e_ubiquitinated_egfr_degrades_total", "relation": "activates_edge" }] }
+    ],
+    "guardrails": [
+      { "id": "cbl_degradation_claim", "when_all_keywords": ["cbl"], "when_any_keywords": ["degrad", "turnover", "ubiquitin"], "include_modules": ["cbl_turnover"], "recommendations": [{ "target_edge": "e_cbl_ubiquitinates_egfr", "relation": "activates_edge" }, { "target_edge": "e_ubiquitinated_egfr_degrades_total", "relation": "activates_edge" }], "rationale": "Claim matches CBL plus degradation/turnover language; include the turnover module and activate the two turnover edges." },
+      { "id": "kinase_inhibition_claim", "when_all_keywords": ["kinase"], "when_any_keywords": ["inhibit", "block"], "recommendations": [{ "target_edge": "e_egfr_phosphorylation", "relation": "inhibits_edge" }], "rationale": "Claim matches kinase inhibition language; inhibit receptor phosphorylation." },
+      { "id": "ligand_dimer_claim", "when_any_keywords": ["ligand", "dimer"], "recommendations": [{ "target_edge": "e_ligand_dimerizes_egfr", "relation": "inhibits_edge" }], "rationale": "Claim matches ligand or dimerization blockade; inhibit ligand-driven dimer formation." },
+      { "id": "downstream_erk_claim", "when_any_keywords": ["erk", "mek", "downstream"], "recommendations": [{ "target_edge": "e_ras_drives_erk", "relation": "inhibits_edge" }], "rationale": "Claim matches downstream pathway blockade; inhibit the RAS to ERK edge." }
+    ]
+  },
+  "logic_checks": [],
+  "metadata": {}
+}

@@ -1,0 +1,1526 @@
+{
+  "graph_id": "egfr_erbb_demo_base_signaling",
+  "label": "Base signaling scaffold",
+  "states": [
+    "Drug",
+    "EGF_ligand",
+    "EGFR_total",
+    "EGFR_dimer",
+    "pEGFR",
+    "GRB2_SOS",
+    "RAS_GTP",
+    "pERK",
+    "pAKT",
+    "Phenotype"
+  ],
+  "terms": [
+    {
+      "state": "Drug",
+      "term_id": "term_pk_drug_elimination",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "Drug",
+        "rate": "kel"
+      },
+      "operator": "pk_elimination",
+      "sign": "-",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "kel"
+      ],
+      "description": "One-compartment exponential PK input/removal."
+    },
+    {
+      "state": "EGF_ligand",
+      "term_id": "term_ligand_constant_input",
+      "expression": {
+        "kind": "constant",
+        "value": 0.0
+      },
+      "operator": "constant_input",
+      "sign": "?",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [],
+      "description": "Ligand is treated as fixed assay stimulation input."
+    },
+    {
+      "state": "EGFR_total",
+      "term_id": "term_receptor_synthesis",
+      "expression": {
+        "kind": "parameter_ref",
+        "parameter": "k_syn_EGFR"
+      },
+      "operator": "synthesis",
+      "sign": "+",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "k_syn_EGFR"
+      ],
+      "description": "Baseline receptor synthesis/recycling input."
+    },
+    {
+      "state": "EGFR_total",
+      "term_id": "term_receptor_baseline_degradation",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "EGFR_total",
+        "rate": "k_deg_base"
+      },
+      "operator": "baseline_degradation",
+      "sign": "-",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "k_deg_base"
+      ],
+      "description": "Baseline receptor turnover independent of drug MoA."
+    },
+    {
+      "state": "EGFR_dimer",
+      "term_id": "term_EGFR_dimer_first_order_loss",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "EGFR_dimer",
+        "rate": "k_dissoc"
+      },
+      "operator": "first_order_loss",
+      "sign": "-",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "k_dissoc"
+      ],
+      "description": "First-order receptor dimer relaxation."
+    },
+    {
+      "state": "pEGFR",
+      "term_id": "term_pEGFR_first_order_loss",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "pEGFR",
+        "rate": "k_dephos_EGFR"
+      },
+      "operator": "first_order_loss",
+      "sign": "-",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "k_dephos_EGFR"
+      ],
+      "description": "First-order phospho-receptor dephosphorylation."
+    },
+    {
+      "state": "GRB2_SOS",
+      "term_id": "term_GRB2_SOS_first_order_loss",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "GRB2_SOS",
+        "rate": "k_grb2_off"
+      },
+      "operator": "first_order_loss",
+      "sign": "-",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "k_grb2_off"
+      ],
+      "description": "First-order adaptor relaxation."
+    },
+    {
+      "state": "RAS_GTP",
+      "term_id": "term_RAS_GTP_first_order_loss",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "RAS_GTP",
+        "rate": "k_ras_off"
+      },
+      "operator": "first_order_loss",
+      "sign": "-",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "k_ras_off"
+      ],
+      "description": "First-order RAS-GTP relaxation."
+    },
+    {
+      "state": "pERK",
+      "term_id": "term_pERK_first_order_loss",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "pERK",
+        "rate": "k_erk_off"
+      },
+      "operator": "first_order_loss",
+      "sign": "-",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "k_erk_off"
+      ],
+      "description": "First-order ERK signal relaxation."
+    },
+    {
+      "state": "pAKT",
+      "term_id": "term_pAKT_first_order_loss",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "pAKT",
+        "rate": "k_akt_off"
+      },
+      "operator": "first_order_loss",
+      "sign": "-",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "k_akt_off"
+      ],
+      "description": "First-order AKT signal relaxation."
+    },
+    {
+      "state": "Phenotype",
+      "term_id": "term_phenotype_turnover_loss",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "Phenotype",
+        "rate": "k_pheno_turnover"
+      },
+      "operator": "phenotype_turnover_loss",
+      "sign": "-",
+      "source_edges": [],
+      "modifiers": [],
+      "parameters": [
+        "k_pheno_turnover"
+      ],
+      "description": "Slow phenotype turnover/relaxation term."
+    },
+    {
+      "state": "EGFR_dimer",
+      "term_id": "term_e_ligand_dimerizes_egfr_dimerization",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_dim"
+          },
+          {
+            "kind": "state_ref",
+            "state": "EGF_ligand"
+          },
+          {
+            "kind": "divide",
+            "numerator": {
+              "kind": "power",
+              "base": {
+                "kind": "state_ref",
+                "state": "EGFR_total"
+              },
+              "exponent": 2.0
+            },
+            "denominator": {
+              "kind": "add",
+              "terms": [
+                {
+                  "kind": "power",
+                  "base": {
+                    "kind": "parameter_ref",
+                    "parameter": "K_dim"
+                  },
+                  "exponent": 2.0
+                },
+                {
+                  "kind": "power",
+                  "base": {
+                    "kind": "state_ref",
+                    "state": "EGFR_total"
+                  },
+                  "exponent": 2.0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "operator": "dimerization",
+      "sign": "+",
+      "source_edges": [
+        "e_ligand_dimerizes_egfr"
+      ],
+      "modifiers": [],
+      "parameters": [
+        "k_dim",
+        "K_dim"
+      ],
+      "description": "Ligand-supported receptor dimer formation."
+    },
+    {
+      "state": "EGFR_dimer",
+      "term_id": "term_e_egfr_pool_supports_dimer_activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_pool_support"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "EGFR_total"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_dim"
+            }
+          }
+        ]
+      },
+      "operator": "activation",
+      "sign": "+",
+      "source_edges": [
+        "e_egfr_pool_supports_dimer"
+      ],
+      "modifiers": [],
+      "parameters": [
+        "k_pool_support",
+        "K_dim"
+      ],
+      "description": "Available receptor pool supports receptor-complex formation."
+    },
+    {
+      "state": "pEGFR",
+      "term_id": "term_e_egfr_phosphorylation_phosphorylation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_phos_EGFR"
+          },
+          {
+            "kind": "state_ref",
+            "state": "EGFR_dimer"
+          }
+        ]
+      },
+      "operator": "phosphorylation",
+      "sign": "+",
+      "source_edges": [
+        "e_egfr_phosphorylation"
+      ],
+      "modifiers": [],
+      "parameters": [
+        "k_phos_EGFR"
+      ],
+      "description": "Receptor dimer phosphorylation forms active receptor signal."
+    },
+    {
+      "state": "GRB2_SOS",
+      "term_id": "term_e_pegfr_recruits_grb2_sos_activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_grb2_on"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pEGFR"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_pEGFR"
+            }
+          }
+        ]
+      },
+      "operator": "activation",
+      "sign": "+",
+      "source_edges": [
+        "e_pegfr_recruits_grb2_sos"
+      ],
+      "modifiers": [],
+      "parameters": [
+        "k_grb2_on",
+        "K_pEGFR"
+      ],
+      "description": "pEGFR-dependent adaptor recruitment."
+    },
+    {
+      "state": "RAS_GTP",
+      "term_id": "term_e_grb2_sos_activates_ras_activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_ras_on"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "GRB2_SOS"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_GRB2"
+            }
+          }
+        ]
+      },
+      "operator": "activation",
+      "sign": "+",
+      "source_edges": [
+        "e_grb2_sos_activates_ras"
+      ],
+      "modifiers": [],
+      "parameters": [
+        "k_ras_on",
+        "K_GRB2"
+      ],
+      "description": "Adaptor-dependent RAS-GTP loading."
+    },
+    {
+      "state": "pERK",
+      "term_id": "term_e_ras_drives_erk_activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_erk_on"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "RAS_GTP"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_RAS"
+            }
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pEGFR"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_pEGFR"
+            }
+          }
+        ]
+      },
+      "operator": "activation",
+      "sign": "+",
+      "source_edges": [
+        "e_ras_drives_erk"
+      ],
+      "modifiers": [],
+      "parameters": [
+        "k_erk_on",
+        "K_RAS",
+        "K_pEGFR"
+      ],
+      "description": "RAS-GTP drives ERK output with receptor-signal support."
+    },
+    {
+      "state": "pAKT",
+      "term_id": "term_e_pegfr_drives_akt_activation",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_akt_on"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pEGFR"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_AKT"
+            }
+          }
+        ]
+      },
+      "operator": "activation",
+      "sign": "+",
+      "source_edges": [
+        "e_pegfr_drives_akt"
+      ],
+      "modifiers": [],
+      "parameters": [
+        "k_akt_on",
+        "K_AKT"
+      ],
+      "description": "pEGFR drives AKT output."
+    },
+    {
+      "state": "Phenotype",
+      "term_id": "term_e_erk_drives_phenotype_phenotype_drive",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_pheno_turnover"
+          },
+          {
+            "kind": "parameter_ref",
+            "parameter": "w_erk"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pERK"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_pheno"
+            }
+          }
+        ]
+      },
+      "operator": "phenotype_drive",
+      "sign": "+",
+      "source_edges": [
+        "e_erk_drives_phenotype"
+      ],
+      "modifiers": [],
+      "parameters": [
+        "k_pheno_turnover",
+        "w_erk",
+        "K_pheno"
+      ],
+      "description": "Slow phenotype turnover driven by ERK."
+    },
+    {
+      "state": "Phenotype",
+      "term_id": "term_e_akt_drives_phenotype_phenotype_drive",
+      "expression": {
+        "kind": "multiply",
+        "factors": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_pheno_turnover"
+          },
+          {
+            "kind": "parameter_ref",
+            "parameter": "w_akt"
+          },
+          {
+            "kind": "saturating_activation",
+            "signal": {
+              "kind": "state_ref",
+              "state": "pAKT"
+            },
+            "half_max": {
+              "kind": "parameter_ref",
+              "parameter": "K_pheno"
+            }
+          }
+        ]
+      },
+      "operator": "phenotype_drive",
+      "sign": "+",
+      "source_edges": [
+        "e_akt_drives_phenotype"
+      ],
+      "modifiers": [],
+      "parameters": [
+        "k_pheno_turnover",
+        "w_akt",
+        "K_pheno"
+      ],
+      "description": "Slow phenotype turnover driven by AKT."
+    }
+  ],
+  "modifiers": [],
+  "equations": [
+    {
+      "state": "Drug",
+      "terms": [
+        "term_pk_drug_elimination"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "first_order_loss",
+            "state": "Drug",
+            "rate": "kel"
+          }
+        ]
+      },
+      "source_edges": [],
+      "parameters": [
+        "kel"
+      ]
+    },
+    {
+      "state": "EGF_ligand",
+      "terms": [
+        "term_ligand_constant_input"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "constant",
+            "value": 0.0
+          }
+        ]
+      },
+      "source_edges": [],
+      "parameters": []
+    },
+    {
+      "state": "EGFR_total",
+      "terms": [
+        "term_receptor_synthesis",
+        "term_receptor_baseline_degradation"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "parameter_ref",
+            "parameter": "k_syn_EGFR"
+          },
+          {
+            "kind": "first_order_loss",
+            "state": "EGFR_total",
+            "rate": "k_deg_base"
+          }
+        ]
+      },
+      "source_edges": [],
+      "parameters": [
+        "k_syn_EGFR",
+        "k_deg_base"
+      ]
+    },
+    {
+      "state": "EGFR_dimer",
+      "terms": [
+        "term_EGFR_dimer_first_order_loss",
+        "term_e_ligand_dimerizes_egfr_dimerization",
+        "term_e_egfr_pool_supports_dimer_activation"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "first_order_loss",
+            "state": "EGFR_dimer",
+            "rate": "k_dissoc"
+          },
+          {
+            "kind": "multiply",
+            "factors": [
+              {
+                "kind": "parameter_ref",
+                "parameter": "k_dim"
+              },
+              {
+                "kind": "state_ref",
+                "state": "EGF_ligand"
+              },
+              {
+                "kind": "divide",
+                "numerator": {
+                  "kind": "power",
+                  "base": {
+                    "kind": "state_ref",
+                    "state": "EGFR_total"
+                  },
+                  "exponent": 2.0
+                },
+                "denominator": {
+                  "kind": "add",
+                  "terms": [
+                    {
+                      "kind": "power",
+                      "base": {
+                        "kind": "parameter_ref",
+                        "parameter": "K_dim"
+                      },
+                      "exponent": 2.0
+                    },
+                    {
+                      "kind": "power",
+                      "base": {
+                        "kind": "state_ref",
+                        "state": "EGFR_total"
+                      },
+                      "exponent": 2.0
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "kind": "multiply",
+            "factors": [
+              {
+                "kind": "parameter_ref",
+                "parameter": "k_pool_support"
+              },
+              {
+                "kind": "saturating_activation",
+                "signal": {
+                  "kind": "state_ref",
+                  "state": "EGFR_total"
+                },
+                "half_max": {
+                  "kind": "parameter_ref",
+                  "parameter": "K_dim"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "source_edges": [
+        "e_egfr_pool_supports_dimer",
+        "e_ligand_dimerizes_egfr"
+      ],
+      "parameters": [
+        "k_dissoc",
+        "k_dim",
+        "K_dim",
+        "k_pool_support"
+      ]
+    },
+    {
+      "state": "pEGFR",
+      "terms": [
+        "term_pEGFR_first_order_loss",
+        "term_e_egfr_phosphorylation_phosphorylation"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "first_order_loss",
+            "state": "pEGFR",
+            "rate": "k_dephos_EGFR"
+          },
+          {
+            "kind": "multiply",
+            "factors": [
+              {
+                "kind": "parameter_ref",
+                "parameter": "k_phos_EGFR"
+              },
+              {
+                "kind": "state_ref",
+                "state": "EGFR_dimer"
+              }
+            ]
+          }
+        ]
+      },
+      "source_edges": [
+        "e_egfr_phosphorylation"
+      ],
+      "parameters": [
+        "k_dephos_EGFR",
+        "k_phos_EGFR"
+      ]
+    },
+    {
+      "state": "GRB2_SOS",
+      "terms": [
+        "term_GRB2_SOS_first_order_loss",
+        "term_e_pegfr_recruits_grb2_sos_activation"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "first_order_loss",
+            "state": "GRB2_SOS",
+            "rate": "k_grb2_off"
+          },
+          {
+            "kind": "multiply",
+            "factors": [
+              {
+                "kind": "parameter_ref",
+                "parameter": "k_grb2_on"
+              },
+              {
+                "kind": "saturating_activation",
+                "signal": {
+                  "kind": "state_ref",
+                  "state": "pEGFR"
+                },
+                "half_max": {
+                  "kind": "parameter_ref",
+                  "parameter": "K_pEGFR"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "source_edges": [
+        "e_pegfr_recruits_grb2_sos"
+      ],
+      "parameters": [
+        "k_grb2_off",
+        "k_grb2_on",
+        "K_pEGFR"
+      ]
+    },
+    {
+      "state": "RAS_GTP",
+      "terms": [
+        "term_RAS_GTP_first_order_loss",
+        "term_e_grb2_sos_activates_ras_activation"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "first_order_loss",
+            "state": "RAS_GTP",
+            "rate": "k_ras_off"
+          },
+          {
+            "kind": "multiply",
+            "factors": [
+              {
+                "kind": "parameter_ref",
+                "parameter": "k_ras_on"
+              },
+              {
+                "kind": "saturating_activation",
+                "signal": {
+                  "kind": "state_ref",
+                  "state": "GRB2_SOS"
+                },
+                "half_max": {
+                  "kind": "parameter_ref",
+                  "parameter": "K_GRB2"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "source_edges": [
+        "e_grb2_sos_activates_ras"
+      ],
+      "parameters": [
+        "k_ras_off",
+        "k_ras_on",
+        "K_GRB2"
+      ]
+    },
+    {
+      "state": "pERK",
+      "terms": [
+        "term_pERK_first_order_loss",
+        "term_e_ras_drives_erk_activation"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "first_order_loss",
+            "state": "pERK",
+            "rate": "k_erk_off"
+          },
+          {
+            "kind": "multiply",
+            "factors": [
+              {
+                "kind": "parameter_ref",
+                "parameter": "k_erk_on"
+              },
+              {
+                "kind": "saturating_activation",
+                "signal": {
+                  "kind": "state_ref",
+                  "state": "RAS_GTP"
+                },
+                "half_max": {
+                  "kind": "parameter_ref",
+                  "parameter": "K_RAS"
+                }
+              },
+              {
+                "kind": "saturating_activation",
+                "signal": {
+                  "kind": "state_ref",
+                  "state": "pEGFR"
+                },
+                "half_max": {
+                  "kind": "parameter_ref",
+                  "parameter": "K_pEGFR"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "source_edges": [
+        "e_ras_drives_erk"
+      ],
+      "parameters": [
+        "k_erk_off",
+        "k_erk_on",
+        "K_RAS",
+        "K_pEGFR"
+      ]
+    },
+    {
+      "state": "pAKT",
+      "terms": [
+        "term_pAKT_first_order_loss",
+        "term_e_pegfr_drives_akt_activation"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "first_order_loss",
+            "state": "pAKT",
+            "rate": "k_akt_off"
+          },
+          {
+            "kind": "multiply",
+            "factors": [
+              {
+                "kind": "parameter_ref",
+                "parameter": "k_akt_on"
+              },
+              {
+                "kind": "saturating_activation",
+                "signal": {
+                  "kind": "state_ref",
+                  "state": "pEGFR"
+                },
+                "half_max": {
+                  "kind": "parameter_ref",
+                  "parameter": "K_AKT"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "source_edges": [
+        "e_pegfr_drives_akt"
+      ],
+      "parameters": [
+        "k_akt_off",
+        "k_akt_on",
+        "K_AKT"
+      ]
+    },
+    {
+      "state": "Phenotype",
+      "terms": [
+        "term_phenotype_turnover_loss",
+        "term_e_erk_drives_phenotype_phenotype_drive",
+        "term_e_akt_drives_phenotype_phenotype_drive"
+      ],
+      "expression": {
+        "kind": "add",
+        "terms": [
+          {
+            "kind": "first_order_loss",
+            "state": "Phenotype",
+            "rate": "k_pheno_turnover"
+          },
+          {
+            "kind": "multiply",
+            "factors": [
+              {
+                "kind": "parameter_ref",
+                "parameter": "k_pheno_turnover"
+              },
+              {
+                "kind": "parameter_ref",
+                "parameter": "w_erk"
+              },
+              {
+                "kind": "saturating_activation",
+                "signal": {
+                  "kind": "state_ref",
+                  "state": "pERK"
+                },
+                "half_max": {
+                  "kind": "parameter_ref",
+                  "parameter": "K_pheno"
+                }
+              }
+            ]
+          },
+          {
+            "kind": "multiply",
+            "factors": [
+              {
+                "kind": "parameter_ref",
+                "parameter": "k_pheno_turnover"
+              },
+              {
+                "kind": "parameter_ref",
+                "parameter": "w_akt"
+              },
+              {
+                "kind": "saturating_activation",
+                "signal": {
+                  "kind": "state_ref",
+                  "state": "pAKT"
+                },
+                "half_max": {
+                  "kind": "parameter_ref",
+                  "parameter": "K_pheno"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "source_edges": [
+        "e_akt_drives_phenotype",
+        "e_erk_drives_phenotype"
+      ],
+      "parameters": [
+        "k_pheno_turnover",
+        "w_erk",
+        "K_pheno",
+        "w_akt"
+      ]
+    }
+  ],
+  "parameter_catalog": {
+    "priors": {
+      "kel": {
+        "id": "kel",
+        "value": 0.12,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "Ki_EGFR": {
+        "id": "Ki_EGFR",
+        "value": 0.55,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "Ki_ligand": {
+        "id": "Ki_ligand",
+        "value": 0.45,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "Ki_ERK": {
+        "id": "Ki_ERK",
+        "value": 0.5,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "KD_cbl": {
+        "id": "KD_cbl",
+        "value": 0.75,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "alpha_cbl": {
+        "id": "alpha_cbl",
+        "value": 4.0,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_syn_EGFR": {
+        "id": "k_syn_EGFR",
+        "value": 0.08,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_deg_base": {
+        "id": "k_deg_base",
+        "value": 0.035,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_dim": {
+        "id": "k_dim",
+        "value": 0.75,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "K_dim": {
+        "id": "K_dim",
+        "value": 0.75,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_pool_support": {
+        "id": "k_pool_support",
+        "value": 0.05,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_dissoc": {
+        "id": "k_dissoc",
+        "value": 0.3,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_phos_EGFR": {
+        "id": "k_phos_EGFR",
+        "value": 1.05,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_dephos_EGFR": {
+        "id": "k_dephos_EGFR",
+        "value": 0.55,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_grb2_on": {
+        "id": "k_grb2_on",
+        "value": 0.9,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "K_pEGFR": {
+        "id": "K_pEGFR",
+        "value": 0.35,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_grb2_off": {
+        "id": "k_grb2_off",
+        "value": 0.42,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_ras_on": {
+        "id": "k_ras_on",
+        "value": 0.95,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "K_GRB2": {
+        "id": "K_GRB2",
+        "value": 0.35,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_ras_off": {
+        "id": "k_ras_off",
+        "value": 0.48,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_erk_on": {
+        "id": "k_erk_on",
+        "value": 0.95,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "K_RAS": {
+        "id": "K_RAS",
+        "value": 0.32,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_erk_off": {
+        "id": "k_erk_off",
+        "value": 0.52,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_akt_on": {
+        "id": "k_akt_on",
+        "value": 0.65,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "K_AKT": {
+        "id": "K_AKT",
+        "value": 0.35,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_akt_off": {
+        "id": "k_akt_off",
+        "value": 0.45,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_cbl_on": {
+        "id": "k_cbl_on",
+        "value": 0.38,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "K_cbl": {
+        "id": "K_cbl",
+        "value": 0.4,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_cbl_off": {
+        "id": "k_cbl_off",
+        "value": 0.27,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_ub": {
+        "id": "k_ub",
+        "value": 0.3,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_ub_clear": {
+        "id": "k_ub_clear",
+        "value": 0.42,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_cbl_deg": {
+        "id": "k_cbl_deg",
+        "value": 0.1,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "k_pheno_turnover": {
+        "id": "k_pheno_turnover",
+        "value": 0.075,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "w_erk": {
+        "id": "w_erk",
+        "value": 0.62,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "w_akt": {
+        "id": "w_akt",
+        "value": 0.38,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      },
+      "K_pheno": {
+        "id": "K_pheno",
+        "value": 0.4,
+        "lower": null,
+        "upper": null,
+        "units": null,
+        "source": null
+      }
+    },
+    "generated": {}
+  },
+  "warnings": [
+    {
+      "category": "missing_causal_path",
+      "severity": "warning",
+      "message": "No causal path or drug edge modifier to endpoint state Phenotype was detected.",
+      "source": {
+        "kind": "state",
+        "id": "Phenotype"
+      },
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "pathway_id": "egfr_erbb_demo",
+    "selected_configuration": "base_signaling",
+    "included_modules": [],
+    "drug_effects": [],
+    "drug_state": "Drug",
+    "endpoint_states": [
+      "Phenotype"
+    ],
+    "plot_states": [
+      "Drug",
+      "EGFR_total",
+      "pEGFR",
+      "pERK",
+      "pAKT",
+      "Phenotype"
+    ],
+    "initial_conditions": {
+      "Drug": 0.0,
+      "EGF_ligand": 1.0,
+      "EGFR_total": 0.5931,
+      "EGFR_dimer": 0.7126,
+      "pEGFR": 1.2993,
+      "GRB2_SOS": 1.6881,
+      "RAS_GTP": 1.6393,
+      "pERK": 1.2042,
+      "pAKT": 1.1379,
+      "Phenotype": 0.7466
+    },
+    "logic_checks": [],
+    "execution_model": "graph_derived_expression_ir_v2",
+    "expressions_execute_directly": true,
+    "graph_summary": {
+      "graph_id": "egfr_erbb_demo_base_signaling",
+      "node_count": 10,
+      "edge_count": 9,
+      "edge_relations": [
+        "activates",
+        "dimerizes",
+        "drives_phenotype",
+        "phosphorylates"
+      ],
+      "context": {
+        "species": "human",
+        "cell_type": "A431",
+        "assay": "EGFR/pERK/pAKT time course with proliferation endpoint",
+        "endpoint": "proliferation_or_survival",
+        "notes": "Thin-slice assignment pathway encoded as data.",
+        "extension": {}
+      }
+    },
+    "source_graph_nodes": [
+      {
+        "id": "Drug",
+        "type": "perturbation",
+        "state": "Drug",
+        "roles": [
+          "drug"
+        ]
+      },
+      {
+        "id": "EGF_ligand",
+        "type": "ligand",
+        "state": "EGF_ligand",
+        "roles": []
+      },
+      {
+        "id": "EGFR_total",
+        "type": "receptor_pool",
+        "state": "EGFR_total",
+        "roles": []
+      },
+      {
+        "id": "EGFR_dimer",
+        "type": "receptor_complex",
+        "state": "EGFR_dimer",
+        "roles": []
+      },
+      {
+        "id": "pEGFR",
+        "type": "phosphoprotein",
+        "state": "pEGFR",
+        "roles": []
+      },
+      {
+        "id": "GRB2_SOS",
+        "type": "adaptor_complex",
+        "state": "GRB2_SOS",
+        "roles": []
+      },
+      {
+        "id": "RAS_GTP",
+        "type": "gtpase_state",
+        "state": "RAS_GTP",
+        "roles": []
+      },
+      {
+        "id": "pERK",
+        "type": "downstream_signal",
+        "state": "pERK",
+        "roles": []
+      },
+      {
+        "id": "pAKT",
+        "type": "downstream_signal",
+        "state": "pAKT",
+        "roles": []
+      },
+      {
+        "id": "Phenotype",
+        "type": "phenotype",
+        "state": "Phenotype",
+        "roles": []
+      }
+    ],
+    "source_graph_edges": [
+      {
+        "id": "e_ligand_dimerizes_egfr",
+        "source": "EGF_ligand",
+        "target_node": "EGFR_dimer",
+        "target_edge": null,
+        "relation": "dimerizes",
+        "sign": "+",
+        "operator": "dimerization"
+      },
+      {
+        "id": "e_egfr_pool_supports_dimer",
+        "source": "EGFR_total",
+        "target_node": "EGFR_dimer",
+        "target_edge": null,
+        "relation": "activates",
+        "sign": "+",
+        "operator": "activation"
+      },
+      {
+        "id": "e_egfr_phosphorylation",
+        "source": "EGFR_dimer",
+        "target_node": "pEGFR",
+        "target_edge": null,
+        "relation": "phosphorylates",
+        "sign": "+",
+        "operator": "phosphorylation"
+      },
+      {
+        "id": "e_pegfr_recruits_grb2_sos",
+        "source": "pEGFR",
+        "target_node": "GRB2_SOS",
+        "target_edge": null,
+        "relation": "activates",
+        "sign": "+",
+        "operator": "activation"
+      },
+      {
+        "id": "e_grb2_sos_activates_ras",
+        "source": "GRB2_SOS",
+        "target_node": "RAS_GTP",
+        "target_edge": null,
+        "relation": "activates",
+        "sign": "+",
+        "operator": "activation"
+      },
+      {
+        "id": "e_ras_drives_erk",
+        "source": "RAS_GTP",
+        "target_node": "pERK",
+        "target_edge": null,
+        "relation": "activates",
+        "sign": "+",
+        "operator": "activation"
+      },
+      {
+        "id": "e_pegfr_drives_akt",
+        "source": "pEGFR",
+        "target_node": "pAKT",
+        "target_edge": null,
+        "relation": "activates",
+        "sign": "+",
+        "operator": "activation"
+      },
+      {
+        "id": "e_erk_drives_phenotype",
+        "source": "pERK",
+        "target_node": "Phenotype",
+        "target_edge": null,
+        "relation": "drives_phenotype",
+        "sign": "+",
+        "operator": "phenotype_drive"
+      },
+      {
+        "id": "e_akt_drives_phenotype",
+        "source": "pAKT",
+        "target_node": "Phenotype",
+        "target_edge": null,
+        "relation": "drives_phenotype",
+        "sign": "+",
+        "operator": "phenotype_drive"
+      }
+    ],
+    "notes": [
+      "EquationTerm.expression and StateEquation.expression are executable expression IR. Pathway-specific biology comes from the loaded pathway JSON."
+    ]
+  }
+}
