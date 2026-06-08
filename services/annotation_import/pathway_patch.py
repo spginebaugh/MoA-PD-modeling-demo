@@ -99,6 +99,11 @@ def _proposed_edges(graph: PaperEvidenceGraph) -> list[ProposedEdge]:
                 verification_verdict=edge.verification_verdict,
                 review_status=edge.review_status,
                 reason=_edge_reason(edge.verification_verdict),
+                evidence_anchor_ids=edge.evidence_anchor_ids,
+                context=edge.context,
+                provenance=edge.provenance,
+                warnings=edge.warnings,
+                metadata=edge.metadata,
             )
         )
     return proposed
@@ -123,6 +128,10 @@ def _proposed_nodes(
                 source_evidence_ids=(node.source_record_id,),
                 review_status=node.review_status,
                 reason="Node participates in a candidate pathway-patch mechanism edge.",
+                evidence_anchor_ids=node.evidence_anchor_ids,
+                context=node.context,
+                provenance=node.provenance,
+                metadata=node.metadata,
             )
         )
     if proposal_kind == "overlay" and not nodes and proposal_rule is not None:
@@ -136,13 +145,15 @@ def _overlay_nodes_from_parameters(
 ) -> list[ProposedNode]:
     nodes: list[ProposedNode] = []
     for overlay_rule in overlay_rules:
-        source_ids = tuple(
-            parameter.simulation_parameter_id
+        matched_parameters = tuple(
+            parameter
             for parameter in simulation_parameters
             if _matches_any_term(parameter.parameter_name, overlay_rule.match_terms)
         )
+        source_ids = tuple(parameter.simulation_parameter_id for parameter in matched_parameters)
         if not source_ids:
             continue
+        first_parameter = matched_parameters[0]
         nodes.append(
             ProposedNode(
                 node_id=overlay_rule.node_id,
@@ -151,6 +162,22 @@ def _overlay_nodes_from_parameters(
                 source_evidence_ids=source_ids[: overlay_rule.max_source_evidence_ids],
                 review_status=overlay_rule.review_status,
                 reason=overlay_rule.reason,
+                evidence_anchor_ids=_coalesce_anchor_ids(
+                    *(parameter.evidence_anchor_ids for parameter in matched_parameters)
+                ),
+                context=first_parameter.context,
+                provenance=first_parameter.provenance,
+                warnings=tuple(
+                    dict.fromkeys(
+                        warning
+                        for parameter in matched_parameters
+                        for warning in parameter.warnings
+                    )
+                ),
+                metadata={
+                    "matched_source_count": len(matched_parameters),
+                    "match_terms": list(overlay_rule.match_terms),
+                },
             )
         )
     return nodes
@@ -169,6 +196,11 @@ def _proposed_parameters(graph: PaperEvidenceGraph) -> list[ProposedParameter]:
                 unit=simulation_parameter.unit,
                 review_status=simulation_parameter.review_status,
                 reason=_parameter_reason(simulation_parameter.review_status, simulation_parameter.role),
+                evidence_anchor_ids=simulation_parameter.evidence_anchor_ids,
+                context=simulation_parameter.context,
+                provenance=simulation_parameter.provenance,
+                warnings=simulation_parameter.warnings,
+                metadata=simulation_parameter.metadata,
             )
         )
     for parameter in graph.parameters:
@@ -182,6 +214,11 @@ def _proposed_parameters(graph: PaperEvidenceGraph) -> list[ProposedParameter]:
                 unit=parameter.unit,
                 review_status=parameter.review_status,
                 reason=_parameter_reason(parameter.review_status, parameter.family or "parameter"),
+                evidence_anchor_ids=parameter.evidence_anchor_ids,
+                context=parameter.context,
+                provenance=parameter.provenance,
+                warnings=parameter.warnings,
+                metadata=parameter.metadata,
             )
         )
     return proposed
@@ -195,6 +232,10 @@ def _proposed_equations(graph: PaperEvidenceGraph) -> list[ProposedEquation]:
             source_evidence_id=equation.equation_id,
             review_status=equation.review_status,
             reason="Display/model-form equation; state and parameter bindings are not curated.",
+            evidence_anchor_ids=equation.evidence_anchor_ids,
+            context=equation.context,
+            provenance=equation.provenance,
+            metadata=equation.metadata,
         )
         for equation in graph.equations
     ]
@@ -240,3 +281,7 @@ def _slug(value: str) -> str:
 def _matches_any_term(value: str, terms: tuple[str, ...]) -> bool:
     lowered = value.lower()
     return any(term.lower() in lowered for term in terms)
+
+
+def _coalesce_anchor_ids(*groups: tuple[str, ...]) -> tuple[str, ...]:
+    return tuple(dict.fromkeys(anchor_id for group in groups for anchor_id in group))

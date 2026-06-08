@@ -21,6 +21,7 @@ The current demo pathway is an EGFR/ERBB signaling model with optional CBL-media
 - **PD readouts:** simulations return absolute time courses, control-normalized series, summary metrics, and pathway-owned biological logic checks.
 - **Toy graph-patch prediction:** a lightweight predictor ranks or applies candidate edge modifiers from supported claim text and can include relevant pathway modules.
 - **API and UI parity:** the browser workbench is a thin client over the same API endpoints used by scripts and tests.
+- **Paper annotation review artifacts:** annotation bundles can be converted into connected, provenance-rich MOA/PK/PD evidence graphs and review-only pathway proposals without modifying runtime pathways.
 
 ## Demo workflow
 
@@ -62,11 +63,15 @@ Open:
 apps/api/                    FastAPI app, request/response schemas, UI transport
 apps/web/                    Browser workbench served by the API
 data/pathways/               Executable pathway JSON definitions
+data/paper_annotations/      Raw paper annotation bundles
+data/annotation_graphs/      Generated connected evidence graph review artifacts
+data/pathway_proposals/      Generated review-only pathway proposal artifacts
 services/pathway/            Pathway loading, validation, contracts, graph composition
 services/domain/             Typed graph, expression, compiled-model, warning, and simulation models
 services/equation_compiler/  Data-driven graph-to-equation compiler
 services/simulator/          ODE execution, metrics, validation, biological logic checks
 services/predictor/          Toy graph-patch predictor and recommendation application
+services/annotation_import/  Paper annotation ingestion, provenance, evidence graph, and proposal generation
 scripts/                     Demo output and predictor evaluation scripts
 tests/                       API, runtime, compiler, simulator, predictor, and synthetic-pathway tests
 demo_outputs/                Generated sample graphs, models, simulations, and CSV time courses
@@ -80,6 +85,9 @@ demo_outputs/                Generated sample graphs, models, simulations, and C
 | `GET` | `/pathways` | List available pathway definitions |
 | `GET` | `/pathways/{pathway_id}` | Return the loaded pathway definition |
 | `GET` | `/pathways/{pathway_id}/contract` | Return UI-facing configurations, modules, modifier relations, prediction tasks, and presentation metadata |
+| `GET` | `/annotation-graphs` | List available paper annotation bundles |
+| `GET` | `/annotation-graphs/{paper_id}` | Build and return a connected paper evidence graph with provenance |
+| `GET` | `/annotation-graphs/{paper_id}/proposal` | Build and return a review-only pathway proposal from the evidence graph |
 | `POST` | `/graph/compose` | Compose a graph from pathway, configuration, modules, predefined effects, and ad hoc modifiers |
 | `POST` | `/graph/patch` | Compose a graph through the same graph-operation boundary for patch-style clients |
 | `POST` | `/model/compile` | Compile a composed graph into equation terms and executable model metadata |

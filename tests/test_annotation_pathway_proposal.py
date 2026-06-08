@@ -24,6 +24,8 @@ def test_erlotinib_bundle_generates_review_only_egfr_overlay_proposal() -> None:
     assert {node.node_id for node in proposal.proposed_nodes}.issuperset(
         {overlay_rule.node_id for overlay_rule in rule.overlay_nodes}
     )
+    assert all(node.evidence_anchor_ids for node in proposal.proposed_nodes)
+    assert all(node.provenance is not None for node in proposal.proposed_nodes)
     assert proposal.required_missing_inputs
     assert not validate_pathway_proposal(proposal)
 
@@ -58,7 +60,11 @@ def test_sunitinib_bundle_generates_separate_review_only_pathway_proposal() -> N
         "verified_therapeutic_moa",
         "model_derived_pd_relation",
     }
+    assert all(edge.evidence_anchor_ids for edge in proposal.proposed_edges)
+    assert all(edge.provenance is not None for edge in proposal.proposed_edges)
     assert len(proposal.proposed_equations) == 5
+    assert all(equation.evidence_anchor_ids for equation in proposal.proposed_equations)
+    assert all(equation.provenance is not None for equation in proposal.proposed_equations)
     assert not validate_pathway_proposal(proposal)
 
 

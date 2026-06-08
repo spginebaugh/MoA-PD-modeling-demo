@@ -15,6 +15,7 @@ from pydantic import TypeAdapter, ValidationError
 from pydantic_core import ErrorDetails
 
 from apps.api.schemas import (
+    AnnotationGraphsResponse,
     ApiError,
     ApplyPredictionRequest,
     ApplyPredictionResponse,
@@ -25,7 +26,9 @@ from apps.api.schemas import (
     ErrorResponse,
     GraphComposeResponse,
     HealthResponse,
+    PaperEvidenceGraphResponse,
     PathwayContractResponse,
+    PathwayProposalResponse,
     PathwayResponse,
     PathwaysResponse,
     PredictOperatorsRequest,
@@ -33,6 +36,10 @@ from apps.api.schemas import (
     SimulateRequest,
     SimulateResponse,
 )
+from services.annotation_import.graph_builder import build_paper_evidence_graph
+from services.annotation_import.loader import list_annotation_bundles, load_annotation_bundle
+from services.annotation_import.pathway_patch import build_pathway_proposal
+from services.annotation_import.validation import assert_valid_evidence_graph, assert_valid_pathway_proposal
 from services.domain import (
     CompiledModel,
     ModelWarning,
@@ -238,6 +245,41 @@ def pathway(pathway_id: str) -> PathwayResponse:
 def pathway_contract(pathway_id: str) -> PathwayContractResponse:
     try:
         return PathwayContractResponse(contract=contract_for_pathway(load_pathway(pathway_id)))
+    except (ValidationError, ValueError) as exc:
+        _raise_api_boundary_error(exc)
+
+
+@app.get("/annotation-graphs", response_model=AnnotationGraphsResponse, responses=ERROR_RESPONSES)
+def annotation_graphs() -> AnnotationGraphsResponse:
+    return AnnotationGraphsResponse(paper_ids=list_annotation_bundles())
+
+
+@app.get(
+    "/annotation-graphs/{paper_id}",
+    response_model=PaperEvidenceGraphResponse,
+    responses=ERROR_RESPONSES,
+)
+def annotation_graph(paper_id: str) -> PaperEvidenceGraphResponse:
+    try:
+        graph = build_paper_evidence_graph(load_annotation_bundle(paper_id))
+        assert_valid_evidence_graph(graph)
+        return PaperEvidenceGraphResponse(graph=graph)
+    except (ValidationError, ValueError) as exc:
+        _raise_api_boundary_error(exc)
+
+
+@app.get(
+    "/annotation-graphs/{paper_id}/proposal",
+    response_model=PathwayProposalResponse,
+    responses=ERROR_RESPONSES,
+)
+def annotation_pathway_proposal(paper_id: str) -> PathwayProposalResponse:
+    try:
+        graph = build_paper_evidence_graph(load_annotation_bundle(paper_id))
+        assert_valid_evidence_graph(graph)
+        proposal = build_pathway_proposal(graph)
+        assert_valid_pathway_proposal(proposal)
+        return PathwayProposalResponse(proposal=proposal)
     except (ValidationError, ValueError) as exc:
         _raise_api_boundary_error(exc)
 

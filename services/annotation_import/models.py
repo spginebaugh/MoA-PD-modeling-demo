@@ -21,12 +21,19 @@ type ReviewStatus = Literal[
 type ProposalKind = Literal["new_pathway", "overlay", "evidence_only"]
 type SourceRecordType = Literal[
     "mechanism_step",
+    "mechanism_edge",
     "parameter_candidate",
     "observation",
     "equation",
     "simulation_model",
     "simulation_parameter",
     "simulation_readiness_plan",
+    "evidence_anchor",
+    "scientific_symbol",
+    "study_design",
+    "figure_annotation",
+    "model_quantity",
+    "context_scope",
     "paper",
 ]
 
@@ -235,6 +242,64 @@ class SimulationReadinessPlan(BaseModel):
     context: JsonDict = Field(default_factory=dict)
 
 
+class ScientificSymbolRecord(BaseModel):
+    model_config = TOLERANT_MODEL_CONFIG
+
+    symbol_id: str
+    paper_id: str
+    raw_symbol: str
+    normalized_symbol: str | None = None
+    unicode_symbol: str | None = None
+    latex_symbol: str | None = None
+    base_symbol: str | None = None
+    semantic_role: str | None = None
+    analyte: str | None = None
+    parent_analyte: str | None = None
+    interpretation_confidence: str | float | None = None
+    evidence_anchor_ids: tuple[str, ...] = ()
+    source_observation_id: str | None = None
+    scope: JsonDict = Field(default_factory=dict)
+
+
+class StudyDesignRecord(BaseModel):
+    model_config = TOLERANT_MODEL_CONFIG
+
+    design_id: str
+    paper_id: str
+    study_type: str | None = None
+    phase: str | None = None
+    species: str | None = None
+    population: str | None = None
+    sample_size: int | None = None
+    arms: tuple[JsonDict, ...] = ()
+    dosing: str | None = None
+    route: str | None = None
+    duration: str | None = None
+    endpoints: tuple[str, ...] = ()
+    evidence_anchor_ids: tuple[str, ...] = ()
+    validation_status: str | None = None
+    context: JsonDict = Field(default_factory=dict)
+
+
+class FigureAnnotationRecord(BaseModel):
+    model_config = TOLERANT_MODEL_CONFIG
+
+    figure_annotation_id: str
+    paper_id: str
+    figure_id: str | None = None
+    figure_label: str | None = None
+    caption: str | None = None
+    source_url: str | None = None
+    image_asset_status: str | None = None
+    image_analysis_status: str | None = None
+    visual_evidence_types: tuple[str, ...] = ()
+    panels: tuple[JsonDict, ...] = ()
+    extracted_numeric_mentions: tuple[JsonDict, ...] = ()
+    evidence_anchor_ids: tuple[str, ...] = ()
+    validation_status: str | None = None
+    context: JsonDict = Field(default_factory=dict)
+
+
 class AnnotationBundle(BaseModel):
     model_config = TOLERANT_MODEL_CONFIG
 
@@ -248,6 +313,9 @@ class AnnotationBundle(BaseModel):
     simulation_models: tuple[SimulationModelRecord, ...] = ()
     simulation_parameters: tuple[SimulationParameterRecord, ...] = ()
     simulation_readiness_plans: tuple[SimulationReadinessPlan, ...] = ()
+    scientific_symbols: tuple[ScientificSymbolRecord, ...] = ()
+    study_designs: tuple[StudyDesignRecord, ...] = ()
+    figure_annotations: tuple[FigureAnnotationRecord, ...] = ()
     kg_projection: JsonDict = Field(default_factory=dict)
     summary: JsonDict = Field(default_factory=dict)
 
@@ -263,6 +331,9 @@ class AnnotationBundle(BaseModel):
             self.simulation_models,
             self.simulation_parameters,
             self.simulation_readiness_plans,
+            self.scientific_symbols,
+            self.study_designs,
+            self.figure_annotations,
         ):
             for item in collection:
                 if item.paper_id != self.paper.paper_id:
@@ -364,6 +435,26 @@ class EvidenceGraphEdge(BaseModel):
     metadata: JsonDict = Field(default_factory=dict)
 
 
+class EvidenceGraphLink(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    link_id: str
+    source: str
+    target: str
+    relation: str
+    paper_id: str
+    source_record_type: SourceRecordType
+    source_record_id: str
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    validation_status: str | None = None
+    confidence: str | float | None = None
+    review_status: ReviewStatus
+    provenance: PaperProvenance
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
 class EvidenceParameter(BaseModel):
     model_config = STRICT_MODEL_CONFIG
 
@@ -456,6 +547,7 @@ class PaperEvidenceGraph(BaseModel):
     source: str | None = None
     nodes: tuple[EvidenceGraphNode, ...] = ()
     edges: tuple[EvidenceGraphEdge, ...] = ()
+    links: tuple[EvidenceGraphLink, ...] = ()
     parameters: tuple[EvidenceParameter, ...] = ()
     equations: tuple[EvidenceEquation, ...] = ()
     simulation_models: tuple[EvidenceSimulationModel, ...] = ()
@@ -474,6 +566,11 @@ class ProposedNode(BaseModel):
     source_evidence_ids: tuple[str, ...] = ()
     review_status: ReviewStatus
     reason: str
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    provenance: PaperProvenance | None = None
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
 
 
 class ProposedEdge(BaseModel):
@@ -487,6 +584,11 @@ class ProposedEdge(BaseModel):
     verification_verdict: str | None = None
     review_status: ReviewStatus
     reason: str
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    provenance: PaperProvenance | None = None
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
 
 
 class ProposedParameter(BaseModel):
@@ -500,6 +602,11 @@ class ProposedParameter(BaseModel):
     unit: str | None = None
     review_status: ReviewStatus
     reason: str
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    provenance: PaperProvenance | None = None
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
 
 
 class ProposedEquation(BaseModel):
@@ -510,6 +617,10 @@ class ProposedEquation(BaseModel):
     source_evidence_id: str
     review_status: ReviewStatus
     reason: str
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    provenance: PaperProvenance | None = None
+    metadata: JsonDict = Field(default_factory=dict)
 
 
 class MissingInput(BaseModel):

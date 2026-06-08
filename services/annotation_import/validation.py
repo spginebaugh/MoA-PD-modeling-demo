@@ -40,6 +40,53 @@ def validate_evidence_graph(graph: PaperEvidenceGraph) -> tuple[WarningRecord, .
                 )
             )
 
+    node_ids = {node.node_id for node in graph.nodes}
+    for link in graph.links:
+        if link.provenance.paper_id != graph.paper_id:
+            warnings.append(
+                WarningRecord(
+                    code="link_missing_paper_provenance",
+                    message=f"Link {link.link_id} has mismatched paper provenance.",
+                    severity="error",
+                    source_record_type=link.source_record_type,
+                    source_record_id=link.source_record_id,
+                )
+            )
+        if not link.relation:
+            warnings.append(
+                WarningRecord(
+                    code="link_missing_relation",
+                    message=f"Link {link.link_id} has no relation.",
+                    severity="error",
+                    source_record_type=link.source_record_type,
+                    source_record_id=link.source_record_id,
+                )
+            )
+        if link.relation not in {
+            "unresolved_observation_reference",
+            "unresolved_equation_reference",
+        }:
+            if link.source not in node_ids:
+                warnings.append(
+                    WarningRecord(
+                        code="link_missing_source_node",
+                        message=f"Link {link.link_id} has missing source node {link.source}.",
+                        severity="error",
+                        source_record_type=link.source_record_type,
+                        source_record_id=link.source_record_id,
+                    )
+                )
+            if link.target not in node_ids:
+                warnings.append(
+                    WarningRecord(
+                        code="link_missing_target_node",
+                        message=f"Link {link.link_id} has missing target node {link.target}.",
+                        severity="error",
+                        source_record_type=link.source_record_type,
+                        source_record_id=link.source_record_id,
+                    )
+                )
+
     for parameter in graph.parameters:
         if not parameter.source_record_id:
             warnings.append(

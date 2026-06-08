@@ -5,7 +5,13 @@ from typing import Any, cast
 from fastapi.testclient import TestClient
 
 from apps.api.main import app
-from apps.api.schemas import CompileResponse, ErrorResponse, SimulateResponse
+from apps.api.schemas import (
+    CompileResponse,
+    ErrorResponse,
+    PaperEvidenceGraphResponse,
+    PathwayProposalResponse,
+    SimulateResponse,
+)
 from services.domain import PathwayId
 from services.pathway.models import GraphComposeRequest
 
@@ -35,6 +41,27 @@ def test_health_and_pathway_contract_endpoints() -> None:
         "Compound directly inhibits receptor kinase activity.",
         "Compound promotes CBL-mediated receptor degradation.",
     }.issubset({item["value"] for item in body["contract"]["prediction_claims"]})
+
+
+def test_annotation_evidence_graph_and_proposal_endpoints() -> None:
+    listing = client.get("/annotation-graphs")
+    assert listing.status_code == 200
+    assert listing.json()["paper_ids"] == ["PMC3693219", "PMC5131886"]
+
+    graph_response = client.get("/annotation-graphs/PMC5131886")
+    assert graph_response.status_code == 200
+    graph = PaperEvidenceGraphResponse.model_validate_json(graph_response.text).graph
+    assert graph.paper_id == "PMC5131886"
+    assert len(graph.edges) == 4
+    assert any(link.relation == "equation_defines" for link in graph.links)
+    assert any(link.relation == "simulation_parameter_for" for link in graph.links)
+
+    proposal_response = client.get("/annotation-graphs/PMC5131886/proposal")
+    assert proposal_response.status_code == 200
+    proposal = PathwayProposalResponse.model_validate_json(proposal_response.text).proposal
+    assert proposal.proposal_kind == "new_pathway"
+    assert proposal.executable is False
+    assert all(edge.provenance is not None for edge in proposal.proposed_edges)
 
 
 def test_frontend_uses_pathway_workbench_controls() -> None:

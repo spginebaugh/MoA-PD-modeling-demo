@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable
 
 from services.annotation_import.models import (
@@ -37,9 +38,19 @@ def context_scope(
     lowered = combined_text.lower()
     context_rules = rules or load_context_rules()
 
-    translation_stage = _first_rule_match(lowered, context_rules.translation_stage)
+    species = _first_context_value(context, ("species",)) or _first_rule_match(lowered, context_rules.species)
+    translation_stage = _first_context_value(context, ("translation_stage", "study_context_type"))
+    if translation_stage is None and species == "human" and _rule_value_matches(
+        lowered, context_rules.translation_stage, "clinical"
+    ):
+        translation_stage = "clinical"
+    translation_stage = translation_stage or _first_rule_match(lowered, context_rules.translation_stage)
+    model_system = _first_context_value(context, ("model_system", "study_context_type"))
+    if model_system is None and species == "human" and translation_stage == "clinical":
+        model_system = "clinical"
+    model_system = model_system or _first_rule_match(lowered, context_rules.model_system) or translation_stage
     return ContextScope(
-        species=_first_rule_match(lowered, context_rules.species),
+        species=species,
         translation_stage=translation_stage,
         disease=_first_rule_match(lowered, context_rules.disease),
         disease_subtype=_first_rule_match(lowered, context_rules.disease_subtype),
@@ -48,7 +59,7 @@ def context_scope(
         matrix=_first_context_value(context, ("matrix_contexts", "matrix_context")),
         tissue_or_organ=_first_context_value(context, ("organ_contexts", "organ_context")),
         cell_line=_first_context_value(context, ("cell_line_contexts", "cell_line")),
-        model_system=_first_rule_match(lowered, context_rules.model_system) or translation_stage,
+        model_system=model_system,
         drug_or_analyte=_first_context_value(
             context,
             ("drug_contexts", "drug_context", "drug_or_analyte", "analytes"),
@@ -151,6 +162,9 @@ def _context_text_parts(context: JsonDict) -> tuple[str, ...]:
         "column_header",
         "parameter_name",
         "parameter",
+        "caption",
+        "species",
+        "study_context_type",
     ):
         value = context.get(key)
         if isinstance(value, str):
@@ -164,6 +178,10 @@ def _context_text_parts(context: JsonDict) -> tuple[str, ...]:
         "pd_targets",
         "compartments",
         "analytes",
+        "disease_contexts",
+        "mutation_contexts",
+        "exposure_durations",
+        "visual_evidence_types",
     ):
         value = context.get(key)
         if isinstance(value, list):
@@ -180,6 +198,11 @@ def _first_context_value(context: JsonDict, keys: tuple[str, ...]) -> str | None
         pd_context = context.get("pd_context")
         if isinstance(pd_context, dict):
             flattened = _flatten_context_value(pd_context.get(key))
+            if flattened:
+                return flattened
+        study_context = context.get("study_context")
+        if isinstance(study_context, dict):
+            flattened = _flatten_context_value(study_context.get(key))
             if flattened:
                 return flattened
     return None
@@ -229,5 +252,19 @@ def _all_rule_matches(text: str, rules: tuple[TermRule, ...]) -> str | None:
     return ", ".join(dict.fromkeys(matches)) or None
 
 
+def _rule_value_matches(text: str, rules: tuple[TermRule, ...], value: str) -> bool:
+    return any(rule.value == value and _matches_any_term(text, rule.terms) for rule in rules)
+
+
 def _matches_any_term(text: str, terms: tuple[str, ...]) -> bool:
-    return any(term.lower() in text for term in terms)
+    return any(_matches_term(text, term) for term in terms)
+
+
+def _matches_term(text: str, term: str) -> bool:
+    normalized = term.strip().lower()
+    if not normalized:
+        return False
+    escaped = re.escape(normalized)
+    if normalized.isalpha() and not normalized.endswith("s"):
+        escaped = f"{escaped}s?"
+    return re.search(rf"(?<![a-z0-9]){escaped}(?![a-z0-9])", text) is not None
