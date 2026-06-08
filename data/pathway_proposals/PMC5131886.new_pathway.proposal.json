@@ -1,0 +1,1024 @@
+{
+  "proposal_id": "proposal:PMC5131886:new_pathway",
+  "paper_id": "PMC5131886",
+  "title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+  "proposal_kind": "new_pathway",
+  "target_pathway_id": null,
+  "proposed_pathway_id": "sunitinib_vegfr2_hcc_demo",
+  "proposed_nodes": [
+    {
+      "node_id": "ChEMBL:CHEMBL535",
+      "label": "sunitinib",
+      "node_type": "Drug",
+      "source_evidence_ids": [
+        "step:PMC5131886:05f1ecda4b6b0995"
+      ],
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Node participates in a candidate pathway-patch mechanism edge."
+    },
+    {
+      "node_id": "UniProt:P35968",
+      "label": "VEGFR2",
+      "node_type": "Protein",
+      "source_evidence_ids": [
+        "step:PMC5131886:05f1ecda4b6b0995"
+      ],
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Node participates in a candidate pathway-patch mechanism edge."
+    },
+    {
+      "node_id": "raw:PMC5131886:free_fractions_of_drug_and_metabolite:4f80bac8c8",
+      "label": "free fractions of drug and metabolite",
+      "node_type": "Entity",
+      "source_evidence_ids": [
+        "step:PMC5131886:27fa15d47ecb84da"
+      ],
+      "review_status": "review_only",
+      "reason": "Node participates in a candidate pathway-patch mechanism edge."
+    },
+    {
+      "node_id": "raw:PMC5131886:the_growth_rate_constant_kg_controlling_hcc_tumor_progression:857f0fcef8",
+      "label": "the growth rate constant (kg) controlling HCC tumor progression",
+      "node_type": "Entity",
+      "source_evidence_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325"
+      ],
+      "review_status": "review_only",
+      "reason": "Node participates in a candidate pathway-patch mechanism edge."
+    }
+  ],
+  "proposed_edges": [
+    {
+      "edge_id": "edge:PMC5131886:step_pmc5131886_05f1ecda4b6b0995",
+      "source": "ChEMBL:CHEMBL535",
+      "target": "UniProt:P35968",
+      "relation": "inhibits",
+      "source_evidence_id": "step:PMC5131886:05f1ecda4b6b0995",
+      "verification_verdict": "verified_therapeutic_moa",
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Verified therapeutic MOA in top-level mechanism verification."
+    },
+    {
+      "edge_id": "edge:PMC5131886:step_pmc5131886_27fa15d47ecb84da",
+      "source": "raw:PMC5131886:free_fractions_of_drug_and_metabolite:4f80bac8c8",
+      "target": "UniProt:P35968",
+      "relation": "inhibits",
+      "source_evidence_id": "step:PMC5131886:27fa15d47ecb84da",
+      "verification_verdict": "model_derived_pd_relation",
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Model-derived PD relation; candidate only after model-binding review."
+    },
+    {
+      "edge_id": "edge:PMC5131886:step_pmc5131886_d0ac7603ff3f2325",
+      "source": "UniProt:P35968",
+      "target": "raw:PMC5131886:the_growth_rate_constant_kg_controlling_hcc_tumor_progression:857f0fcef8",
+      "relation": "inhibits",
+      "source_evidence_id": "step:PMC5131886:d0ac7603ff3f2325",
+      "verification_verdict": "model_derived_pd_relation",
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Model-derived PD relation; candidate only after model-binding review."
+    }
+  ],
+  "proposed_parameters": [
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+      "name": "Predicted median Sunitinib plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+      "value": 15.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+      "name": "Slope hazard ΔAUC0‐24h sVEGFR2",
+      "role": "model_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+      "value": 0.03,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:06c2f44ec18c7eb6",
+      "name": "k12",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:06c2f44ec18c7eb6",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:1a53f2132f547baf",
+      "name": "V2",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:1a53f2132f547baf",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:218f596ba4c9f3f5",
+      "name": "Observed data Sunitinib plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:218f596ba4c9f3f5",
+      "value": 50.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:24cae43f8819bf0b",
+      "name": "Q",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:24cae43f8819bf0b",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:2a99b15f749b8927",
+      "name": "compartment",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:2a99b15f749b8927",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:33a10367c3d94cf3",
+      "name": "Q",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:33a10367c3d94cf3",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:34731f9af2b0b435",
+      "name": "Predicted median (treated) Tumor volume at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:34731f9af2b0b435",
+      "value": 90.0,
+      "unit": "mm³",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:3761087c9f4dd447",
+      "name": "k12",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:3761087c9f4dd447",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:3cc293d705608e3d",
+      "name": "kd",
+      "role": "review_only_candidate_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:3cc293d705608e3d",
+      "value": 4.0,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:3cec07cf5ad1b024",
+      "name": "V1",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:3cec07cf5ad1b024",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:3f57172b9f0b6895",
+      "name": "model_type",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:3f57172b9f0b6895",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:416479024f0a6891",
+      "name": "V1",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:416479024f0a6891",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:47ee5ebfb2137b46",
+      "name": "Z0",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:47ee5ebfb2137b46",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:4c22c5fa1e58e593",
+      "name": "model_type",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:4c22c5fa1e58e593",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:4fc85b696909940f",
+      "name": "Observed data Sunitinib plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:4fc85b696909940f",
+      "value": 180.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:50bfb5ae8bacb17d",
+      "name": "k21",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:50bfb5ae8bacb17d",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:556c9768d5621cc3",
+      "name": "mean baseline sVEGFR2",
+      "role": "candidate_model_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:556c9768d5621cc3",
+      "value": 15.7,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:55ac4794b7097aa3",
+      "name": "Z1",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:55ac4794b7097aa3",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:57a974ca2f3350dd",
+      "name": "model_type",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:57a974ca2f3350dd",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:5870934d4a4a9ec7",
+      "name": "Placebo simulation Tumor volume at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:5870934d4a4a9ec7",
+      "value": 960.0,
+      "unit": "mm³",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:5be57b7c0bf9973b",
+      "name": "R0 (µg/L)",
+      "role": "model_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:5be57b7c0bf9973b",
+      "value": 2.0,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:624ec44f68fb8f2d",
+      "name": "k10",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:624ec44f68fb8f2d",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:63e7eb5408ea63b8",
+      "name": "k21",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:63e7eb5408ea63b8",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+      "name": "sVEGFR2 baseline level (R0)",
+      "role": "candidate_model_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+      "value": 18.3,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:655170ee3e735046",
+      "name": "compartment",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:655170ee3e735046",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:6a7c069fe07e8a63",
+      "name": "Observed data SU12662 plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:6a7c069fe07e8a63",
+      "value": 2.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:6b583243b0d78b68",
+      "name": "CL",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:6b583243b0d78b68",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:6d6b66871257f74d",
+      "name": "Predicted median (treated) Tumor volume at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:6d6b66871257f74d",
+      "value": 90.0,
+      "unit": "mm³",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:6f36179053d71f2e",
+      "name": "model_type",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:6f36179053d71f2e",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:6f6fcba27760e7f4",
+      "name": "Predicted median Sunitinib plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:6f6fcba27760e7f4",
+      "value": 25.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:768abd21dc994e13",
+      "name": "compartment",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:768abd21dc994e13",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:76cce742eb8dbe47",
+      "name": "Predicted median sVEGFR2 plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:76cce742eb8dbe47",
+      "value": 11.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:7e49718692ac32c2",
+      "name": "Predicted median SU12662 plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:7e49718692ac32c2",
+      "value": 13.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:8709c763926142af",
+      "name": "k10",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:8709c763926142af",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:936ad85fcda7f9dc",
+      "name": "Observed data Sunitinib plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:936ad85fcda7f9dc",
+      "value": 2.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:99668a066e814199",
+      "name": "CL",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:99668a066e814199",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:a103356c787608d3",
+      "name": "kd",
+      "role": "review_only_candidate_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:a103356c787608d3",
+      "value": 4.0,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:a380a289659cbb34",
+      "name": "compartment",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:a380a289659cbb34",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:b721f52307d81086",
+      "name": "model_type",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:b721f52307d81086",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:b9e399006482a232",
+      "name": "IC50",
+      "role": "review_only_candidate_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:b9e399006482a232",
+      "value": 2.0,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:ba06755d727bb0dd",
+      "name": "Observed data sVEGFR2 plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:ba06755d727bb0dd",
+      "value": 36.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:bf9a698b9c01fcac",
+      "name": "Observed data Sunitinib plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:bf9a698b9c01fcac",
+      "value": 110.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:c2c6c0e42c18a914",
+      "name": "compartment",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:c2c6c0e42c18a914",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:cd90cbc6cf906a22",
+      "name": "Predicted median Sunitinib plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:cd90cbc6cf906a22",
+      "value": 150.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:cd90db7a768c7b22",
+      "name": "dose",
+      "role": "review_only_candidate_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:cd90db7a768c7b22",
+      "value": 50.0,
+      "unit": "weeks",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:ce7acad9b1e2424c",
+      "name": "AUC",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:ce7acad9b1e2424c",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:d1f39ba1783bb406",
+      "name": "Observed data SU12662 plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:d1f39ba1783bb406",
+      "value": 53.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:d57c91ec7d12dfd6",
+      "name": "Predicted median sVEGFR2 plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:d57c91ec7d12dfd6",
+      "value": 15.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:d6ac5922bf5437b1",
+      "name": "TTP",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:d6ac5922bf5437b1",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:d839126d43101991",
+      "name": "Predicted median Sunitinib plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:d839126d43101991",
+      "value": 80.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:d9a2875ae08b8179",
+      "name": "IC50",
+      "role": "review_only_candidate_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:d9a2875ae08b8179",
+      "value": 1.83,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:dd600f1f47ee8209",
+      "name": "model_type",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:dd600f1f47ee8209",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:de5919a059d778eb",
+      "name": "Observed data Tumor volume at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:de5919a059d778eb",
+      "value": 370.0,
+      "unit": "mm³",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:dfccb203dcf5ad53",
+      "name": "α (µg/L)−1",
+      "role": "model_input",
+      "source_evidence_id": "simulation_parameter:PMC5131886:dfccb203dcf5ad53",
+      "value": 2.0,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:e17d8934bdafa104",
+      "name": "DDT_Hazard",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:e17d8934bdafa104",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:e4c44b2bc3130b86",
+      "name": "model_type",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:e4c44b2bc3130b86",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:e50b74a2f69124b0",
+      "name": "model_type",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:e50b74a2f69124b0",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:e7f26ac827f1ee29",
+      "name": "Observed data sVEGFR2 plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:e7f26ac827f1ee29",
+      "value": 6.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:e8b3e6c25f03399c",
+      "name": "Observed data Tumor volume at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:e8b3e6c25f03399c",
+      "value": 100.0,
+      "unit": "mm³",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:e98288b948c16208",
+      "name": "platform",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:e98288b948c16208",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:eca77cef32067794",
+      "name": "Predicted median SU12662 plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:eca77cef32067794",
+      "value": 30.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:f464652b9df4e57c",
+      "name": "model_type",
+      "role": "model_structure",
+      "source_evidence_id": "simulation_parameter:PMC5131886:f464652b9df4e57c",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:f514644dfb1ccef7",
+      "name": "V2",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:f514644dfb1ccef7",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:fb57a36b1fef03f6",
+      "name": "Predicted median sVEGFR2 plasma concentrations at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:fb57a36b1fef03f6",
+      "value": 18.0,
+      "unit": "µg/L",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:fb879f56cc61145d",
+      "name": "Placebo simulation Tumor volume at Time",
+      "role": "calibration_or_validation_endpoint",
+      "source_evidence_id": "simulation_parameter:PMC5131886:fb879f56cc61145d",
+      "value": 100.0,
+      "unit": "mm³",
+      "review_status": "review_only",
+      "reason": "Calibration or validation endpoint; use for review, not as a direct parameter prior."
+    },
+    {
+      "parameter_id": "simulation_parameter:PMC5131886:fe61aa3cc7f09f37",
+      "name": "Z2",
+      "role": "equation_variable",
+      "source_evidence_id": "simulation_parameter:PMC5131886:fe61aa3cc7f09f37",
+      "value": null,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:cand_pmc5131886_a49878ccb716d031",
+      "name": "α (µg/L)−1",
+      "role": "pd",
+      "source_evidence_id": "cand:PMC5131886:a49878ccb716d031",
+      "value": 2.0,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:cand_pmc5131886_3d78c3e45075163d",
+      "name": "R0 (µg/L)",
+      "role": "pd",
+      "source_evidence_id": "cand:PMC5131886:3d78c3e45075163d",
+      "value": 2.0,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:cand_pmc5131886_18f6493fe35ee327",
+      "name": "IC50",
+      "role": "pd",
+      "source_evidence_id": "cand:PMC5131886:18f6493fe35ee327",
+      "value": 2.0,
+      "unit": "L",
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:cand_pmc5131886_4fb9748395052409",
+      "name": "Slope hazard ΔAUC0‐24h sVEGFR2",
+      "role": "pd",
+      "source_evidence_id": "cand:PMC5131886:4fb9748395052409",
+      "value": 0.03,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:cand_pmc5131886_43219e0602d1574c",
+      "name": "dose",
+      "role": "dose",
+      "source_evidence_id": "cand:PMC5131886:43219e0602d1574c",
+      "value": 50.0,
+      "unit": "weeks",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:cand_pmc5131886_922277b5b327de1e",
+      "name": "IC50",
+      "role": "pd",
+      "source_evidence_id": "cand:PMC5131886:922277b5b327de1e",
+      "value": 1.83,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:cand_pmc5131886_dc0ab7cbd71a983d",
+      "name": "kd",
+      "role": "pd",
+      "source_evidence_id": "cand:PMC5131886:dc0ab7cbd71a983d",
+      "value": 4.0,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:cand_pmc5131886_b51a7ec6d1a89b07",
+      "name": "kd",
+      "role": "pd",
+      "source_evidence_id": "cand:PMC5131886:b51a7ec6d1a89b07",
+      "value": 4.0,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:obs_pmc5131886_5139b60b0049e4a6",
+      "name": "α (µg/L)−1",
+      "role": "pd",
+      "source_evidence_id": "obs:PMC5131886:5139b60b0049e4a6",
+      "value": 2.0,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:obs_pmc5131886_4e3537a67bdee81f",
+      "name": "R0 (µg/L)",
+      "role": "pd",
+      "source_evidence_id": "obs:PMC5131886:4e3537a67bdee81f",
+      "value": 2.0,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:obs_pmc5131886_a704eb08fadac6ee",
+      "name": "IC50",
+      "role": "pd",
+      "source_evidence_id": "obs:PMC5131886:a704eb08fadac6ee",
+      "value": 2.0,
+      "unit": "L",
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:obs_pmc5131886_4676d2dab946af5a",
+      "name": "Slope hazard ΔAUC0‐24h sVEGFR2",
+      "role": "pd",
+      "source_evidence_id": "obs:PMC5131886:4676d2dab946af5a",
+      "value": 0.03,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:obs_pmc5131886_43214157cd0a65ff",
+      "name": "dose",
+      "role": "dose",
+      "source_evidence_id": "obs:PMC5131886:43214157cd0a65ff",
+      "value": 50.0,
+      "unit": "weeks",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:obs_pmc5131886_c52fafe15e0c7632",
+      "name": "IC50",
+      "role": "pd",
+      "source_evidence_id": "obs:PMC5131886:c52fafe15e0c7632",
+      "value": 1.83,
+      "unit": "L",
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:obs_pmc5131886_52d44db97187875f",
+      "name": "kd",
+      "role": "pd",
+      "source_evidence_id": "obs:PMC5131886:52d44db97187875f",
+      "value": 4.0,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    },
+    {
+      "parameter_id": "parameter:obs_pmc5131886_1069de93a4dc237c",
+      "name": "kd",
+      "role": "pd",
+      "source_evidence_id": "obs:PMC5131886:1069de93a4dc237c",
+      "value": 4.0,
+      "unit": null,
+      "review_status": "review_only",
+      "reason": "Review required before executable parameter promotion."
+    }
+  ],
+  "proposed_equations": [
+    {
+      "equation_id": "eq:PMC5131886:f40c3d716a3c69c2",
+      "expression_text": "k10 = CL/V1 k12",
+      "source_evidence_id": "eq:PMC5131886:f40c3d716a3c69c2",
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Display/model-form equation; state and parameter bindings are not curated."
+    },
+    {
+      "equation_id": "eq:PMC5131886:4d9cbb929eb262d6",
+      "expression_text": "k21 = Q/V2",
+      "source_evidence_id": "eq:PMC5131886:4d9cbb929eb262d6",
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Display/model-form equation; state and parameter bindings are not curated."
+    },
+    {
+      "equation_id": "eq:PMC5131886:ece40d8b730a6d9b",
+      "expression_text": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+      "source_evidence_id": "eq:PMC5131886:ece40d8b730a6d9b",
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Display/model-form equation; state and parameter bindings are not curated."
+    },
+    {
+      "equation_id": "eq:PMC5131886:89c7be8149c71dcd",
+      "expression_text": "k10 = CL/V1 k12",
+      "source_evidence_id": "eq:PMC5131886:89c7be8149c71dcd",
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Display/model-form equation; state and parameter bindings are not curated."
+    },
+    {
+      "equation_id": "eq:PMC5131886:8b18e4fbe3ffe4a1",
+      "expression_text": "k21 = Q/V2",
+      "source_evidence_id": "eq:PMC5131886:8b18e4fbe3ffe4a1",
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Display/model-form equation; state and parameter bindings are not curated."
+    }
+  ],
+  "required_missing_inputs": [
+    {
+      "name": "pk_exposure_parameters",
+      "reason": "no model-safe PK/PBPK exposure parameters are available",
+      "severity": "warning"
+    },
+    {
+      "name": "dosing_regimen",
+      "reason": "route/schedule/dose regimen is absent or not model-safe",
+      "severity": "warning"
+    },
+    {
+      "name": "mouse_pk_for_species_translation",
+      "reason": "mouse in-vivo efficacy context is present but no mouse PK/exposure input is available; formal species translation is blocked",
+      "severity": "warning"
+    }
+  ],
+  "provenance_warnings": [
+    {
+      "code": "kg_projection_mechanisms_ignored",
+      "message": "Ignored 5 projected mechanism nodes; used 4 top-level mechanism steps.",
+      "severity": "warning",
+      "source_record_type": "kg_projection",
+      "source_record_id": null
+    },
+    {
+      "code": "kg_projection_verifications_ignored",
+      "message": "Ignored 10 projected verification nodes; used 4 top-level verification records.",
+      "severity": "warning",
+      "source_record_type": "kg_projection",
+      "source_record_id": null
+    },
+    {
+      "code": "simulation_readiness_not_ready",
+      "message": "Simulation readiness is needs_evidence_completion: some model inputs are supported, but missing, unsafe, or unverified inputs require estimation before simulation.",
+      "severity": "warning",
+      "source_record_type": "simulation_readiness_plan",
+      "source_record_id": "simulation_plan:PMC5131886:688ebea78abee38a"
+    },
+    {
+      "code": "missing_model_input",
+      "message": "Missing pk_exposure_parameters: no model-safe PK/PBPK exposure parameters are available",
+      "severity": "warning",
+      "source_record_type": "simulation_readiness_plan",
+      "source_record_id": "simulation_plan:PMC5131886:688ebea78abee38a"
+    },
+    {
+      "code": "missing_model_input",
+      "message": "Missing dosing_regimen: route/schedule/dose regimen is absent or not model-safe",
+      "severity": "warning",
+      "source_record_type": "simulation_readiness_plan",
+      "source_record_id": "simulation_plan:PMC5131886:688ebea78abee38a"
+    },
+    {
+      "code": "missing_model_input",
+      "message": "Missing mouse_pk_for_species_translation: mouse in-vivo efficacy context is present but no mouse PK/exposure input is available; formal species translation is blocked",
+      "severity": "warning",
+      "source_record_type": "simulation_readiness_plan",
+      "source_record_id": "simulation_plan:PMC5131886:688ebea78abee38a"
+    }
+  ],
+  "executable": false,
+  "promotion_note": "Review artifact only; not loaded by pathway runtime."
+}

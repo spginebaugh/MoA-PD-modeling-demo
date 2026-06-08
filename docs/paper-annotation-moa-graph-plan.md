@@ -14,6 +14,22 @@ The right implementation is a new annotation ingestion and mapping layer that ca
 
 This document describes how to implement that layer without making runtime code depend on JSON files stored under `docs/`.
 
+## Implementation Status
+
+This plan is now implemented for the prototype as a review-artifact pipeline:
+
+- Raw annotation bundles live under `data/paper_annotations/`.
+- Data-owned context and proposal rules live under `data/annotation_rules/`.
+- Evidence graph artifacts are generated under `data/annotation_graphs/`.
+- Review-only pathway proposal artifacts are generated under `data/pathway_proposals/`.
+- Importer code lives under `services/annotation_import/`.
+- CLI entry points live under `scripts/import_paper_annotations.py`, `scripts/build_paper_evidence_graph.py`, and `scripts/propose_pathway_from_annotations.py`.
+- Focused tests cover loading, source-of-truth handling, evidence graph generation, proposal generation, and runtime pathway isolation.
+
+The implementation still does not promote generated proposals into executable runtime pathways, and it does not add API/UI surfaces. Those remain manual curation or future product work.
+
+Production annotation-import code is intentionally generic. Paper-specific pathway IDs, overlay node match terms, disease/state term rules, and proposal classifications are configuration data under `data/annotation_rules/`, not Python branches.
+
 ## Storage Rule
 
 Code should not read JSON annotation bundles from `docs/`.
@@ -84,6 +100,36 @@ The annotation bundles include different kinds of objects:
 
 Those objects are useful, but they are not already an executable pathway.
 
+## Source Of Truth Rule
+
+Use the top-level typed arrays in each annotation bundle as the authoritative source for extraction:
+
+- `mechanism_chains`
+- `mechanism_verifications`
+- `parameter_candidates`
+- `verified_observations`
+- `equations`
+- `simulation_models`
+- `simulation_parameters`
+- `evidence_anchors`
+- `simulation_readiness`
+
+Treat `kg_projection` as a derived inspection/provenance projection only. It can be useful for debugging bundle generation, but importer output should not depend on it. It should not be used to create causal edges, mechanism nodes, verification counts, normalized disease/context fields, or executable pathway content.
+
+This rule matters because `kg_projection` is a noisy superset:
+
+- In `PMC3693219`, the top-level `mechanism_chains` array is empty, but `kg_projection` contains two `tktype:MechanismChain` fragments and three `tktype:MechanismVerification` nodes. The fragments are not usable causal mechanism records.
+- In `PMC5131886`, the top-level arrays contain three mechanism chains, four mechanism steps, and four verifications. `kg_projection` contains five `tktype:MechanismChain` nodes and ten `tktype:MechanismVerification` nodes, including equation text and sentence fragments.
+- Some projected ontology nodes are plainly wrong for context extraction, such as non-disease concepts projected as diseases.
+
+Implementation rule:
+
+```text
+causal_edges = build_from(bundle.mechanism_chains)
+verification_join = build_from(bundle.mechanism_verifications)
+projection_edges = ignored_for_causal_extraction
+```
+
 ## Interpretation Of The Provided Bundles
 
 ### `PMC3693219`
@@ -92,21 +138,24 @@ This paper is relevant to erlotinib, EGFR-mutant lung cancer, dosing schedules, 
 
 Important signals from the bundle:
 
-- mechanism chains: none
-- mechanism verifications: none
+- top-level mechanism chains: none
+- top-level mechanism verifications: none
 - equations: none
 - simulation models: none
-- PD or endpoint evidence: missing
+- simulation parameters: present, mostly figure-derived calibration or validation endpoints
+- curated PD/MOA endpoint evidence: missing in the readiness summary
 - mechanism or MOA: missing
 - model structure: missing
 - simulation readiness: blocked by missing evidence
+
+`kg_projection` does contain mechanism-looking nodes for this paper, but they are noisy sentence fragments and must be ignored for causal extraction. The correct top-level result is zero accepted mechanism edges.
 
 The bundle does contain dose, PK, toxicity, figure-derived calibration endpoints, and disease/context annotations. Many extracted inputs are review-only or unsafe for direct model use because units, subject scope, or claim support are incomplete.
 
 Best use:
 
 - Evidence overlay for an erlotinib resistance/dosing story.
-- Source of dosing schedule candidates, PK exposure context, resistance endpoints, and gaps.
+- Source of dosing schedule candidates, PK exposure context, resistance-probability endpoints, plasma-concentration endpoints, and gaps.
 - Not a source for replacing the EGFR pathway's biological signaling scaffold.
 
 ### `PMC5131886`
@@ -115,12 +164,17 @@ This paper is much more usable as a paper-derived MOA/PKPD evidence graph, but i
 
 Important evidence:
 
+- top-level mechanism content: three chains, four steps, and four verifications
 - active sunitinib/metabolite concentration inhibits sVEGFR2 release/production
 - sVEGFR2 dynamics link drug exposure to tumor growth inhibition
 - delta sVEGFR2 inhibits the HCC tumor growth-rate constant
 - TTP is modeled from biomarker exposure or hazard relationships
 - some equations and model forms are present
+- nine `simulation_models` records are present, but they are sparse
+- sixty-eight `simulation_parameters` records contain the richer quantitative/model-structure extraction
 - several PD parameters are present but still require review for exact values, units, and context
+
+`kg_projection` has extra mechanism and verification nodes for this paper. Ignore those extras and join only the top-level `mechanism_verifications` records to top-level mechanism steps.
 
 Best use:
 
@@ -141,7 +195,8 @@ services/annotation_import/
   models.py
   provenance.py
   graph_builder.py
-  pathway_patch.py
+  rules.py
+  pathway_patch.py       # review-only proposal generation
   validation.py
 ```
 
@@ -157,6 +212,7 @@ Suggested output locations:
 
 ```text
 data/paper_annotations/          # raw annotation bundles
+data/annotation_rules/           # data-owned context/proposal rules
 data/annotation_graphs/          # normalized non-executable evidence graphs
 data/pathway_proposals/          # generated review artifacts, not runtime pathways
 ```
@@ -166,6 +222,8 @@ Only curated pathway definitions should go into:
 ```text
 data/pathways/
 ```
+
+The first implementation slice builds the loader, models, provenance helpers, evidence graph builder, validation, and evidence graph script. The proposal generator remains downstream of evidence graph generation and writes review artifacts only.
 
 ## Data Model
 
@@ -181,6 +239,8 @@ Minimum models:
 - `MechanismVerification`
 - `ParameterObservation`
 - `EquationRecord`
+- `SimulationModelRecord`
+- `SimulationParameterRecord`
 - `SimulationReadinessPlan`
 - `ContextScope`
 - `PaperProvenance`
@@ -197,6 +257,8 @@ PaperEvidenceGraph
   edges
   parameters
   equations
+  simulation_models
+  simulation_parameters
   evidence_anchors
   warnings
 ```
@@ -214,6 +276,15 @@ Each important node or edge should include:
 - validation status
 - confidence or trust level
 - review status
+
+`SimulationParameterRecord` should preserve the annotation role rather than flattening all values into ordinary parameters. Expected roles include:
+
+- `model_structure`
+- `equation_variable`
+- `model_input`
+- `calibration_or_validation_endpoint`
+
+For `PMC3693219`, the calibration/validation endpoints are the main data path for the erlotinib dosing/resistance overlay. For `PMC5131886`, `simulation_parameters` are the main path for model quantities, equation variables, model inputs, and digitized endpoints; `simulation_models` provide useful anchors such as model type and platform, but are not rich enough by themselves.
 
 ## Graph Types
 
@@ -262,12 +333,21 @@ Only curated or explicitly accepted annotation-derived claims should become exec
 
 For each mechanism step:
 
-1. Normalize subject and object labels when possible.
+1. Consume provided `normalized_subject` and `normalized_object` records when present.
 2. Map predicate to a relation.
 3. Preserve the original predicate in metadata.
 4. Attach evidence anchors.
-5. Attach verification verdict if present.
+5. Attach verification verdict by joining top-level verification records on `(mechanism_chain_id, mechanism_step_id)`.
 6. Attach context: species, disease, assay, clinical/preclinical state, and state labels.
+
+Do not source mechanism steps or verification records from `kg_projection`.
+
+Normalization rule:
+
+- Use the bundle-provided normalized entity id, label, ontology/source, and match score.
+- Apply a match-score gate before using normalized entities for canonical graph ids.
+- If the normalized entity is missing or below threshold, retain the raw label and mark the node for review.
+- Do not perform a second free-form normalization pass as part of the initial importer.
 
 Example from `PMC5131886`:
 
@@ -281,6 +361,7 @@ Metadata:
 paper_id: PMC5131886
 mechanism_chain_id: moa:PMC5131886:e759bfdd41c057e9
 mechanism_step_id: step:PMC5131886:05f1ecda4b6b0995
+verification_id: top-level mechanism verification matching the chain and step ids
 verification_verdict: verified_therapeutic_moa
 relation_class: drug_target_or_pathway_moa
 evidence_anchor_ids:
@@ -308,6 +389,27 @@ Promote a parameter only if:
 Otherwise, keep it in the evidence graph as a review-only parameter.
 
 For `PMC3693219`, most dose and PK values should remain review-only until units and context are corrected. For `PMC5131886`, several PD table values need manual table-cell review before promotion because some extracted values appear to reflect definition text or row parsing rather than the actual estimate.
+
+### Simulation Models And Simulation Parameters
+
+Do not ignore the `simulation_models` and `simulation_parameters` arrays. They carry much of the quantitative content that is absent from ordinary mechanism chains.
+
+Use `simulation_models` to capture:
+
+- model type, such as population PK model or PKPD model
+- platform, when present, such as Monolix
+- model-level context and anchor ids
+- links to equations or parameter groups when present
+
+Use `simulation_parameters` to capture:
+
+- compartments and analytes
+- equation variables and linked equation ids
+- model inputs
+- calibration or validation endpoints, especially digitized figure points
+- values, units, source figures/tables, and extraction warnings
+
+These records should become evidence graph records first. Promotion into executable parameters requires the same numeric/unit/context review as ordinary parameter observations.
 
 ### Equations
 
@@ -371,6 +473,8 @@ Do not infer species from ontology normalization alone.
 
 ### Phase 1: Move Data And Add Loader
 
+Status: required first implementation slice.
+
 Actions:
 
 1. Create `data/paper_annotations/`.
@@ -387,14 +491,19 @@ Expected behavior:
 
 ### Phase 2: Build A Paper Evidence Graph
 
+Status: required first implementation slice.
+
 Actions:
 
 1. Define normalized evidence graph models.
-2. Convert mechanism chains into evidence edges.
-3. Convert parameter observations into parameter nodes.
-4. Convert equations into equation nodes.
-5. Attach provenance and evidence anchors.
-6. Emit warnings for unsupported or unsafe records.
+2. Convert top-level mechanism chains into evidence edges.
+3. Join top-level mechanism verifications by `(mechanism_chain_id, mechanism_step_id)`.
+4. Convert parameter observations into parameter nodes.
+5. Convert simulation models and simulation parameters into evidence graph records.
+6. Convert equations into equation nodes.
+7. Attach provenance and evidence anchors.
+8. Emit warnings for unsupported or unsafe records.
+9. Emit warnings when `kg_projection` contains mechanism-like records that were intentionally ignored.
 
 Output:
 
@@ -406,6 +515,8 @@ data/annotation_graphs/PMC5131886.evidence_graph.json
 This output is reviewable and can be displayed or inspected without claiming executability.
 
 ### Phase 3: Add Review Classification
+
+Status: early follow-up. This can be implemented with Phase 2 if it stays small, but it should not expand into pathway generation.
 
 Classify every extracted edge/parameter/equation as one of:
 
@@ -427,11 +538,13 @@ Suggested rules:
 
 ### Phase 4: Generate Pathway Proposals, Not Runtime Pathways
 
+Status: implemented as review artifact generation. Runtime promotion remains deferred.
+
 Generate files under `data/pathway_proposals/`, for example:
 
 ```text
-data/pathway_proposals/PMC5131886_sunitinib_vegfr2_hcc.proposal.json
-data/pathway_proposals/PMC3693219_erlotinib_resistance_overlay.proposal.json
+data/pathway_proposals/PMC5131886.new_pathway.proposal.json
+data/pathway_proposals/PMC3693219.overlay.proposal.json
 ```
 
 These should be explicit review artifacts. They should not be loaded by the app until accepted and copied into `data/pathways/`.
@@ -446,7 +559,13 @@ Proposal content:
 - provenance for each proposed item
 - reasons why each item is or is not executable
 
+The proposal generator should be driven by the evidence graph records, especially `simulation_models` and `simulation_parameters`, rather than by a hand-written scaffold. Hand-written scaffold examples in this document are illustrative only.
+
+Proposal classification and paper-specific target IDs should be read from `data/annotation_rules/proposals/{paper_id}.json`. Context term extraction rules should be read from `data/annotation_rules/context/default.json`. If no proposal rule exists, the generic fallback is conservative: candidate mechanism edges may produce a new-pathway review proposal, and papers without candidate edges remain evidence-only.
+
 ### Phase 5: Optional EGFR Overlay
+
+Status: implemented as a review-only overlay proposal. Runtime modification of `egfr_erbb_demo` remains deferred.
 
 For `PMC3693219`, create an overlay proposal rather than a replacement graph.
 
@@ -470,6 +589,8 @@ Possible overlay evidence:
 This overlay should not modify the current EGFR signaling graph automatically. It can be a separate evidence layer or a proposed module requiring curation.
 
 ### Phase 6: Optional Sunitinib/VEGFR2/HCC Pathway
+
+Status: implemented as a review-only new-pathway proposal. Runtime pathway promotion remains deferred.
 
 For `PMC5131886`, a new pathway proposal is more appropriate.
 
@@ -515,6 +636,8 @@ egfr_erbb_demo
 
 Do not mix paper evidence graphs into existing pathway endpoints immediately.
 
+Defer new API endpoints and UI screens until the Phase 1 and Phase 2 evidence graph output is useful enough to inspect repeatedly. For the first slice, command-line generation plus JSON review artifacts are sufficient.
+
 Potential new API endpoints:
 
 ```text
@@ -551,7 +674,10 @@ Add validation at three levels.
 
 - every evidence edge has paper provenance
 - every mechanism-derived edge has at least one evidence anchor
+- every mechanism-derived edge comes from top-level `mechanism_chains`, not `kg_projection`
+- every verification verdict is joined from top-level `mechanism_verifications` by chain id and step id
 - every parameter node has source observation or candidate id
+- every simulation parameter record preserves its role and source id
 - every equation node has source equation id and expression text
 - records with missing unit/context are marked review-only
 
@@ -577,11 +703,15 @@ Key tests:
 
 - loader rejects reading from `docs/`
 - loader reads valid bundles from `data/paper_annotations/`
-- `PMC3693219` produces zero accepted mechanism edges and warns about missing model structure
-- `PMC5131886` produces mechanism edges for sunitinib/sVEGFR2/TGI/TTP relationships
+- `PMC3693219` produces zero accepted mechanism edges from top-level `mechanism_chains` and warns that projection mechanism fragments were ignored
+- `PMC5131886` produces four top-level mechanism-step evidence records for sunitinib/sVEGFR2/TGI/TTP relationships
+- `PMC5131886` ignores the extra mechanism and verification nodes in `kg_projection`
+- verification verdicts are attached only by exact `(mechanism_chain_id, mechanism_step_id)` joins
 - parameters missing units or context are review-only
+- simulation parameters are preserved with role, value, unit, source id, and review status
 - equations remain display/model-form records unless explicitly curated
 - generated pathway proposals are not listed by `list_pathways()`
+- annotation-import production code does not hardcode paper-specific pathway IDs, drug names, disease names, or overlay node IDs
 
 Existing pathway runtime tests should remain unchanged.
 
@@ -599,6 +729,8 @@ source_section
 source_chunk_id
 source_table_or_figure
 quote_or_sentence
+simulation_model_id
+simulation_parameter_id
 verification_id
 verification_verdict
 relation_class
@@ -650,6 +782,8 @@ Do not attempt to create a fully executable pathway in the first implementation 
 - which species/context/state fields support each item
 - where the missing evidence blocks simulation
 
+Concretely, Phase 1 and Phase 2 are the foundation. Pathway proposal generation should remain downstream of the generated evidence graph. API endpoints, UI views, and runtime promotion should remain deferred until the review statuses are credible.
+
 After that, use `PMC5131886` as a candidate for a new sunitinib/VEGFR2/HCC pathway proposal. Use `PMC3693219` as an erlotinib resistance/dosing overlay proposal on top of, or adjacent to, the existing EGFR pathway.
 
 ## Non-Goals
@@ -658,10 +792,13 @@ This implementation should not:
 
 - auto-replace `egfr_erbb_demo`
 - treat annotation KG edges as executable pathway edges without curation
+- source causal mechanism records from `kg_projection`
+- re-normalize entities when the bundle already provides a sufficient normalized entity and match score
 - infer missing species or disease context from weak ontology matches
 - promote parameters with missing units or unclear scope
 - compile paper equations into executable IR without state and parameter binding review
 - read runtime data from `docs/`
+- hardcode paper-specific pathway IDs, disease terms, drug terms, or overlay-node matching in production annotation-import code
 
 ## Final Recommendation
 

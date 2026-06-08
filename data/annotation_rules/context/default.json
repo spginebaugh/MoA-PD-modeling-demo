@@ -1,0 +1,90 @@
+{
+  "species": [
+    {
+      "value": "mouse",
+      "terms": ["mouse", "mice"]
+    },
+    {
+      "value": "rat",
+      "terms": ["rat", "rats"]
+    },
+    {
+      "value": "human",
+      "terms": ["patient", "clinical", "phase ii", "phase iii", "human ", "homo sapiens"]
+    }
+  ],
+  "translation_stage": [
+    {
+      "value": "in vitro",
+      "terms": ["in vitro"]
+    },
+    {
+      "value": "preclinical",
+      "terms": ["xenograft"]
+    },
+    {
+      "value": "clinical",
+      "terms": ["patient", "clinical", "phase ii", "phase iii"]
+    }
+  ],
+  "model_system": [
+    {
+      "value": "xenograft",
+      "terms": ["xenograft"]
+    },
+    {
+      "value": "cell line",
+      "terms": ["cell line"]
+    }
+  ],
+  "disease": [
+    {
+      "value": "HCC",
+      "terms": ["hepatocellular carcinoma", " hcc", "hcc "]
+    },
+    {
+      "value": "EGFR-mutant lung cancer",
+      "terms": ["egfr-mutant lung cancer", "egfr mutant lung cancer"]
+    },
+    {
+      "value": "lung cancer",
+      "terms": ["lung cancer"]
+    }
+  ],
+  "disease_subtype": [
+    {
+      "value": "EGFR-mutant",
+      "terms": ["egfr-mutant", "egfr mutant"]
+    },
+    {
+      "value": "advanced HCC",
+      "terms": ["advanced hcc"]
+    }
+  ],
+  "state": [
+    {
+      "value": "baseline",
+      "terms": ["baseline"]
+    },
+    {
+      "value": "treated",
+      "terms": ["treated", "under sunitinib exposure", "drug exposure"]
+    },
+    {
+      "value": "resistant",
+      "terms": ["resistant", "resistance"]
+    },
+    {
+      "value": "tumor-bearing",
+      "terms": ["tumor bearing", "tumor-bearing"]
+    },
+    {
+      "value": "high-risk",
+      "terms": ["high-risk", "high risk"]
+    },
+    {
+      "value": "low-risk",
+      "terms": ["low-risk", "low risk"]
+    }
+  ]
+}

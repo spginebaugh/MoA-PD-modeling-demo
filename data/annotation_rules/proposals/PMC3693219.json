@@ -1,0 +1,43 @@
+{
+  "paper_id": "PMC3693219",
+  "proposal_kind": "overlay",
+  "target_pathway_id": "egfr_erbb_demo",
+  "proposed_pathway_id": null,
+  "overlay_nodes": [
+    {
+      "node_id": "erlotinib_exposure",
+      "label": "Erlotinib exposure",
+      "node_type": "model_quantity",
+      "match_terms": ["concentration", "plasma", "erlot"],
+      "reason": "Overlay node inferred from configured simulation parameter terms; requires manual curation."
+    },
+    {
+      "node_id": "dosing_schedule",
+      "label": "Dosing schedule",
+      "node_type": "model_quantity",
+      "match_terms": ["dose", "mg/day", "mg/week", "mg/wk"],
+      "reason": "Overlay node inferred from configured simulation parameter terms; requires manual curation."
+    },
+    {
+      "node_id": "resistance_probability",
+      "label": "Probability of acquired resistance",
+      "node_type": "model_quantity",
+      "match_terms": ["probability", "resistance"],
+      "reason": "Overlay node inferred from configured simulation parameter terms; requires manual curation."
+    },
+    {
+      "node_id": "resistant_population",
+      "label": "Resistant tumor cell population",
+      "node_type": "model_quantity",
+      "match_terms": ["resistant population"],
+      "reason": "Overlay node inferred from configured simulation parameter terms; requires manual curation."
+    },
+    {
+      "node_id": "sensitive_population",
+      "label": "Sensitive tumor cell population",
+      "node_type": "model_quantity",
+      "match_terms": ["sensitive population"],
+      "reason": "Overlay node inferred from configured simulation parameter terms; requires manual curation."
+    }
+  ]
+}
