@@ -33,7 +33,9 @@ def simulate(simulation_input: SimulationInput) -> SimulationResult:
 
     time = np.linspace(0.0, simulation_input.settings.t_end, simulation_input.settings.n_points)
     treated_y0 = np.array(baseline_y0, copy=True)
-    set_state_value(compiled.states, treated_y0, compiled.metadata.drug_state, float(simulation_input.settings.dose))
+    set_state_value(
+        compiled.states, treated_y0, compiled.metadata.drug_state, float(simulation_input.settings.dose)
+    )
     treated, treated_warnings = solve_timecourse(
         model=compiled,
         params=params,
@@ -63,7 +65,9 @@ def simulate(simulation_input: SimulationInput) -> SimulationResult:
         control_normalized = control_normalized_series(compiled, treated, control)
 
     treated_series_by_state = series_by_state(compiled, treated)
-    summaries = {state: state_summary(state, time, values) for state, values in treated_series_by_state.items()}
+    summaries = {
+        state: state_summary(state, time, values) for state, values in treated_series_by_state.items()
+    }
     warnings = (*compiled.warnings, *baseline_warnings, *treated_warnings, *control_warnings)
     return SimulationResult(
         graph_id=compiled.graph_id,

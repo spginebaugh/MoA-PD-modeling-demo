@@ -199,7 +199,9 @@ class CompiledModel(BaseModel):
             graph_edge_ids=frozenset(graph_edge_by_id),
             known_parameters=self.parameter_catalog.known_parameter_ids(),
             known_term_ids=frozenset(term.term_id for term in self.terms),
-            known_modifier_edge_ids=frozenset(EdgeId(str(modifier.modifier_id)) for modifier in self.modifiers),
+            known_modifier_edge_ids=frozenset(
+                EdgeId(str(modifier.modifier_id)) for modifier in self.modifiers
+            ),
         )
 
     def _validate_term_references(self, term: EquationTerm, index: _CompiledReferenceIndex) -> None:
@@ -232,7 +234,9 @@ class CompiledModel(BaseModel):
         if modifier_edge is None or modifier_edge.relation not in EDGE_TARGET_RELATIONS:
             raise ValueError(f"Term {term.term_id} modifier {modifier_id} is not an edge modifier")
         if modifier_edge.target_edge not in term.source_edges:
-            raise ValueError(f"Term {term.term_id} modifier {modifier_id} does not target one of its source edges")
+            raise ValueError(
+                f"Term {term.term_id} modifier {modifier_id} does not target one of its source edges"
+            )
 
     def _validate_modifier_references(
         self,
@@ -246,16 +250,22 @@ class CompiledModel(BaseModel):
         if modifier_edge.relation not in EDGE_TARGET_RELATIONS:
             raise ValueError(f"Modifier {modifier.modifier_id} is not an edge-modifier relation")
         if modifier_edge.target_edge != modifier.target_edge:
-            raise ValueError(f"Modifier {modifier.modifier_id} target {modifier.target_edge} does not match source graph")
+            raise ValueError(
+                f"Modifier {modifier.modifier_id} target {modifier.target_edge} does not match source graph"
+            )
 
         self._validate_expression_mode("modifier", str(modifier.modifier_id), modifier.expression)
         missing_edges = list(missing_items(modifier.source_edges, index.graph_edge_ids))
         if modifier.target_edge not in index.graph_edge_ids:
             missing_edges.append(modifier.target_edge)
-        self._raise_if_missing(missing_edges, f"Modifier {modifier.modifier_id} references unknown source edges")
+        self._raise_if_missing(
+            missing_edges, f"Modifier {modifier.modifier_id} references unknown source edges"
+        )
 
         if modifier_edge_id not in modifier.source_edges or modifier.target_edge not in modifier.source_edges:
-            raise ValueError(f"Modifier {modifier.modifier_id} source_edges must include modifier and target edge ids")
+            raise ValueError(
+                f"Modifier {modifier.modifier_id} source_edges must include modifier and target edge ids"
+            )
 
         self._validate_declared_parameters(f"Modifier {modifier.modifier_id}", modifier.parameters, index)
         self._validate_expression_references(f"Modifier {modifier.modifier_id}", modifier.expression, index)
@@ -296,7 +306,9 @@ class CompiledModel(BaseModel):
         parameters: tuple[ParameterId, ...],
         index: _CompiledReferenceIndex,
     ) -> None:
-        self._raise_if_missing(missing_items(parameters, index.known_parameters), f"{owner} references unknown parameters")
+        self._raise_if_missing(
+            missing_items(parameters, index.known_parameters), f"{owner} references unknown parameters"
+        )
 
     def _validate_expression_references(
         self,
@@ -311,7 +323,9 @@ class CompiledModel(BaseModel):
             missing_items(expression_parameters(expression), index.known_parameters),
             f"{owner} expression references unknown parameters",
         )
-        missing_states = tuple(str(state) for state in expression_states(expression) if state not in index.states)
+        missing_states = tuple(
+            str(state) for state in expression_states(expression) if state not in index.states
+        )
         self._raise_if_missing(missing_states, f"{owner} expression references states outside model")
 
     @staticmethod

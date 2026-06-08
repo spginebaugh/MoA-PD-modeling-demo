@@ -1,0 +1,4013 @@
+{
+  "graph_id": "curated:PMC5131886:sunitinib_vegfr2_hcc_moa",
+  "paper_id": "PMC5131886",
+  "title": "Curated sunitinib VEGFR2 HCC PK/PD/MOA review graph",
+  "graph_kind": "curated_moa",
+  "nodes": [
+    {
+      "node_id": "sunitinib_dose",
+      "label": "Sunitinib dose/regimen",
+      "node_type": "dose_input",
+      "source_record_ids": [
+        "obs:PMC5131886:43214157cd0a65ff"
+      ],
+      "review_status": "review_only",
+      "reason": "Dose/regimen evidence is present but the extracted observation has unsafe unit/context parsing.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:chunk_002:s15m1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": "advanced HCC",
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": "kidney, tumor",
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib",
+        "source_section": "Body",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:chunk_002:s15m1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC5131886:43214157cd0a65ff",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_002:s15m1"
+          ],
+          "source_section": "Body",
+          "source_chunk_id": "chunk_002",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "50",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": "paper_trusted",
+          "warnings": [
+            "no_primary_or_supporting_paper_map_context",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [
+        "dose_regimen_not_model_safe"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "sunitinib_plasma",
+      "label": "Sunitinib plasma concentration",
+      "node_type": "pk_exposure",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+        "simulation_parameter:PMC5131886:218f596ba4c9f3f5",
+        "simulation_parameter:PMC5131886:4fc85b696909940f"
+      ],
+      "review_status": "review_only",
+      "reason": "Figure-derived concentration records support the exposure node but are calibration endpoints, not model-safe PK parameters.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot, xenograft",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib",
+        "source_section": "Figure 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "15 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:218f596ba4c9f3f5",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "50 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:218f596ba4c9f3f5",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:4fc85b696909940f",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "180 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:4fc85b696909940f",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "su12662_plasma",
+      "label": "SU12662 plasma concentration",
+      "node_type": "pk_exposure",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:6a7c069fe07e8a63",
+        "simulation_parameter:PMC5131886:d1f39ba1783bb406",
+        "simulation_parameter:PMC5131886:7e49718692ac32c2"
+      ],
+      "review_status": "review_only",
+      "reason": "Active metabolite concentration records support the exposure node but are figure-derived endpoints.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot, xenograft",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "SU12662",
+        "source_section": "Figure 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:6a7c069fe07e8a63",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "2 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:6a7c069fe07e8a63",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:d1f39ba1783bb406",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "53 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:d1f39ba1783bb406",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:7e49718692ac32c2",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "13 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:7e49718692ac32c2",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "active_unbound_concentration",
+      "label": "Active unbound concentration",
+      "node_type": "pk_model_quantity",
+      "source_record_ids": [
+        "step:PMC5131886:27fa15d47ecb84da"
+      ],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Figure 1 model text defines active unbound concentration from parent and metabolite free fractions and concentrations.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib, SU12662",
+        "source_section": "Figure 1",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa5"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:27fa15d47ecb84da",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa5"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The active unbound concentration, ACub=fub,D.CD+fub,M.CM, with fub,D and fub,M as the free fractions of drug and metabolite, inhibits sVEGFR2 production, which was captured with an indirect response model with a zero‐order production rate constant (kin) and a first‐order removal rate constant (kout).",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "node_id": "svegfr2_production",
+      "label": "sVEGFR2 production/release",
+      "node_type": "biomarker_process",
+      "source_record_ids": [
+        "step:PMC5131886:05f1ecda4b6b0995",
+        "step:PMC5131886:27fa15d47ecb84da"
+      ],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Top-level mechanism evidence and model text connect active drug concentration to inhibited sVEGFR2 release/production.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:chunk_001:moa5",
+        "anchor:PMC5131886:figure_001:moa5"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Abstract",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:chunk_001:moa5",
+          "anchor:PMC5131886:figure_001:moa5"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:05f1ecda4b6b0995",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_001:moa5"
+          ],
+          "source_section": "Abstract",
+          "source_chunk_id": "chunk_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The results suggest that 1) active drug concentration (i.e., sunitinib and its metabolite) inhibits the release of sVEGFR2 and that such inhibition is associated with TGI, and 2) daily sVEGFR2 exposure is likely a reliable predictor for the TTP in HCC patients.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": []
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:27fa15d47ecb84da",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa5"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The active unbound concentration, ACub=fub,D.CD+fub,M.CM, with fub,D and fub,M as the free fractions of drug and metabolite, inhibits sVEGFR2 production, which was captured with an indirect response model with a zero‐order production rate constant (kin) and a first‐order removal rate constant (kout).",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "node_id": "svegfr2_biomarker",
+      "label": "sVEGFR2 plasma biomarker",
+      "node_type": "pd_biomarker",
+      "source_record_ids": [
+        "step:PMC5131886:05f1ecda4b6b0995",
+        "simulation_parameter:PMC5131886:76cce742eb8dbe47",
+        "simulation_parameter:PMC5131886:ba06755d727bb0dd"
+      ],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The paper uses soluble VEGFR2 as the angiogenic biomarker linking exposure to tumor progression.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:chunk_001:moa5",
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sVEGFR2",
+        "source_section": "Abstract",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:chunk_001:moa5",
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:05f1ecda4b6b0995",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_001:moa5"
+          ],
+          "source_section": "Abstract",
+          "source_chunk_id": "chunk_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The results suggest that 1) active drug concentration (i.e., sunitinib and its metabolite) inhibits the release of sVEGFR2 and that such inhibition is associated with TGI, and 2) daily sVEGFR2 exposure is likely a reliable predictor for the TTP in HCC patients.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": []
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:76cce742eb8dbe47",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "11 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:76cce742eb8dbe47",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:ba06755d727bb0dd",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "36 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:ba06755d727bb0dd",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "node_id": "delta_svegfr2",
+      "label": "Delta sVEGFR2 from baseline",
+      "node_type": "pd_model_quantity",
+      "source_record_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325",
+        "simulation_parameter:PMC5131886:556c9768d5621cc3",
+        "simulation_parameter:PMC5131886:63ea798bd0197392"
+      ],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Figure 1 states that the difference from baseline sVEGFR2 drives the tumor growth-rate effect.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6",
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "baseline, treated",
+        "assay": null,
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sVEGFR2",
+        "source_section": "Figure 1",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa6",
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:d0ac7603ff3f2325",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa6"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The difference of sVEGFR2 from its baseline concentration (ΔsVEGFR2) inhibits the growth rate constant (kg) controlling HCC tumor progression.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:556c9768d5621cc3",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "15.7",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:556c9768d5621cc3",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "18.3",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "node_id": "tumor_growth_rate",
+      "label": "HCC tumor growth-rate constant",
+      "node_type": "pd_model_quantity",
+      "source_record_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325"
+      ],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The curated graph keeps kg as a model quantity rather than normalizing it to a biological protein target.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "baseline, treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Figure 1",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa6"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:d0ac7603ff3f2325",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa6"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The difference of sVEGFR2 from its baseline concentration (ΔsVEGFR2) inhibits the growth rate constant (kg) controlling HCC tumor progression.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "node_id": "tumor_volume",
+      "label": "Tumor volume",
+      "node_type": "pd_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:34731f9af2b0b435",
+        "simulation_parameter:PMC5131886:5870934d4a4a9ec7",
+        "simulation_parameter:PMC5131886:de5919a059d778eb"
+      ],
+      "review_status": "review_only",
+      "reason": "Tumor volume records are digitized calibration/validation endpoints.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot, xenograft",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib",
+        "source_section": "Figure 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:34731f9af2b0b435",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "90 mm³",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:34731f9af2b0b435",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:5870934d4a4a9ec7",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "960 mm³",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:5870934d4a4a9ec7",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:de5919a059d778eb",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "370 mm³",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:de5919a059d778eb",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "ttp_hazard",
+      "label": "Time-to-tumor-progression hazard",
+      "node_type": "time_to_event_model_quantity",
+      "source_record_ids": [
+        "eq:PMC5131886:ece40d8b730a6d9b",
+        "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+        "simulation_parameter:PMC5131886:e17d8934bdafa104"
+      ],
+      "review_status": "review_only",
+      "reason": "The TTP hazard model form is extracted, but parameter bindings and units require review.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq12_1",
+        "anchor:PMC5131886:table_002:r10c1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": "tumor",
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Table 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:supplementary_061:eq12_1",
+          "anchor:PMC5131886:table_002:r10c1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "equation",
+          "source_record_id": "eq:PMC5131886:ece40d8b730a6d9b",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq12_1"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": []
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:table_002:r10c1"
+          ],
+          "source_section": "Table 2",
+          "source_chunk_id": "table_002",
+          "source_table_or_figure": "psp412084-tbl-0002",
+          "quote_or_sentence": "0.03 (33)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": [
+            "missing_unit",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:e17d8934bdafa104",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq12_1"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:e17d8934bdafa104",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": [
+            "missing_value",
+            "missing_unit",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [
+        "hazard_parameters_need_review"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "ttp_probability",
+      "label": "Time-to-tumor-progression probability",
+      "node_type": "clinical_endpoint",
+      "source_record_ids": [
+        "step:PMC5131886:05f1ecda4b6b0995",
+        "simulation_parameter:PMC5131886:d6ac5922bf5437b1"
+      ],
+      "review_status": "review_only",
+      "reason": "The paper states daily sVEGFR2 exposure predicts TTP, but executable probability mapping is not curated.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:chunk_001:moa5",
+        "anchor:PMC5131886:supplementary_061:eq12_1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Abstract",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:chunk_001:moa5",
+          "anchor:PMC5131886:supplementary_061:eq12_1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:05f1ecda4b6b0995",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_001:moa5"
+          ],
+          "source_section": "Abstract",
+          "source_chunk_id": "chunk_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The results suggest that 1) active drug concentration (i.e., sunitinib and its metabolite) inhibits the release of sVEGFR2 and that such inhibition is associated with TGI, and 2) daily sVEGFR2 exposure is likely a reliable predictor for the TTP in HCC patients.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": []
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:d6ac5922bf5437b1",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq12_1"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:d6ac5922bf5437b1",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": [
+            "missing_value",
+            "missing_unit",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "curated_edge:PMC5131886:dose_to_sunitinib_plasma",
+      "source": "sunitinib_dose",
+      "target": "sunitinib_plasma",
+      "relation": "drives",
+      "causal_role": "dosing_to_parent_exposure",
+      "support_level": "review_only_context",
+      "source_record_ids": [
+        "obs:PMC5131886:43214157cd0a65ff"
+      ],
+      "supporting_mechanism_step_ids": [],
+      "supporting_parameter_ids": [],
+      "supporting_equation_ids": [],
+      "review_status": "review_only",
+      "reason": "Dose/regimen is required for the chain but is not model-safe in the extracted annotations.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:chunk_002:s15m1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": "kidney, tumor",
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Body",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:chunk_002:s15m1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC5131886:43214157cd0a65ff",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_002:s15m1"
+          ],
+          "source_section": "Body",
+          "source_chunk_id": "chunk_002",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "50",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": "paper_trusted",
+          "warnings": [
+            "no_primary_or_supporting_paper_map_context",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [
+        "missing_model_safe_dosing_regimen"
+      ],
+      "metadata": {}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:sunitinib_plasma_to_active_unbound",
+      "source": "sunitinib_plasma",
+      "target": "active_unbound_concentration",
+      "relation": "contributes_to",
+      "causal_role": "parent_concentration_to_active_unbound_exposure",
+      "support_level": "model_form_supported",
+      "source_record_ids": [
+        "step:PMC5131886:27fa15d47ecb84da",
+        "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c"
+      ],
+      "supporting_mechanism_step_ids": [
+        "step:PMC5131886:27fa15d47ecb84da"
+      ],
+      "supporting_parameter_ids": [
+        "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c"
+      ],
+      "supporting_equation_ids": [],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The active unbound concentration model form uses parent sunitinib concentration.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5",
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot, xenograft",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib",
+        "source_section": "Figure 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa5",
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:27fa15d47ecb84da",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa5"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The active unbound concentration, ACub=fub,D.CD+fub,M.CM, with fub,D and fub,M as the free fractions of drug and metabolite, inhibits sVEGFR2 production, which was captured with an indirect response model with a zero‐order production rate constant (kin) and a first‐order removal rate constant (kout).",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "15 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:su12662_plasma_to_active_unbound",
+      "source": "su12662_plasma",
+      "target": "active_unbound_concentration",
+      "relation": "contributes_to",
+      "causal_role": "metabolite_concentration_to_active_unbound_exposure",
+      "support_level": "model_form_supported",
+      "source_record_ids": [
+        "step:PMC5131886:27fa15d47ecb84da",
+        "simulation_parameter:PMC5131886:7e49718692ac32c2"
+      ],
+      "supporting_mechanism_step_ids": [
+        "step:PMC5131886:27fa15d47ecb84da"
+      ],
+      "supporting_parameter_ids": [
+        "simulation_parameter:PMC5131886:7e49718692ac32c2"
+      ],
+      "supporting_equation_ids": [],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The active unbound concentration model form uses active metabolite concentration.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5",
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot, xenograft",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib",
+        "source_section": "Figure 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa5",
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:27fa15d47ecb84da",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa5"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The active unbound concentration, ACub=fub,D.CD+fub,M.CM, with fub,D and fub,M as the free fractions of drug and metabolite, inhibits sVEGFR2 production, which was captured with an indirect response model with a zero‐order production rate constant (kin) and a first‐order removal rate constant (kout).",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:7e49718692ac32c2",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "13 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:7e49718692ac32c2",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:active_unbound_inhibits_svegfr2_production",
+      "source": "active_unbound_concentration",
+      "target": "svegfr2_production",
+      "relation": "inhibits",
+      "causal_role": "exposure_to_biomarker_production",
+      "support_level": "model_derived_pd_relation",
+      "source_record_ids": [
+        "step:PMC5131886:27fa15d47ecb84da",
+        "step:PMC5131886:05f1ecda4b6b0995"
+      ],
+      "supporting_mechanism_step_ids": [
+        "step:PMC5131886:27fa15d47ecb84da",
+        "step:PMC5131886:05f1ecda4b6b0995"
+      ],
+      "supporting_parameter_ids": [],
+      "supporting_equation_ids": [],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Top-level mechanism and Figure 1 model text support active concentration inhibiting sVEGFR2 production/release.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5",
+        "anchor:PMC5131886:chunk_001:moa5"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Abstract",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa5",
+          "anchor:PMC5131886:chunk_001:moa5"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:27fa15d47ecb84da",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa5"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The active unbound concentration, ACub=fub,D.CD+fub,M.CM, with fub,D and fub,M as the free fractions of drug and metabolite, inhibits sVEGFR2 production, which was captured with an indirect response model with a zero‐order production rate constant (kin) and a first‐order removal rate constant (kout).",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:05f1ecda4b6b0995",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_001:moa5"
+          ],
+          "source_section": "Abstract",
+          "source_chunk_id": "chunk_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The results suggest that 1) active drug concentration (i.e., sunitinib and its metabolite) inhibits the release of sVEGFR2 and that such inhibition is associated with TGI, and 2) daily sVEGFR2 exposure is likely a reliable predictor for the TTP in HCC patients.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": []
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:svegfr2_production_drives_biomarker",
+      "source": "svegfr2_production",
+      "target": "svegfr2_biomarker",
+      "relation": "drives",
+      "causal_role": "biomarker_process_to_measured_biomarker",
+      "support_level": "model_form_supported",
+      "source_record_ids": [
+        "step:PMC5131886:27fa15d47ecb84da",
+        "simulation_parameter:PMC5131886:76cce742eb8dbe47"
+      ],
+      "supporting_mechanism_step_ids": [
+        "step:PMC5131886:27fa15d47ecb84da"
+      ],
+      "supporting_parameter_ids": [
+        "simulation_parameter:PMC5131886:76cce742eb8dbe47"
+      ],
+      "supporting_equation_ids": [],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The indirect response model links production/removal to observed plasma sVEGFR2.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5",
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot, xenograft",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib",
+        "source_section": "Figure 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa5",
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:27fa15d47ecb84da",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa5"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The active unbound concentration, ACub=fub,D.CD+fub,M.CM, with fub,D and fub,M as the free fractions of drug and metabolite, inhibits sVEGFR2 production, which was captured with an indirect response model with a zero‐order production rate constant (kin) and a first‐order removal rate constant (kout).",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:76cce742eb8dbe47",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "11 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:76cce742eb8dbe47",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:svegfr2_to_delta_svegfr2",
+      "source": "svegfr2_biomarker",
+      "target": "delta_svegfr2",
+      "relation": "defines_change_from_baseline",
+      "causal_role": "biomarker_to_baseline_delta",
+      "support_level": "model_form_supported",
+      "source_record_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325",
+        "simulation_parameter:PMC5131886:556c9768d5621cc3",
+        "simulation_parameter:PMC5131886:63ea798bd0197392"
+      ],
+      "supporting_mechanism_step_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325"
+      ],
+      "supporting_parameter_ids": [
+        "simulation_parameter:PMC5131886:556c9768d5621cc3",
+        "simulation_parameter:PMC5131886:63ea798bd0197392"
+      ],
+      "supporting_equation_ids": [],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Figure 1 defines delta sVEGFR2 as the difference from baseline concentration.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6",
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "baseline, treated",
+        "assay": null,
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Figure 1",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa6",
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:d0ac7603ff3f2325",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa6"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The difference of sVEGFR2 from its baseline concentration (ΔsVEGFR2) inhibits the growth rate constant (kg) controlling HCC tumor progression.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:556c9768d5621cc3",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "15.7",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:556c9768d5621cc3",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "18.3",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:delta_svegfr2_inhibits_tumor_growth_rate",
+      "source": "delta_svegfr2",
+      "target": "tumor_growth_rate",
+      "relation": "inhibits",
+      "causal_role": "biomarker_delta_to_tumor_growth_rate",
+      "support_level": "model_derived_pd_relation",
+      "source_record_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325",
+        "simulation_parameter:PMC5131886:b9e399006482a232",
+        "simulation_parameter:PMC5131886:d9a2875ae08b8179"
+      ],
+      "supporting_mechanism_step_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325"
+      ],
+      "supporting_parameter_ids": [
+        "simulation_parameter:PMC5131886:b9e399006482a232",
+        "simulation_parameter:PMC5131886:d9a2875ae08b8179"
+      ],
+      "supporting_equation_ids": [],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Top-level mechanism verification marks delta sVEGFR2 inhibiting kg as a model-derived PD relation.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6",
+        "anchor:PMC5131886:table_002:r5c1",
+        "anchor:PMC5131886:chunk_019:s7m1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "baseline, treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Figure 1",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa6",
+          "anchor:PMC5131886:table_002:r5c1",
+          "anchor:PMC5131886:chunk_019:s7m1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:d0ac7603ff3f2325",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa6"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The difference of sVEGFR2 from its baseline concentration (ΔsVEGFR2) inhibits the growth rate constant (kg) controlling HCC tumor progression.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:b9e399006482a232",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:table_002:r5c1"
+          ],
+          "source_section": "Table 2",
+          "source_chunk_id": "table_002",
+          "source_table_or_figure": "psp412084-tbl-0002",
+          "quote_or_sentence": "ΔsVEGFR2 concentration for 50% of Imax",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:b9e399006482a232",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:d9a2875ae08b8179",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_019:s7m1"
+          ],
+          "source_section": "Tumor growth inhibition model",
+          "source_chunk_id": "chunk_019",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "1.83",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:d9a2875ae08b8179",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:tumor_growth_rate_drives_tumor_volume",
+      "source": "tumor_growth_rate",
+      "target": "tumor_volume",
+      "relation": "drives",
+      "causal_role": "growth_rate_to_tumor_volume_endpoint",
+      "support_level": "model_endpoint_supported",
+      "source_record_ids": [
+        "simulation:PMC5131886:05ab0b1801332e16",
+        "simulation_parameter:PMC5131886:34731f9af2b0b435",
+        "simulation_parameter:PMC5131886:5870934d4a4a9ec7"
+      ],
+      "supporting_mechanism_step_ids": [],
+      "supporting_parameter_ids": [
+        "simulation_parameter:PMC5131886:34731f9af2b0b435",
+        "simulation_parameter:PMC5131886:5870934d4a4a9ec7"
+      ],
+      "supporting_equation_ids": [],
+      "review_status": "review_only",
+      "reason": "Tumor volume is represented as a calibration/validation endpoint until tumor growth equation bindings are curated.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:chunk_019:sim9",
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Tumor growth inhibition model",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:chunk_019:sim9",
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_model",
+          "source_record_id": "simulation:PMC5131886:05ab0b1801332e16",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_019:sim9"
+          ],
+          "source_section": "Tumor growth inhibition model",
+          "source_chunk_id": "chunk_019",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "Model simulation of the unperturbed HCC tumor growth from Ref.",
+          "simulation_model_id": "simulation:PMC5131886:05ab0b1801332e16",
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": []
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:34731f9af2b0b435",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "90 mm³",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:34731f9af2b0b435",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:5870934d4a4a9ec7",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "960 mm³",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:5870934d4a4a9ec7",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [
+        "tumor_growth_equation_binding_missing"
+      ],
+      "metadata": {}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:delta_svegfr2_predicts_ttp_hazard",
+      "source": "delta_svegfr2",
+      "target": "ttp_hazard",
+      "relation": "predicts",
+      "causal_role": "biomarker_exposure_to_ttp_hazard",
+      "support_level": "model_form_supported",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+        "eq:PMC5131886:ece40d8b730a6d9b"
+      ],
+      "supporting_mechanism_step_ids": [],
+      "supporting_parameter_ids": [
+        "simulation_parameter:PMC5131886:05e6b2f90cab61c4"
+      ],
+      "supporting_equation_ids": [
+        "eq:PMC5131886:ece40d8b730a6d9b"
+      ],
+      "review_status": "review_only",
+      "reason": "The hazard model includes sVEGFR2 AUC, but parameter units and binding direction require review.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:table_002:r10c1",
+        "anchor:PMC5131886:supplementary_061:eq12_1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": "tumor",
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "Table 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:table_002:r10c1",
+          "anchor:PMC5131886:supplementary_061:eq12_1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:table_002:r10c1"
+          ],
+          "source_section": "Table 2",
+          "source_chunk_id": "table_002",
+          "source_table_or_figure": "psp412084-tbl-0002",
+          "quote_or_sentence": "0.03 (33)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": [
+            "missing_unit",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "equation",
+          "source_record_id": "eq:PMC5131886:ece40d8b730a6d9b",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq12_1"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": []
+        }
+      ],
+      "warnings": [
+        "hazard_parameter_units_missing"
+      ],
+      "metadata": {}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:ttp_hazard_drives_ttp_probability",
+      "source": "ttp_hazard",
+      "target": "ttp_probability",
+      "relation": "drives",
+      "causal_role": "hazard_to_time_to_event_endpoint",
+      "support_level": "model_form_supported",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:d6ac5922bf5437b1",
+        "simulation_parameter:PMC5131886:e17d8934bdafa104",
+        "eq:PMC5131886:ece40d8b730a6d9b"
+      ],
+      "supporting_mechanism_step_ids": [],
+      "supporting_parameter_ids": [
+        "simulation_parameter:PMC5131886:d6ac5922bf5437b1",
+        "simulation_parameter:PMC5131886:e17d8934bdafa104"
+      ],
+      "supporting_equation_ids": [
+        "eq:PMC5131886:ece40d8b730a6d9b"
+      ],
+      "review_status": "review_only",
+      "reason": "The extracted hazard equation supports a TTP endpoint link, but probability mapping is not executable.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq12_1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": null,
+        "source_section": "supp_2077",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:supplementary_061:eq12_1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:d6ac5922bf5437b1",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq12_1"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:d6ac5922bf5437b1",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": [
+            "missing_value",
+            "missing_unit",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:e17d8934bdafa104",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq12_1"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:e17d8934bdafa104",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": [
+            "missing_value",
+            "missing_unit",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "equation",
+          "source_record_id": "eq:PMC5131886:ece40d8b730a6d9b",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq12_1"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": []
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    }
+  ],
+  "parameters": [
+    {
+      "parameter_id": "curated_parameter:PMC5131886:dose_50_mg_daily",
+      "name": "Sunitinib dose regimen",
+      "role": "model_input",
+      "source_record_ids": [
+        "obs:PMC5131886:43214157cd0a65ff"
+      ],
+      "symbol": "Dose",
+      "value": 50.0,
+      "unit": "mg/day",
+      "target_node_id": "sunitinib_dose",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Included as a required dosing input, but extracted source scope is unsafe.",
+      "promotion_blockers": [
+        "route_schedule_context_requires_manual_review"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:chunk_002:s15m1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": "kidney, tumor",
+        "cell_line": null,
+        "model_system": null,
+        "drug_or_analyte": "sunitinib",
+        "source_section": "Body",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:chunk_002:s15m1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC5131886:43214157cd0a65ff",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_002:s15m1"
+          ],
+          "source_section": "Body",
+          "source_chunk_id": "chunk_002",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "50",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": "paper_trusted",
+          "warnings": [
+            "no_primary_or_supporting_paper_map_context",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:sunitinib_plasma_endpoint",
+      "name": "Sunitinib plasma concentration endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c"
+      ],
+      "symbol": null,
+      "value": 15.0,
+      "unit": "ug/L",
+      "target_node_id": "sunitinib_plasma",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Figure-derived concentration endpoint; not a direct PK parameter prior.",
+      "promotion_blockers": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot, xenograft",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib",
+        "source_section": "Figure 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "15 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:su12662_plasma_endpoint",
+      "name": "SU12662 plasma concentration endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:7e49718692ac32c2"
+      ],
+      "symbol": null,
+      "value": 13.0,
+      "unit": "ug/L",
+      "target_node_id": "su12662_plasma",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Figure-derived metabolite concentration endpoint; not a direct PK parameter prior.",
+      "promotion_blockers": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot, xenograft",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "SU12662",
+        "source_section": "Figure 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:7e49718692ac32c2",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "13 µg/L",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:7e49718692ac32c2",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:svegfr2_baseline_r0",
+      "name": "sVEGFR2 baseline level",
+      "role": "candidate_model_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:63ea798bd0197392"
+      ],
+      "symbol": "R0",
+      "value": 18.3,
+      "unit": "ug/L",
+      "target_node_id": "delta_svegfr2",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Candidate baseline biomarker input from figure-derived evidence; table/figure reconciliation required.",
+      "promotion_blockers": [
+        "needs_table_figure_reconciliation",
+        "validation_status_needs_review"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "baseline",
+        "assay": "western_blot, xenograft",
+        "matrix": "plasma",
+        "tissue_or_organ": "plasma, tumor",
+        "cell_line": null,
+        "model_system": "clinical",
+        "drug_or_analyte": "sVEGFR2",
+        "source_section": "Figure 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "18.3",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:tgi_ic50",
+      "name": "Delta sVEGFR2 effect IC50",
+      "role": "review_only_candidate_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:d9a2875ae08b8179",
+        "obs:PMC5131886:c52fafe15e0c7632"
+      ],
+      "symbol": "IC50",
+      "value": 1.83,
+      "unit": "L",
+      "target_node_id": null,
+      "target_edge_id": "curated_edge:PMC5131886:delta_svegfr2_inhibits_tumor_growth_rate",
+      "review_status": "review_only",
+      "reason": "The extracted value/unit are preserved but require manual review before model use.",
+      "promotion_blockers": [
+        "unit_or_table_row_semantics_uncertain"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:chunk_019:s7m1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "cmc_formulation",
+        "drug_or_analyte": null,
+        "source_section": "Tumor growth inhibition model",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:chunk_019:s7m1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:d9a2875ae08b8179",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_019:s7m1"
+          ],
+          "source_section": "Tumor growth inhibition model",
+          "source_chunk_id": "chunk_019",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "1.83",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:d9a2875ae08b8179",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC5131886:c52fafe15e0c7632",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:chunk_019:s7m1"
+          ],
+          "source_section": "Tumor growth inhibition model",
+          "source_chunk_id": "chunk_019",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "1.83",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": "paper_trusted",
+          "warnings": []
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:slope_hazard_delta_auc_svegfr2",
+      "name": "Slope hazard Delta AUC0-24h sVEGFR2",
+      "role": "model_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+        "obs:PMC5131886:4676d2dab946af5a"
+      ],
+      "symbol": null,
+      "value": 0.03,
+      "unit": null,
+      "target_node_id": null,
+      "target_edge_id": "curated_edge:PMC5131886:delta_svegfr2_predicts_ttp_hazard",
+      "review_status": "review_only",
+      "reason": "Directly supported hazard parameter, but missing unit blocks promotion.",
+      "promotion_blockers": [
+        "missing_unit"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:table_002:r10c1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": "tumor",
+        "cell_line": null,
+        "model_system": null,
+        "drug_or_analyte": null,
+        "source_section": "Table 2",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:table_002:r10c1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:table_002:r10c1"
+          ],
+          "source_section": "Table 2",
+          "source_chunk_id": "table_002",
+          "source_table_or_figure": "psp412084-tbl-0002",
+          "quote_or_sentence": "0.03 (33)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": [
+            "missing_unit",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC5131886:4676d2dab946af5a",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:table_002:r10c1"
+          ],
+          "source_section": "Table 2",
+          "source_chunk_id": "table_002",
+          "source_table_or_figure": "psp412084-tbl-0002",
+          "quote_or_sentence": "0.03 (33)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": "paper_trusted",
+          "warnings": [
+            "missing_unit",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    }
+  ],
+  "equations": [
+    {
+      "equation_id": "curated_equation:PMC5131886:active_unbound_concentration",
+      "expression_text": "ACub = fub_D * C_D + fub_M * C_M",
+      "binding_type": "equation_defines_node",
+      "source_record_ids": [
+        "step:PMC5131886:27fa15d47ecb84da"
+      ],
+      "target_node_id": "active_unbound_concentration",
+      "target_edge_id": null,
+      "model_form": "active unbound parent plus metabolite exposure calculation",
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Model form appears in Figure 1 text and defines the active exposure node.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": null,
+        "drug_or_analyte": null,
+        "source_section": "Figure 1",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa5"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:27fa15d47ecb84da",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa5"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The active unbound concentration, ACub=fub,D.CD+fub,M.CM, with fub,D and fub,M as the free fractions of drug and metabolite, inhibits sVEGFR2 production, which was captured with an indirect response model with a zero‐order production rate constant (kin) and a first‐order removal rate constant (kout).",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "equation_id": "curated_equation:PMC5131886:svegfr2_indirect_response",
+      "expression_text": "dR/dt = kin * (1 - E_ACub) - kout * R",
+      "binding_type": "equation_parameterizes_edge",
+      "source_record_ids": [
+        "step:PMC5131886:27fa15d47ecb84da"
+      ],
+      "target_node_id": null,
+      "target_edge_id": "curated_edge:PMC5131886:active_unbound_inhibits_svegfr2_production",
+      "model_form": "indirect response model with zero-order production and first-order removal",
+      "review_status": "review_only",
+      "reason": "Model form is supported, but exact parameter bindings are not curated.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": null,
+        "drug_or_analyte": null,
+        "source_section": "Figure 1",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa5"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:27fa15d47ecb84da",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa5"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The active unbound concentration, ACub=fub,D.CD+fub,M.CM, with fub,D and fub,M as the free fractions of drug and metabolite, inhibits sVEGFR2 production, which was captured with an indirect response model with a zero‐order production rate constant (kin) and a first‐order removal rate constant (kout).",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "equation_id": "curated_equation:PMC5131886:delta_svegfr2",
+      "expression_text": "Delta_sVEGFR2 = sVEGFR2 - R0",
+      "binding_type": "equation_defines_node",
+      "source_record_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325",
+        "simulation_parameter:PMC5131886:63ea798bd0197392"
+      ],
+      "target_node_id": "delta_svegfr2",
+      "target_edge_id": null,
+      "model_form": "difference from baseline biomarker concentration",
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Figure 1 defines the model quantity as the difference from baseline concentration.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6",
+        "anchor:PMC5131886:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "baseline, treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": null,
+        "drug_or_analyte": null,
+        "source_section": "Figure 1",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa6",
+          "anchor:PMC5131886:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:d0ac7603ff3f2325",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa6"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The difference of sVEGFR2 from its baseline concentration (ΔsVEGFR2) inhibits the growth rate constant (kg) controlling HCC tumor progression.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        },
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_002:figure"
+          ],
+          "source_section": "Figure 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "psp412084-fig-0002",
+          "quote_or_sentence": "18.3",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC5131886:63ea798bd0197392",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "equation_id": "curated_equation:PMC5131886:tgi_growth_rate_effect",
+      "expression_text": "kg_effect = kg * inhibition(Delta_sVEGFR2)",
+      "binding_type": "equation_parameterizes_edge",
+      "source_record_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325"
+      ],
+      "target_node_id": null,
+      "target_edge_id": "curated_edge:PMC5131886:delta_svegfr2_inhibits_tumor_growth_rate",
+      "model_form": "tumor growth inhibition model driven by delta sVEGFR2",
+      "review_status": "review_only",
+      "reason": "Causal model form is supported; exact executable expression and parameter values need review.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": null,
+        "drug_or_analyte": null,
+        "source_section": "Figure 1",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:figure_001:moa6"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "mechanism_step",
+          "source_record_id": "step:PMC5131886:d0ac7603ff3f2325",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:figure_001:moa6"
+          ],
+          "source_section": "Figure 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "The difference of sVEGFR2 from its baseline concentration (ΔsVEGFR2) inhibits the growth rate constant (kg) controlling HCC tumor progression.",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": null,
+          "trust_level": null,
+          "warnings": [
+            "missing_or_low_confidence_normalization"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "equation_id": "eq:PMC5131886:ece40d8b730a6d9b",
+      "expression_text": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+      "binding_type": "equation_defines_hazard",
+      "source_record_ids": [
+        "eq:PMC5131886:ece40d8b730a6d9b"
+      ],
+      "target_node_id": "ttp_hazard",
+      "target_edge_id": null,
+      "model_form": "TTP hazard model using TTP and AUC terms",
+      "review_status": "review_only",
+      "reason": "The hazard equation is extracted but state and parameter bindings are not executable.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq12_1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": null,
+        "drug_or_analyte": null,
+        "source_section": "supp_2077",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:supplementary_061:eq12_1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "equation",
+          "source_record_id": "eq:PMC5131886:ece40d8b730a6d9b",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq12_1"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": []
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "equation_id": "eq:PMC5131886:f40c3d716a3c69c2",
+      "expression_text": "k10 = CL/V1 k12",
+      "binding_type": "model_form_for_node",
+      "source_record_ids": [
+        "eq:PMC5131886:f40c3d716a3c69c2"
+      ],
+      "target_node_id": "sunitinib_plasma",
+      "target_edge_id": null,
+      "model_form": "PK compartment rate relation",
+      "review_status": "review_only",
+      "reason": "PK equation is preserved as a model form but not executable.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq3_1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": null,
+        "drug_or_analyte": null,
+        "source_section": "supp_2077",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:supplementary_061:eq3_1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "equation",
+          "source_record_id": "eq:PMC5131886:f40c3d716a3c69c2",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq3_1"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "k10 = CL/V1 k12",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": []
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    },
+    {
+      "equation_id": "eq:PMC5131886:4d9cbb929eb262d6",
+      "expression_text": "k21 = Q/V2",
+      "binding_type": "model_form_for_node",
+      "source_record_ids": [
+        "eq:PMC5131886:4d9cbb929eb262d6"
+      ],
+      "target_node_id": "sunitinib_plasma",
+      "target_edge_id": null,
+      "model_form": "PK compartment rate relation",
+      "review_status": "review_only",
+      "reason": "PK equation is preserved as a model form but not executable.",
+      "evidence_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq3_2"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": null,
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": null,
+        "drug_or_analyte": null,
+        "source_section": "supp_2077",
+        "source_anchor_ids": [
+          "anchor:PMC5131886:supplementary_061:eq3_2"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC5131886",
+          "paper_title": "Bridging Sunitinib Exposure to Time‐to‐Tumor Progression in Hepatocellular Carcinoma Patients With Mathematical Modeling of an Angiogenic Biomarker",
+          "source_record_type": "equation",
+          "source_record_id": "eq:PMC5131886:4d9cbb929eb262d6",
+          "evidence_anchor_ids": [
+            "anchor:PMC5131886:supplementary_061:eq3_2"
+          ],
+          "source_section": "supp_2077",
+          "source_chunk_id": "supplementary_061",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "k21 = Q/V2",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": null,
+          "warnings": []
+        }
+      ],
+      "warnings": [],
+      "metadata": {}
+    }
+  ],
+  "contexts": [
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": "advanced HCC",
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": "kidney, tumor",
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": "sunitinib",
+      "source_section": "Body",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:chunk_002:s15m1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot, xenograft",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": "sunitinib",
+      "source_section": "Figure 2",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot, xenograft",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": "SU12662",
+      "source_section": "Figure 2",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": "sunitinib, SU12662",
+      "source_section": "Figure 1",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Abstract",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:chunk_001:moa5",
+        "anchor:PMC5131886:figure_001:moa5"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": "sVEGFR2",
+      "source_section": "Abstract",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:chunk_001:moa5",
+        "anchor:PMC5131886:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "baseline, treated",
+      "assay": null,
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": "sVEGFR2",
+      "source_section": "Figure 1",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6",
+        "anchor:PMC5131886:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "baseline, treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Figure 1",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": "tumor",
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Table 2",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq12_1",
+        "anchor:PMC5131886:table_002:r10c1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Abstract",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:chunk_001:moa5",
+        "anchor:PMC5131886:supplementary_061:eq12_1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": "kidney, tumor",
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Body",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:chunk_002:s15m1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot, xenograft",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": "sunitinib",
+      "source_section": "Figure 2",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5",
+        "anchor:PMC5131886:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Abstract",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5",
+        "anchor:PMC5131886:chunk_001:moa5"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "baseline, treated",
+      "assay": null,
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Figure 1",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6",
+        "anchor:PMC5131886:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "baseline, treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Figure 1",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6",
+        "anchor:PMC5131886:table_002:r5c1",
+        "anchor:PMC5131886:chunk_019:s7m1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Tumor growth inhibition model",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:chunk_019:sim9",
+        "anchor:PMC5131886:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": "tumor",
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "Table 2",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:table_002:r10c1",
+        "anchor:PMC5131886:supplementary_061:eq12_1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": null,
+      "source_section": "supp_2077",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq12_1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": "kidney, tumor",
+      "cell_line": null,
+      "model_system": null,
+      "drug_or_analyte": "sunitinib",
+      "source_section": "Body",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:chunk_002:s15m1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "baseline",
+      "assay": "western_blot, xenograft",
+      "matrix": "plasma",
+      "tissue_or_organ": "plasma, tumor",
+      "cell_line": null,
+      "model_system": "clinical",
+      "drug_or_analyte": "sVEGFR2",
+      "source_section": "Figure 2",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "cmc_formulation",
+      "drug_or_analyte": null,
+      "source_section": "Tumor growth inhibition model",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:chunk_019:s7m1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": "tumor",
+      "cell_line": null,
+      "model_system": null,
+      "drug_or_analyte": null,
+      "source_section": "Table 2",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:table_002:r10c1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": null,
+      "drug_or_analyte": null,
+      "source_section": "Figure 1",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa5"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "baseline, treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": null,
+      "drug_or_analyte": null,
+      "source_section": "Figure 1",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6",
+        "anchor:PMC5131886:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": null,
+      "drug_or_analyte": null,
+      "source_section": "Figure 1",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:figure_001:moa6"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": null,
+      "drug_or_analyte": null,
+      "source_section": "supp_2077",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq12_1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": null,
+      "drug_or_analyte": null,
+      "source_section": "supp_2077",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq3_1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "HCC",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": null,
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": null,
+      "drug_or_analyte": null,
+      "source_section": "supp_2077",
+      "source_anchor_ids": [
+        "anchor:PMC5131886:supplementary_061:eq3_2"
+      ]
+    }
+  ],
+  "evidence_anchors": [
+    {
+      "anchor_id": "anchor:PMC5131886:chunk_001:moa5",
+      "paper_id": "PMC5131886",
+      "source_type": "text",
+      "chunk_id": "chunk_001",
+      "section": "Abstract",
+      "quote": "The results suggest that 1) active drug concentration (i.e., sunitinib and its metabolite) inhibits the release of sVEGFR2 and that such inhibition is associated with TGI, and 2) daily sVEGFR2 exposure is likely a reliable predictor for the TTP in HCC patients.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 602,
+      "end": 863
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:chunk_002:s15m1",
+      "paper_id": "PMC5131886",
+      "source_type": "text",
+      "chunk_id": "chunk_002",
+      "section": "Body",
+      "quote": "It is presently approved for the treatment of renal cell carcinoma (RCC) and imatinib‐resistant gastrointestinal stromal tumor (GIST) at a dose of 50 mg daily over 4 weeks, followed by a 2‐week rest period, in repeated 6‐week treatment cycles.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 3493,
+      "end": 3736
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:chunk_019:s7m1",
+      "paper_id": "PMC5131886",
+      "source_type": "text",
+      "chunk_id": "chunk_019",
+      "section": "Tumor growth inhibition model",
+      "quote": "The potency of ΔsVEGFR2 to inhibit HCC growth was ΔIC50 = 1.83 µg/L.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 681,
+      "end": 749
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:chunk_019:sim9",
+      "paper_id": "PMC5131886",
+      "source_type": "text",
+      "chunk_id": "chunk_019",
+      "section": "Tumor growth inhibition model",
+      "quote": "Model simulation of the unperturbed HCC tumor growth from Ref.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 838,
+      "end": 900
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:figure_001:moa5",
+      "paper_id": "PMC5131886",
+      "source_type": "figure",
+      "chunk_id": "figure_001",
+      "section": "Figure 1",
+      "quote": "The active unbound concentration, ACub=fub,D.CD+fub,M.CM, with fub,D and fub,M as the free fractions of drug and metabolite, inhibits sVEGFR2 production, which was captured with an indirect response model with a zero‐order production rate constant (kin) and a first‐order removal rate constant (kout).",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 326,
+      "end": 627
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:figure_001:moa6",
+      "paper_id": "PMC5131886",
+      "source_type": "figure",
+      "chunk_id": "figure_001",
+      "section": "Figure 1",
+      "quote": "The difference of sVEGFR2 from its baseline concentration (ΔsVEGFR2) inhibits the growth rate constant (kg) controlling HCC tumor progression.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 628,
+      "end": 770
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:figure_002:figure",
+      "paper_id": "PMC5131886",
+      "source_type": "figure",
+      "chunk_id": "figure_002",
+      "section": "Figure 2",
+      "quote": "Visual predictive check (VPC) plots vs. time for (a) sunitinib plasma concentrations, (b) SU12662 plasma concentrations, (c) sVEGFR2 plasma concentrations, and (d) tumor volume kinetics. Solid circles represent the observed data. The gray area identifies the 5th and 95th percentiles of the predicted data, and dark solid lines represent the 50th percentile (median) of the predicted data. The gray solid line in (d) represents a model simulation of the trajectory of the tumor growth in placebo‐treated patients. The confidence interval includes the majority of the data and the median is centrally located, although the number of observations outside the predicted 90% confidence interval is slightly above the expected 10%. These VPCs show no specific deviation of predicted vs. observed data, which qualifies the model as being structurally sound and supports the veracity of the estimated parameter values and concentrations.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": "psp412084-fig-0002",
+      "panel_id": null,
+      "metadata": {
+        "figure_label": "Figure 2",
+        "caption": "Visual predictive check (VPC) plots vs. time for (a) sunitinib plasma concentrations, (b) SU12662 plasma concentrations, (c) sVEGFR2 plasma concentrations, and (d) tumor volume kinetics. Solid circles represent the observed data. The gray area identifies the 5th and 95th percentiles of the predicted data, and dark solid lines represent the 50th percentile (median) of the predicted data. The gray solid line in (d) represents a model simulation of the trajectory of the tumor growth in placebo‐treated patients. The confidence interval includes the majority of the data and the median is centrally located, although the number of observations outside the predicted 90% confidence interval is slightly above the expected 10%. These VPCs show no specific deviation of predicted vs. observed data, which qualifies the model as being structurally sound and supports the veracity of the estimated parameter values and concentrations.",
+        "local_image_path": "data\\fetched_papers\\PMC5131886\\assets\\figures\\psp412084-fig-0002.jpg",
+        "source_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/instance/5131886/bin/PSP4-5-297-g002.jpg",
+        "image_asset_status": "fetched"
+      },
+      "start": null,
+      "end": null
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:supplementary_061:eq12_1",
+      "paper_id": "PMC5131886",
+      "source_type": "equation",
+      "chunk_id": "supplementary_061",
+      "section": "supp_2077",
+      "quote": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 1594,
+      "end": 1665
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:supplementary_061:eq3_1",
+      "paper_id": "PMC5131886",
+      "source_type": "equation",
+      "chunk_id": "supplementary_061",
+      "section": "supp_2077",
+      "quote": "k10 = CL/V1 k12",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 469,
+      "end": 530
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:supplementary_061:eq3_2",
+      "paper_id": "PMC5131886",
+      "source_type": "equation",
+      "chunk_id": "supplementary_061",
+      "section": "supp_2077",
+      "quote": "k21 = Q/V2",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 469,
+      "end": 530
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:table_002:r10c1",
+      "paper_id": "PMC5131886",
+      "source_type": "table",
+      "chunk_id": "table_002",
+      "section": "Table 2",
+      "quote": "0.03 (33)",
+      "table_id": "psp412084-tbl-0002",
+      "row_id": "psp412084-tbl-0002.R10",
+      "column_id": "psp412084-tbl-0002.C1",
+      "cell_id": "psp412084-tbl-0002.R10.C1",
+      "row_header": "Slope hazard ΔAUC0‐24h sVEGFR2",
+      "column_header": "Definition",
+      "column_path": [
+        "Definition"
+      ],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {
+        "caption": "Pharmacodynamic parameters for VEGFR2 concentrations, tumor growth kinetics, and time‐to‐tumor progression",
+        "table_context_pack_id": "table_002:table_context_pack_v1",
+        "text_reference_contexts": [
+          {
+            "label": "Table 2",
+            "target_chunk_id": "table_002",
+            "target_table_id": "psp412084-tbl-0002",
+            "source_chunk_id": "chunk_019",
+            "source_section": "Tumor growth inhibition model",
+            "quote": "into the TGI model via the sVEGFR2 dynamics.37 The developed TGI model accurately described the observed tumor volumes under sunitinib exposure as shown by the VPC (Figure 2 d). All parameters were precisely estimated (Table 2). The potency of ΔsVEGFR2 to inhibit HCC growth was ΔIC50 = 1.83 µg/L. The permeability parameter, Ktrans, was identified as a significant covariate on ΔIC50. Model simulation of the unperturbed HCC tumor growth from Re"
+          }
+        ],
+        "related_figure_contexts": [],
+        "same_section_contexts": [
+          {
+            "source_chunk_id": "chunk_019",
+            "source_type": "text",
+            "source_section": "Tumor growth inhibition model",
+            "section_path": [
+              "Body",
+              "RESULTS",
+              "Tumor growth inhibition model"
+            ],
+            "reason": "explicit_table_reference",
+            "quote": "into the TGI model via the sVEGFR2 dynamics.37 The developed TGI model accurately described the observed tumor volumes under sunitinib exposure as shown by the VPC (Figure 2 d). All parameters were precisely estimated (Table 2). The potency of ΔsVEGFR2 to inhibit HCC growth was ΔIC50 = 1.83 µg/L. The permeability parameter, Ktrans, was identified as a significant covariate on ΔIC50. Model simulation of the unperturbed HCC tumor growth from Re"
+          }
+        ],
+        "methods_contexts": [
+          {
+            "source_chunk_id": "chunk_001",
+            "source_type": "text",
+            "source_section": "Abstract",
+            "section_path": [
+              "Abstract"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "Hepatocellular carcinoma (HCC) is third in cancer‐related causes of death worldwide and its treatment is a significant unmet medical need. Sunitinib is a selective tyrosine kinase inhibitor of the angiogenic biomarker: soluble vascular endothelial growth factor receptor‐2 (sVEGFR2). Sunitinib failed its primary overall survival endpoint in patients with advanced HCC in a phase III trial compared to sorafenib. In the present study, pharmacokinetic‐pharmacodynamic modeling was used to link drug‐exposure to tumor‐growth‐inhibition (TGI) and time‐to‐tumor progression (TTP) through sVEGFR2 dynamics. The results suggest that 1) active drug concentration (i.e., sunitinib and its metabolite) inhibits the release of sVEGFR2 and that such inhibition is associated with TGI, and 2) daily sVEGFR2 exposure is likely a reliable predictor for the TTP in HCC patients. Moreover, the model quantitativel..."
+          },
+          {
+            "source_chunk_id": "chunk_002",
+            "source_type": "text",
+            "source_section": "Body",
+            "section_path": [
+              "Body"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "Study HighlightsWHAT IS THE CURRENT KNOWLEDGE ON THE TOPIC? ☑ Hepatocellular carcinoma (HCC) is the third deadliest primary neoplasm worldwide. Since HCC is a particularly vascular solid tumor, sunitinib, an antiangiogenic and tyrosine kinase inhibitor of the VGFR, was investigated in advanced HCC patients. • WHAT QUESTION DID THIS STUDY ADDRESS? ☑ We utilized a modeling and simulation approach to identify and qualify a plasma biomarker that links active drug exposure (ADE) of sunitinib to its antitumor activity and time‐to‐tumor progression (TTP) • WHAT THIS STUDY ADDS TO OUR KNOWLEDGE ☑ Our findings suggest that ADE inhibits sVEGFR2, an angiogenesis biomarker, resulting in tumor growth inhibition, and that its daily exposure is a reliable predictor for TTP. • HOW THIS MIGHT CHANGE DRUG DISCOVERY, DEVELOPMENT, AND/OR THERAPEUTICS ☑ Our model constitutes a rational tool to determine a..."
+          },
+          {
+            "source_chunk_id": "chunk_003",
+            "source_type": "text",
+            "source_section": "Patients and study design",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Patients, treatments, and measurements",
+              "Patients and study design"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "This study was approved by the Roswell Park Institute Institutional Review Board, and all patients gave written informed consent prior to participation. Eligibility criteria included disease characteristics such as 1) confirmed HCC with 1–4 lesions and involvement of one or both liver lobes; 2) performance Eastern Cooperative Oncology Group (ECOG) of 0, 1, or 2; and 3) a life‐expectancy of at least 12 weeks. Patients who had chemo‐ or radiotherapy 4 weeks prior to the start of the study or a prior liver transplantation were excluded. The study was a single‐arm open‐label phase II pilot study. Patients received 37.5 mg of sunitinib orally once daily (q.d.) on Days 1–7 prior to transarterial chemoembolization (TACE) with doxorubicin (30 mg) on Day 8. Sunitinib was restarted on Day 15 and continued up to Day 35 followed by a 2‐week break. Subsequent cycles were sunitinib for 4 weeks on a..."
+          },
+          {
+            "source_chunk_id": "chunk_004",
+            "source_type": "text",
+            "source_section": "Assays for sunitinib, SU12662, and sVEGFR2 plasma concentrations",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Patients, treatments, and measurements",
+              "Assays for sunitinib, SU12662, and sVEGFR2 plasma concentrations"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "A liquid chromatography‐tandem mass spectrometry assay was used for the assessment of plasma concentrations of sunitinib and its active metabolite as previously described.17, 24, 25 The lower limits of detection were 0.099 and 0.088 ng/mL for sunitinib and SU12662. Plasma concentrations of sVEGFR2 were determined using an enzyme‐linked immunosorbent assay kit, following the manufacturer's instructions (eBioScience, San Diego, CA), with a lower limit of detection of 7 pg/mL."
+          },
+          {
+            "source_chunk_id": "chunk_005",
+            "source_type": "text",
+            "source_section": "Tumor volume measurements",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Patients, treatments, and measurements",
+              "Tumor volume measurements"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "In this study, DCE‐MRI was performed in all available patients (n = 8) to determine tumor volumes (mm3) on Days 8, 10, and 35 as well as at baseline. DCE‐MRI also facilitates the determination of the volume transfer constant parameter (Ktrans) via modeling blood and tumor growth data using the Tofts model.26, 27 A reduction in Ktrans was associated with a reduction in tumor vascular permeability, perfusion, and growth following the treatment of mice bearing PC‐3 human prostate adenocacrcinomas with a VEGF receptor‐2 tyrosine kinase inhibitor.28"
+          },
+          {
+            "source_chunk_id": "chunk_006",
+            "source_type": "text",
+            "source_section": "Time‐to‐tumor progression and overall survival monitoring",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Patients, treatments, and measurements",
+              "Time‐to‐tumor progression and overall survival monitoring"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "All patients (n = 16) were monitored for TTP, and the RECIST criterion for the TTP event was defined as an increase in tumor diameter of at least 20% from its baseline.29 TTP was reported as probabilities using Kaplan–Meier plots generated in Prism (GraphPad Software, San Diego, CA)."
+          },
+          {
+            "source_chunk_id": "chunk_007",
+            "source_type": "text",
+            "source_section": "PK modeling of sunitinib and SU12662",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Model development",
+              "PK modeling of sunitinib and SU12662"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "Previously published PK models for the drug (D) and its active metabolite (M) were employed.30 Briefly, the models each consisted of a two‐compartment model with linear elimination from the central compartment (CLD/Fcentral, CLM/Fcentral) and a first‐order absorption (kaD, kaM) from the gastrointestinal tract. The fraction of drug metabolized into the active metabolite (SU12662) was fixed (fM = 0.21).30 The pharmacological activity of sunitinib is attributed to both sunitinib and its equipotent active metabolite.15, 16, 17 Therefore, the active free (i.e., unbound to plasma proteins) molar drug concentration (ACub) was derived as the sum of the unbound molar concentrations of D and M: ACub=Cub,D+Cub,M, in which Cub,D=(1−fb,D)⋅CD and Cub,M=(1−fb,M)⋅CM, with fb,D = 0.9 and fb,M = 0.95 representing the bound fraction to plasma protein for D and M.15, 16, 17"
+          },
+          {
+            "source_chunk_id": "chunk_008",
+            "source_type": "text",
+            "source_section": "Model equations for sunitinib and SU12662 pharmacokinetics",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Model development",
+              "Model equations for sunitinib and SU12662 pharmacokinetics"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "The corresponding differential equations for the parent drug (sunitinib) and its active metabolite (SU12662) are: (1)dA1Ddt=−kaD⋅A1D (2)dA2Ddt=kaD⋅A1D−(CLDV1D)⋅A2D−(QDV1D)⋅A2D+(QDV2D)⋅A3D (3)dA3Ddt=(QDV1D)⋅A2D−(QDV2D)⋅A3Dwith A1D(0)=Dose, A2D(0) and A3D(0) = 0, and plasma sunitinib concentrations are defined as: CD=A2DV2D (4)dA1Mdt=−kaM⋅A1M (5)dA2Mdt=kaM⋅A1M−(CLMV1M)⋅A2M−(QDV1M)⋅A2D+(QDV2M)⋅A3D (6)dA3Mdt=(QMV1M)⋅A2D−(QMV2M)⋅A3Mwith A1M(0)=fM⋅Dose, and fM is the fraction of SU converted into SU12662 (fixed to 0.21) (30). A2M(0) and A3M(0) = 0, and plasma SU12662 concentrations are defined as: CM=A2MV2M"
+          }
+        ]
+      },
+      "start": null,
+      "end": null
+    },
+    {
+      "anchor_id": "anchor:PMC5131886:table_002:r5c1",
+      "paper_id": "PMC5131886",
+      "source_type": "table",
+      "chunk_id": "table_002",
+      "section": "Table 2",
+      "quote": "ΔsVEGFR2 concentration for 50% of Imax",
+      "table_id": "psp412084-tbl-0002",
+      "row_id": "psp412084-tbl-0002.R5",
+      "column_id": "psp412084-tbl-0002.C1",
+      "cell_id": "psp412084-tbl-0002.R5.C1",
+      "row_header": "ΔIC50 (µg/L)",
+      "column_header": "Definition",
+      "column_path": [
+        "Definition"
+      ],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {
+        "caption": "Pharmacodynamic parameters for VEGFR2 concentrations, tumor growth kinetics, and time‐to‐tumor progression",
+        "table_context_pack_id": "table_002:table_context_pack_v1",
+        "text_reference_contexts": [
+          {
+            "label": "Table 2",
+            "target_chunk_id": "table_002",
+            "target_table_id": "psp412084-tbl-0002",
+            "source_chunk_id": "chunk_019",
+            "source_section": "Tumor growth inhibition model",
+            "quote": "into the TGI model via the sVEGFR2 dynamics.37 The developed TGI model accurately described the observed tumor volumes under sunitinib exposure as shown by the VPC (Figure 2 d). All parameters were precisely estimated (Table 2). The potency of ΔsVEGFR2 to inhibit HCC growth was ΔIC50 = 1.83 µg/L. The permeability parameter, Ktrans, was identified as a significant covariate on ΔIC50. Model simulation of the unperturbed HCC tumor growth from Re"
+          }
+        ],
+        "related_figure_contexts": [],
+        "same_section_contexts": [
+          {
+            "source_chunk_id": "chunk_019",
+            "source_type": "text",
+            "source_section": "Tumor growth inhibition model",
+            "section_path": [
+              "Body",
+              "RESULTS",
+              "Tumor growth inhibition model"
+            ],
+            "reason": "explicit_table_reference",
+            "quote": "into the TGI model via the sVEGFR2 dynamics.37 The developed TGI model accurately described the observed tumor volumes under sunitinib exposure as shown by the VPC (Figure 2 d). All parameters were precisely estimated (Table 2). The potency of ΔsVEGFR2 to inhibit HCC growth was ΔIC50 = 1.83 µg/L. The permeability parameter, Ktrans, was identified as a significant covariate on ΔIC50. Model simulation of the unperturbed HCC tumor growth from Re"
+          }
+        ],
+        "methods_contexts": [
+          {
+            "source_chunk_id": "chunk_001",
+            "source_type": "text",
+            "source_section": "Abstract",
+            "section_path": [
+              "Abstract"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "Hepatocellular carcinoma (HCC) is third in cancer‐related causes of death worldwide and its treatment is a significant unmet medical need. Sunitinib is a selective tyrosine kinase inhibitor of the angiogenic biomarker: soluble vascular endothelial growth factor receptor‐2 (sVEGFR2). Sunitinib failed its primary overall survival endpoint in patients with advanced HCC in a phase III trial compared to sorafenib. In the present study, pharmacokinetic‐pharmacodynamic modeling was used to link drug‐exposure to tumor‐growth‐inhibition (TGI) and time‐to‐tumor progression (TTP) through sVEGFR2 dynamics. The results suggest that 1) active drug concentration (i.e., sunitinib and its metabolite) inhibits the release of sVEGFR2 and that such inhibition is associated with TGI, and 2) daily sVEGFR2 exposure is likely a reliable predictor for the TTP in HCC patients. Moreover, the model quantitativel..."
+          },
+          {
+            "source_chunk_id": "chunk_002",
+            "source_type": "text",
+            "source_section": "Body",
+            "section_path": [
+              "Body"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "Study HighlightsWHAT IS THE CURRENT KNOWLEDGE ON THE TOPIC? ☑ Hepatocellular carcinoma (HCC) is the third deadliest primary neoplasm worldwide. Since HCC is a particularly vascular solid tumor, sunitinib, an antiangiogenic and tyrosine kinase inhibitor of the VGFR, was investigated in advanced HCC patients. • WHAT QUESTION DID THIS STUDY ADDRESS? ☑ We utilized a modeling and simulation approach to identify and qualify a plasma biomarker that links active drug exposure (ADE) of sunitinib to its antitumor activity and time‐to‐tumor progression (TTP) • WHAT THIS STUDY ADDS TO OUR KNOWLEDGE ☑ Our findings suggest that ADE inhibits sVEGFR2, an angiogenesis biomarker, resulting in tumor growth inhibition, and that its daily exposure is a reliable predictor for TTP. • HOW THIS MIGHT CHANGE DRUG DISCOVERY, DEVELOPMENT, AND/OR THERAPEUTICS ☑ Our model constitutes a rational tool to determine a..."
+          },
+          {
+            "source_chunk_id": "chunk_003",
+            "source_type": "text",
+            "source_section": "Patients and study design",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Patients, treatments, and measurements",
+              "Patients and study design"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "This study was approved by the Roswell Park Institute Institutional Review Board, and all patients gave written informed consent prior to participation. Eligibility criteria included disease characteristics such as 1) confirmed HCC with 1–4 lesions and involvement of one or both liver lobes; 2) performance Eastern Cooperative Oncology Group (ECOG) of 0, 1, or 2; and 3) a life‐expectancy of at least 12 weeks. Patients who had chemo‐ or radiotherapy 4 weeks prior to the start of the study or a prior liver transplantation were excluded. The study was a single‐arm open‐label phase II pilot study. Patients received 37.5 mg of sunitinib orally once daily (q.d.) on Days 1–7 prior to transarterial chemoembolization (TACE) with doxorubicin (30 mg) on Day 8. Sunitinib was restarted on Day 15 and continued up to Day 35 followed by a 2‐week break. Subsequent cycles were sunitinib for 4 weeks on a..."
+          },
+          {
+            "source_chunk_id": "chunk_004",
+            "source_type": "text",
+            "source_section": "Assays for sunitinib, SU12662, and sVEGFR2 plasma concentrations",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Patients, treatments, and measurements",
+              "Assays for sunitinib, SU12662, and sVEGFR2 plasma concentrations"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "A liquid chromatography‐tandem mass spectrometry assay was used for the assessment of plasma concentrations of sunitinib and its active metabolite as previously described.17, 24, 25 The lower limits of detection were 0.099 and 0.088 ng/mL for sunitinib and SU12662. Plasma concentrations of sVEGFR2 were determined using an enzyme‐linked immunosorbent assay kit, following the manufacturer's instructions (eBioScience, San Diego, CA), with a lower limit of detection of 7 pg/mL."
+          },
+          {
+            "source_chunk_id": "chunk_005",
+            "source_type": "text",
+            "source_section": "Tumor volume measurements",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Patients, treatments, and measurements",
+              "Tumor volume measurements"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "In this study, DCE‐MRI was performed in all available patients (n = 8) to determine tumor volumes (mm3) on Days 8, 10, and 35 as well as at baseline. DCE‐MRI also facilitates the determination of the volume transfer constant parameter (Ktrans) via modeling blood and tumor growth data using the Tofts model.26, 27 A reduction in Ktrans was associated with a reduction in tumor vascular permeability, perfusion, and growth following the treatment of mice bearing PC‐3 human prostate adenocacrcinomas with a VEGF receptor‐2 tyrosine kinase inhibitor.28"
+          },
+          {
+            "source_chunk_id": "chunk_006",
+            "source_type": "text",
+            "source_section": "Time‐to‐tumor progression and overall survival monitoring",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Patients, treatments, and measurements",
+              "Time‐to‐tumor progression and overall survival monitoring"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "All patients (n = 16) were monitored for TTP, and the RECIST criterion for the TTP event was defined as an increase in tumor diameter of at least 20% from its baseline.29 TTP was reported as probabilities using Kaplan–Meier plots generated in Prism (GraphPad Software, San Diego, CA)."
+          },
+          {
+            "source_chunk_id": "chunk_007",
+            "source_type": "text",
+            "source_section": "PK modeling of sunitinib and SU12662",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Model development",
+              "PK modeling of sunitinib and SU12662"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "Previously published PK models for the drug (D) and its active metabolite (M) were employed.30 Briefly, the models each consisted of a two‐compartment model with linear elimination from the central compartment (CLD/Fcentral, CLM/Fcentral) and a first‐order absorption (kaD, kaM) from the gastrointestinal tract. The fraction of drug metabolized into the active metabolite (SU12662) was fixed (fM = 0.21).30 The pharmacological activity of sunitinib is attributed to both sunitinib and its equipotent active metabolite.15, 16, 17 Therefore, the active free (i.e., unbound to plasma proteins) molar drug concentration (ACub) was derived as the sum of the unbound molar concentrations of D and M: ACub=Cub,D+Cub,M, in which Cub,D=(1−fb,D)⋅CD and Cub,M=(1−fb,M)⋅CM, with fb,D = 0.9 and fb,M = 0.95 representing the bound fraction to plasma protein for D and M.15, 16, 17"
+          },
+          {
+            "source_chunk_id": "chunk_008",
+            "source_type": "text",
+            "source_section": "Model equations for sunitinib and SU12662 pharmacokinetics",
+            "section_path": [
+              "Body",
+              "METHODS",
+              "Model development",
+              "Model equations for sunitinib and SU12662 pharmacokinetics"
+            ],
+            "reason": "methods_or_model_context",
+            "quote": "The corresponding differential equations for the parent drug (sunitinib) and its active metabolite (SU12662) are: (1)dA1Ddt=−kaD⋅A1D (2)dA2Ddt=kaD⋅A1D−(CLDV1D)⋅A2D−(QDV1D)⋅A2D+(QDV2D)⋅A3D (3)dA3Ddt=(QDV1D)⋅A2D−(QDV2D)⋅A3Dwith A1D(0)=Dose, A2D(0) and A3D(0) = 0, and plasma sunitinib concentrations are defined as: CD=A2DV2D (4)dA1Mdt=−kaM⋅A1M (5)dA2Mdt=kaM⋅A1M−(CLMV1M)⋅A2M−(QDV1M)⋅A2D+(QDV2M)⋅A3D (6)dA3Mdt=(QMV1M)⋅A2D−(QMV2M)⋅A3Mwith A1M(0)=fM⋅Dose, and fM is the fraction of SU converted into SU12662 (fixed to 0.21) (30). A2M(0) and A3M(0) = 0, and plasma SU12662 concentrations are defined as: CM=A2MV2M"
+          }
+        ]
+      },
+      "start": null,
+      "end": null
+    }
+  ],
+  "missing_inputs": [
+    {
+      "name": "pk_exposure_parameters",
+      "reason": "No model-safe PK/PBPK exposure parameters are available; concentration records are calibration endpoints.",
+      "severity": "warning"
+    },
+    {
+      "name": "dosing_regimen",
+      "reason": "Route/schedule/dose regimen is present but not model-safe.",
+      "severity": "warning"
+    },
+    {
+      "name": "mouse_pk_for_species_translation",
+      "reason": "Preclinical/xenograft context appears in annotations but mouse exposure inputs are not curated.",
+      "severity": "warning"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "kg_projection_mechanisms_ignored",
+      "message": "Ignored 5 projected mechanism nodes; used 4 top-level mechanism steps.",
+      "severity": "warning",
+      "source_record_type": "kg_projection",
+      "source_record_id": null
+    },
+    {
+      "code": "kg_projection_verifications_ignored",
+      "message": "Ignored 10 projected verification nodes; used 4 top-level verification records.",
+      "severity": "warning",
+      "source_record_type": "kg_projection",
+      "source_record_id": null
+    },
+    {
+      "code": "simulation_readiness_not_ready",
+      "message": "Simulation readiness is needs_evidence_completion: some model inputs are supported, but missing, unsafe, or unverified inputs require estimation before simulation.",
+      "severity": "warning",
+      "source_record_type": "simulation_readiness_plan",
+      "source_record_id": "simulation_plan:PMC5131886:688ebea78abee38a"
+    },
+    {
+      "code": "missing_model_input",
+      "message": "Missing pk_exposure_parameters: no model-safe PK/PBPK exposure parameters are available",
+      "severity": "warning",
+      "source_record_type": "simulation_readiness_plan",
+      "source_record_id": "simulation_plan:PMC5131886:688ebea78abee38a"
+    },
+    {
+      "code": "missing_model_input",
+      "message": "Missing dosing_regimen: route/schedule/dose regimen is absent or not model-safe",
+      "severity": "warning",
+      "source_record_type": "simulation_readiness_plan",
+      "source_record_id": "simulation_plan:PMC5131886:688ebea78abee38a"
+    },
+    {
+      "code": "missing_model_input",
+      "message": "Missing mouse_pk_for_species_translation: mouse in-vivo efficacy context is present but no mouse PK/exposure input is available; formal species translation is blocked",
+      "severity": "warning",
+      "source_record_type": "simulation_readiness_plan",
+      "source_record_id": "simulation_plan:PMC5131886:688ebea78abee38a"
+    },
+    {
+      "code": "curated_parameters_require_review",
+      "message": "Curated parameters are attached to nodes/edges but remain review-only until table values, units, and contexts are manually checked.",
+      "severity": "warning",
+      "source_record_type": null,
+      "source_record_id": null
+    },
+    {
+      "code": "curated_graph_not_executable",
+      "message": "This graph is a curated review artifact, not a runtime pathway.",
+      "severity": "warning",
+      "source_record_type": null,
+      "source_record_id": null
+    }
+  ],
+  "executable": false,
+  "promotion_note": "Curated review artifact only; not loaded by pathway runtime.",
+  "summary": {
+    "node_count": 11,
+    "edge_count": 10,
+    "parameter_count": 6,
+    "equation_count": 7,
+    "context_count": 28,
+    "evidence_anchor_count": 12,
+    "warning_count": 8,
+    "review_status_counts": {
+      "nodes": {
+        "review_only": 6,
+        "candidate_for_pathway_patch": 5
+      },
+      "edges": {
+        "review_only": 4,
+        "candidate_for_pathway_patch": 6
+      },
+      "parameters": {
+        "review_only": 6
+      },
+      "equations": {
+        "candidate_for_pathway_patch": 2,
+        "review_only": 5
+      }
+    },
+    "runtime_executable": false,
+    "proposed_pathway_id": "sunitinib_vegfr2_hcc_demo",
+    "curation_policy": "paper_evidence_first_non_executable",
+    "core_chain": [
+      "sunitinib_dose",
+      "sunitinib_plasma",
+      "su12662_plasma",
+      "active_unbound_concentration",
+      "svegfr2_production",
+      "svegfr2_biomarker",
+      "delta_svegfr2",
+      "tumor_growth_rate",
+      "tumor_volume",
+      "ttp_hazard",
+      "ttp_probability"
+    ]
+  }
+}

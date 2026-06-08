@@ -216,7 +216,10 @@ class PredictionDefinition(BaseModel):
 
     enabled: bool = True
     keyword_patterns: dict[str, tuple[str, ...]] = Field(default_factory=dict)
-    allowed_modifier_relations: tuple[RelationId, ...] = (RelationId("inhibits_edge"), RelationId("activates_edge"))
+    allowed_modifier_relations: tuple[RelationId, ...] = (
+        RelationId("inhibits_edge"),
+        RelationId("activates_edge"),
+    )
     training_cases: tuple[PredictionTrainingCase, ...] = ()
     guardrails: tuple[PredictionGuardrail, ...] = ()
 
@@ -296,7 +299,9 @@ class PathwayContract(BaseModel):
     warnings: tuple[ModelWarning, ...] = ()
 
 
-def graph_from_fragment(pathway: PathwayDefinition, fragment: GraphFragment, metadata: GraphMetadata) -> MoAGraph:
+def graph_from_fragment(
+    pathway: PathwayDefinition, fragment: GraphFragment, metadata: GraphMetadata
+) -> MoAGraph:
     return MoAGraph(
         graph_id=fragment.graph_id,
         label=fragment.label,

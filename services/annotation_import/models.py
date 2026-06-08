@@ -19,6 +19,16 @@ type ReviewStatus = Literal[
     "rejected",
 ]
 type ProposalKind = Literal["new_pathway", "overlay", "evidence_only"]
+type CuratedGraphKind = Literal["curated_moa", "overlay", "evidence_only"]
+type EquationBindingType = Literal[
+    "equation_defines_node",
+    "equation_parameterizes_edge",
+    "equation_defines_model_input",
+    "equation_defines_hazard",
+    "equation_defines_state_update",
+    "model_form_for_node",
+    "model_form_for_edge",
+]
 type SourceRecordType = Literal[
     "mechanism_step",
     "mechanism_edge",
@@ -637,6 +647,7 @@ class PathwayProposal(BaseModel):
     proposal_id: str
     paper_id: str
     title: str
+    curated_graph_id: str | None = None
     proposal_kind: ProposalKind
     target_pathway_id: str | None = None
     proposed_pathway_id: str | None = None
@@ -648,6 +659,206 @@ class PathwayProposal(BaseModel):
     provenance_warnings: tuple[WarningRecord, ...] = ()
     executable: bool = False
     promotion_note: str = "Review artifact only; not loaded by pathway runtime."
+
+
+class CuratedNodeRule(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    node_id: str
+    label: str
+    node_type: str
+    source_record_ids: tuple[str, ...] = ()
+    review_status: ReviewStatus = "review_only"
+    reason: str
+    context: ContextScope = Field(default_factory=ContextScope)
+    evidence_anchor_ids: tuple[str, ...] = ()
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
+class CuratedEdgeRule(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    edge_id: str
+    source: str
+    target: str
+    relation: str
+    causal_role: str
+    support_level: str
+    source_record_ids: tuple[str, ...] = ()
+    supporting_mechanism_step_ids: tuple[str, ...] = ()
+    supporting_parameter_ids: tuple[str, ...] = ()
+    supporting_equation_ids: tuple[str, ...] = ()
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    review_status: ReviewStatus = "review_only"
+    reason: str
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
+class CuratedParameterRule(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    parameter_id: str
+    name: str
+    role: str
+    source_record_ids: tuple[str, ...] = ()
+    symbol: str | None = None
+    value: float | None = None
+    unit: str | None = None
+    target_node_id: str | None = None
+    target_edge_id: str | None = None
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    review_status: ReviewStatus = "review_only"
+    reason: str
+    promotion_blockers: tuple[str, ...] = ()
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
+class CuratedEquationRule(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    equation_id: str
+    expression_text: str
+    binding_type: EquationBindingType
+    source_record_ids: tuple[str, ...] = ()
+    target_node_id: str | None = None
+    target_edge_id: str | None = None
+    model_form: str | None = None
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    review_status: ReviewStatus = "review_only"
+    reason: str
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
+class CuratedGraphWarningRule(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    code: str
+    message: str
+    severity: Literal["info", "warning", "error"] = "warning"
+    source_record_type: str | None = None
+    source_record_id: str | None = None
+
+
+class CuratedGraphRule(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    paper_id: str
+    graph_id: str
+    graph_kind: CuratedGraphKind
+    title: str | None = None
+    nodes: tuple[CuratedNodeRule, ...] = ()
+    edges: tuple[CuratedEdgeRule, ...] = ()
+    parameters: tuple[CuratedParameterRule, ...] = ()
+    equations: tuple[CuratedEquationRule, ...] = ()
+    missing_inputs: tuple[MissingInput, ...] = ()
+    warnings: tuple[CuratedGraphWarningRule, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
+class CuratedPaperMoaNode(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    node_id: str
+    label: str
+    node_type: str
+    source_record_ids: tuple[str, ...] = ()
+    review_status: ReviewStatus
+    reason: str
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    provenance: tuple[PaperProvenance, ...] = ()
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
+class CuratedPaperMoaEdge(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    edge_id: str
+    source: str
+    target: str
+    relation: str
+    causal_role: str
+    support_level: str
+    source_record_ids: tuple[str, ...] = ()
+    supporting_mechanism_step_ids: tuple[str, ...] = ()
+    supporting_parameter_ids: tuple[str, ...] = ()
+    supporting_equation_ids: tuple[str, ...] = ()
+    review_status: ReviewStatus
+    reason: str
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    provenance: tuple[PaperProvenance, ...] = ()
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
+class CuratedPaperMoaParameter(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    parameter_id: str
+    name: str
+    role: str
+    source_record_ids: tuple[str, ...] = ()
+    symbol: str | None = None
+    value: float | None = None
+    unit: str | None = None
+    target_node_id: str | None = None
+    target_edge_id: str | None = None
+    review_status: ReviewStatus
+    reason: str
+    promotion_blockers: tuple[str, ...] = ()
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    provenance: tuple[PaperProvenance, ...] = ()
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
+class CuratedPaperMoaEquation(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    equation_id: str
+    expression_text: str
+    binding_type: EquationBindingType
+    source_record_ids: tuple[str, ...] = ()
+    target_node_id: str | None = None
+    target_edge_id: str | None = None
+    model_form: str | None = None
+    review_status: ReviewStatus
+    reason: str
+    evidence_anchor_ids: tuple[str, ...] = ()
+    context: ContextScope = Field(default_factory=ContextScope)
+    provenance: tuple[PaperProvenance, ...] = ()
+    warnings: tuple[str, ...] = ()
+    metadata: JsonDict = Field(default_factory=dict)
+
+
+class CuratedPaperMoaGraph(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    graph_id: str
+    paper_id: str
+    title: str
+    graph_kind: CuratedGraphKind
+    nodes: tuple[CuratedPaperMoaNode, ...] = ()
+    edges: tuple[CuratedPaperMoaEdge, ...] = ()
+    parameters: tuple[CuratedPaperMoaParameter, ...] = ()
+    equations: tuple[CuratedPaperMoaEquation, ...] = ()
+    contexts: tuple[ContextScope, ...] = ()
+    evidence_anchors: tuple[EvidenceAnchor, ...] = ()
+    missing_inputs: tuple[MissingInput, ...] = ()
+    warnings: tuple[WarningRecord, ...] = ()
+    executable: bool = False
+    promotion_note: str = "Curated review artifact only; not loaded by pathway runtime."
+    summary: JsonDict = Field(default_factory=dict)
 
 
 class TermRule(BaseModel):

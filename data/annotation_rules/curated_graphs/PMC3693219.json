@@ -1,0 +1,205 @@
+{
+  "paper_id": "PMC3693219",
+  "graph_id": "curated:PMC3693219:erlotinib_resistance_overlay",
+  "graph_kind": "overlay",
+  "title": "Curated erlotinib dosing and acquired resistance overlay review graph",
+  "metadata": {
+    "target_pathway_id": "egfr_erbb_demo",
+    "curation_policy": "evidence_overlay_no_top_level_causal_moa_edges"
+  },
+  "nodes": [
+    {
+      "node_id": "erlotinib_exposure",
+      "label": "Erlotinib exposure",
+      "node_type": "pk_exposure",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:025afa7139071a53",
+        "simulation_parameter:PMC3693219:0982f1c0ae1c27b1",
+        "simulation_parameter:PMC3693219:28d1235fdf96648a"
+      ],
+      "review_status": "review_only",
+      "reason": "Exposure evidence is present but mostly figure-derived and not model-safe.",
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "matrix": "plasma", "drug_or_analyte": "erlotinib"},
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
+    },
+    {
+      "node_id": "dosing_schedule",
+      "label": "Dosing schedule",
+      "node_type": "dose_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:ba6309e1baeffa53",
+        "simulation_parameter:PMC3693219:c410a409b17cc9c9",
+        "simulation_parameter:PMC3693219:1b16b614a9128402"
+      ],
+      "review_status": "review_only",
+      "reason": "Dosing candidates need manual unit, interval, and route curation before model use.",
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "drug_or_analyte": "erlotinib"},
+      "warnings": ["dose_regimen_not_model_safe"]
+    },
+    {
+      "node_id": "resistance_probability",
+      "label": "Probability of acquired resistance",
+      "node_type": "resistance_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:003b606fc53cf283",
+        "simulation_parameter:PMC3693219:200d539196227d55",
+        "simulation_parameter:PMC3693219:4dca50b6660c163e"
+      ],
+      "review_status": "review_only",
+      "reason": "Resistance probability endpoints are figure-derived calibration/validation records.",
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "resistant"},
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
+    },
+    {
+      "node_id": "resistant_population",
+      "label": "Resistant tumor cell population",
+      "node_type": "tumor_population_state",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:08385310bd0e4f16",
+        "simulation_parameter:PMC3693219:326d99d5d318992e",
+        "simulation_parameter:PMC3693219:dee2a77bb4836ed0"
+      ],
+      "review_status": "review_only",
+      "reason": "Resistant population values are useful overlay evidence but are not direct executable state priors.",
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "resistant"},
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
+    },
+    {
+      "node_id": "sensitive_population",
+      "label": "Sensitive tumor cell population",
+      "node_type": "tumor_population_state",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:24fded06a3b2147b",
+        "simulation_parameter:PMC3693219:5700c562c22ad600",
+        "simulation_parameter:PMC3693219:f735bf42af8975d6"
+      ],
+      "review_status": "review_only",
+      "reason": "Sensitive population values are useful overlay evidence but are not direct executable state priors.",
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated"},
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
+    },
+    {
+      "node_id": "egfr_mutant_lung_cancer_context",
+      "label": "EGFR-mutant lung cancer context",
+      "node_type": "disease_context",
+      "source_record_ids": ["anchor:PMC3693219:chunk_001:study3"],
+      "review_status": "accepted_for_evidence_graph",
+      "reason": "Disease context is retained as context evidence for the overlay.",
+      "context": {"disease": "EGFR-mutant lung cancer", "disease_subtype": "EGFR-mutant"}
+    }
+  ],
+  "edges": [],
+  "parameters": [
+    {
+      "parameter_id": "curated_parameter:PMC3693219:standard_daily_dose",
+      "name": "Standard erlotinib daily dose",
+      "role": "review_only_candidate_input",
+      "value": 150.0,
+      "unit": "mg/day",
+      "target_node_id": "dosing_schedule",
+      "source_record_ids": ["simulation_parameter:PMC3693219:c410a409b17cc9c9"],
+      "review_status": "review_only",
+      "reason": "Candidate dose is preserved for overlay review only.",
+      "promotion_blockers": ["route_interval_scope_requires_review"],
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "drug_or_analyte": "erlotinib"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:pulse_dose",
+      "name": "High-dose pulse erlotinib",
+      "role": "review_only_candidate_input",
+      "value": 1600.0,
+      "unit": "mg",
+      "target_node_id": "dosing_schedule",
+      "source_record_ids": ["simulation_parameter:PMC3693219:1b16b614a9128402"],
+      "review_status": "review_only",
+      "reason": "Pulse-dose candidate requires schedule and model structure review.",
+      "promotion_blockers": ["schedule_scope_requires_review"],
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "drug_or_analyte": "erlotinib"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:plasma_concentration_endpoint",
+      "name": "Erlotinib plasma concentration endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "value": 4.0,
+      "unit": "uM",
+      "target_node_id": "erlotinib_exposure",
+      "source_record_ids": ["simulation_parameter:PMC3693219:0982f1c0ae1c27b1"],
+      "review_status": "review_only",
+      "reason": "Figure-derived concentration endpoint; not a direct PK parameter prior.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "matrix": "plasma", "drug_or_analyte": "erlotinib"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:resistance_probability_endpoint",
+      "name": "Probability of acquired resistance endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "value": 0.000006,
+      "unit": null,
+      "target_node_id": "resistance_probability",
+      "source_record_ids": ["simulation_parameter:PMC3693219:200d539196227d55"],
+      "review_status": "review_only",
+      "reason": "Figure-derived probability endpoint lacks model structure and remains review-only.",
+      "promotion_blockers": ["missing_model_structure", "calibration_endpoint_not_parameter_prior"],
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "resistant"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:resistant_population_endpoint",
+      "name": "Resistant tumor cell population endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "value": 5000.0,
+      "unit": "cells",
+      "target_node_id": "resistant_population",
+      "source_record_ids": ["simulation_parameter:PMC3693219:08385310bd0e4f16"],
+      "review_status": "review_only",
+      "reason": "Figure-derived resistant population endpoint; not a direct executable state prior.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "resistant"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:sensitive_population_endpoint",
+      "name": "Sensitive tumor cell population endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "value": 550000.0,
+      "unit": "cells",
+      "target_node_id": "sensitive_population",
+      "source_record_ids": ["simulation_parameter:PMC3693219:24fded06a3b2147b"],
+      "review_status": "review_only",
+      "reason": "Figure-derived sensitive population endpoint; not a direct executable state prior.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated"}
+    }
+  ],
+  "equations": [],
+  "missing_inputs": [
+    {
+      "name": "top_level_mechanism_chains",
+      "reason": "No trusted top-level mechanism chains are available for causal extraction.",
+      "severity": "warning"
+    },
+    {
+      "name": "model_structure",
+      "reason": "No explicit PBPK/PKPD/popPK/QSP model structure was detected.",
+      "severity": "warning"
+    },
+    {
+      "name": "pk_exposure_parameters",
+      "reason": "No model-safe PK/PBPK exposure parameters are available.",
+      "severity": "error"
+    },
+    {
+      "name": "model_equations_or_template",
+      "reason": "No equations or named simulation model were extracted.",
+      "severity": "warning"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "no_curated_causal_edges",
+      "message": "This paper remains an overlay/evidence artifact because trusted top-level mechanism chains are absent."
+    },
+    {
+      "code": "curated_graph_not_executable",
+      "message": "This overlay is a curated review artifact, not a runtime pathway."
+    }
+  ]
+}

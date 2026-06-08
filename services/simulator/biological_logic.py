@@ -26,8 +26,16 @@ def _drop_before(check: Mapping[str, JsonValue], summaries: dict[StateId, StateS
     if upstream is None or downstream is None:
         return None
     fraction = _number(check.get("fraction"), 0.1)
-    up_time = upstream.time_to_10pct_drop_from_baseline if fraction <= 0.1 else upstream.time_to_20pct_drop_from_baseline
-    down_time = downstream.time_to_10pct_drop_from_baseline if fraction <= 0.1 else downstream.time_to_20pct_drop_from_baseline
+    up_time = (
+        upstream.time_to_10pct_drop_from_baseline
+        if fraction <= 0.1
+        else upstream.time_to_20pct_drop_from_baseline
+    )
+    down_time = (
+        downstream.time_to_10pct_drop_from_baseline
+        if fraction <= 0.1
+        else downstream.time_to_20pct_drop_from_baseline
+    )
     if up_time is None or down_time is None:
         return None
     return up_time < down_time

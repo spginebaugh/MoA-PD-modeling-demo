@@ -19,14 +19,19 @@ def test_erlotinib_bundle_generates_review_only_egfr_overlay_proposal() -> None:
     assert proposal.proposal_kind == "overlay"
     assert proposal.target_pathway_id == rule.target_pathway_id
     assert proposal.proposed_pathway_id is None
+    assert proposal.curated_graph_id == "curated:PMC3693219:erlotinib_resistance_overlay"
     assert proposal.executable is False
     assert not proposal.proposed_edges
     assert {node.node_id for node in proposal.proposed_nodes}.issuperset(
         {overlay_rule.node_id for overlay_rule in rule.overlay_nodes}
     )
+    assert "egfr_mutant_lung_cancer_context" in {node.node_id for node in proposal.proposed_nodes}
     assert all(node.evidence_anchor_ids for node in proposal.proposed_nodes)
     assert all(node.provenance is not None for node in proposal.proposed_nodes)
     assert proposal.required_missing_inputs
+    assert not any(
+        warning.code == "curated_source_record_missing" for warning in proposal.provenance_warnings
+    )
     assert not validate_pathway_proposal(proposal)
 
 
@@ -54,17 +59,21 @@ def test_sunitinib_bundle_generates_separate_review_only_pathway_proposal() -> N
     assert proposal.proposal_kind == "new_pathway"
     assert proposal.target_pathway_id is None
     assert proposal.proposed_pathway_id == rule.proposed_pathway_id
+    assert proposal.curated_graph_id == "curated:PMC5131886:sunitinib_vegfr2_hcc_moa"
     assert proposal.executable is False
-    assert len(proposal.proposed_edges) == 3
-    assert {edge.verification_verdict for edge in proposal.proposed_edges} == {
-        "verified_therapeutic_moa",
-        "model_derived_pd_relation",
+    assert len(proposal.proposed_nodes) == 11
+    assert len(proposal.proposed_edges) == 10
+    assert {edge.verification_verdict for edge in proposal.proposed_edges} == {None}
+    assert "curated_edge:PMC5131886:delta_svegfr2_predicts_ttp_hazard" in {
+        edge.edge_id for edge in proposal.proposed_edges
     }
     assert all(edge.evidence_anchor_ids for edge in proposal.proposed_edges)
     assert all(edge.provenance is not None for edge in proposal.proposed_edges)
-    assert len(proposal.proposed_equations) == 5
+    assert len(proposal.proposed_parameters) == 6
+    assert len(proposal.proposed_equations) == 7
     assert all(equation.evidence_anchor_ids for equation in proposal.proposed_equations)
     assert all(equation.provenance is not None for equation in proposal.proposed_equations)
+    assert all(equation.metadata["executable"] is False for equation in proposal.proposed_equations)
     assert not validate_pathway_proposal(proposal)
 
 

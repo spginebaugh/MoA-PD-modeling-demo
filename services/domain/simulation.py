@@ -78,7 +78,9 @@ class SimulationInput(BaseModel):
         ]
         if unknown_parameters:
             raise ValueError(f"Unknown parameter overrides: {unknown_parameters}")
-        unknown_states = [state for state in self.initial_condition_overrides if state not in self.model.states]
+        unknown_states = [
+            state for state in self.initial_condition_overrides if state not in self.model.states
+        ]
         if unknown_states:
             raise ValueError(f"Unknown initial-condition overrides: {unknown_states}")
         return self
@@ -218,7 +220,9 @@ class SimulationResult(BaseModel):
                 raise ValueError(f"Simulation result contains duplicate {label} series")
             bad_lengths = [str(series.state) for series in items if len(series.values) != expected]
             if bad_lengths:
-                raise ValueError(f"{label.title()} series length does not match time vector for states: {bad_lengths}")
+                raise ValueError(
+                    f"{label.title()} series length does not match time vector for states: {bad_lengths}"
+                )
         summary_states = [summary.state for summary in self.summaries]
         if len(summary_states) != len(set(summary_states)):
             raise ValueError("Simulation result contains duplicate state summaries")

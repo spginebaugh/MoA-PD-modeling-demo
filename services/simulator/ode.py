@@ -36,7 +36,9 @@ def graph_derived_ode(
     values = np.maximum(y, 0.0)
     state_values = dict(zip(model.states, (float(value) for value in values), strict=True))
     drug_state = model.metadata.drug_state
-    clamp_drug = drug_state is not None and (force_drug_value is not None or exposure_mode == ExposureMode.CONSTANT)
+    clamp_drug = drug_state is not None and (
+        force_drug_value is not None or exposure_mode == ExposureMode.CONSTANT
+    )
     if drug_state is not None and drug_state in state_values and clamp_drug:
         state_values[drug_state] = float(exposure_dose if force_drug_value is None else force_drug_value)
     equation_by_state = {equation.state: equation for equation in model.equations}
@@ -75,13 +77,24 @@ def _solution_array(
         )
         y = np.zeros((state_count, fallback_columns), dtype=float)
     if not np.all(np.isfinite(y)):
-        warnings.append(_warning(WarningCategory.UNSTABLE_SIMULATION, f"{context} produced non-finite values before clipping."))
+        warnings.append(
+            _warning(
+                WarningCategory.UNSTABLE_SIMULATION, f"{context} produced non-finite values before clipping."
+            )
+        )
     if np.nanmin(y) < -1e-7:
-        warnings.append(_warning(WarningCategory.UNSTABLE_SIMULATION, f"{context} produced negative values; output was clipped at zero."))
+        warnings.append(
+            _warning(
+                WarningCategory.UNSTABLE_SIMULATION,
+                f"{context} produced negative values; output was clipped at zero.",
+            )
+        )
     return np.clip(np.nan_to_num(y, nan=0.0, posinf=1e9, neginf=0.0), 0.0, None)
 
 
-def _fit_time_columns(y: np.ndarray, expected_columns: int, context: str, warnings: list[ModelWarning]) -> np.ndarray:
+def _fit_time_columns(
+    y: np.ndarray, expected_columns: int, context: str, warnings: list[ModelWarning]
+) -> np.ndarray:
     if y.shape[1] == expected_columns:
         return y
     warnings.append(

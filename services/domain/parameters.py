@@ -129,7 +129,9 @@ class GeneratedParameterDefaults(BaseModel):
             if not pattern:
                 raise ValueError("Generated parameter default pattern must be non-empty")
             if not math.isfinite(value) or value < 0.0:
-                raise ValueError(f"Generated parameter default for {pattern!r} must be finite and non-negative")
+                raise ValueError(
+                    f"Generated parameter default for {pattern!r} must be finite and non-negative"
+                )
         return values
 
     def value_for(self, parameter: ParameterId) -> float | None:

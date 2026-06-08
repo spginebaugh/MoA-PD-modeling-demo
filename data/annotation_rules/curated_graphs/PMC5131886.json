@@ -1,0 +1,558 @@
+{
+  "paper_id": "PMC5131886",
+  "graph_id": "curated:PMC5131886:sunitinib_vegfr2_hcc_moa",
+  "graph_kind": "curated_moa",
+  "title": "Curated sunitinib VEGFR2 HCC PK/PD/MOA review graph",
+  "metadata": {
+    "proposed_pathway_id": "sunitinib_vegfr2_hcc_demo",
+    "curation_policy": "paper_evidence_first_non_executable",
+    "core_chain": [
+      "sunitinib_dose",
+      "sunitinib_plasma",
+      "su12662_plasma",
+      "active_unbound_concentration",
+      "svegfr2_production",
+      "svegfr2_biomarker",
+      "delta_svegfr2",
+      "tumor_growth_rate",
+      "tumor_volume",
+      "ttp_hazard",
+      "ttp_probability"
+    ]
+  },
+  "nodes": [
+    {
+      "node_id": "sunitinib_dose",
+      "label": "Sunitinib dose/regimen",
+      "node_type": "dose_input",
+      "source_record_ids": ["obs:PMC5131886:43214157cd0a65ff"],
+      "review_status": "review_only",
+      "reason": "Dose/regimen evidence is present but the extracted observation has unsafe unit/context parsing.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "disease_subtype": "advanced HCC",
+        "state": "treated",
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib"
+      },
+      "warnings": ["dose_regimen_not_model_safe"]
+    },
+    {
+      "node_id": "sunitinib_plasma",
+      "label": "Sunitinib plasma concentration",
+      "node_type": "pk_exposure",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:03ac85c6f0bc4f7c",
+        "simulation_parameter:PMC5131886:218f596ba4c9f3f5",
+        "simulation_parameter:PMC5131886:4fc85b696909940f"
+      ],
+      "review_status": "review_only",
+      "reason": "Figure-derived concentration records support the exposure node but are calibration endpoints, not model-safe PK parameters.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib"
+      },
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
+    },
+    {
+      "node_id": "su12662_plasma",
+      "label": "SU12662 plasma concentration",
+      "node_type": "pk_exposure",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:6a7c069fe07e8a63",
+        "simulation_parameter:PMC5131886:d1f39ba1783bb406",
+        "simulation_parameter:PMC5131886:7e49718692ac32c2"
+      ],
+      "review_status": "review_only",
+      "reason": "Active metabolite concentration records support the exposure node but are figure-derived endpoints.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical",
+        "drug_or_analyte": "SU12662"
+      },
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
+    },
+    {
+      "node_id": "active_unbound_concentration",
+      "label": "Active unbound concentration",
+      "node_type": "pk_model_quantity",
+      "source_record_ids": ["step:PMC5131886:27fa15d47ecb84da"],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Figure 1 model text defines active unbound concentration from parent and metabolite free fractions and concentrations.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "model_system": "clinical",
+        "drug_or_analyte": "sunitinib, SU12662"
+      }
+    },
+    {
+      "node_id": "svegfr2_production",
+      "label": "sVEGFR2 production/release",
+      "node_type": "biomarker_process",
+      "source_record_ids": [
+        "step:PMC5131886:05f1ecda4b6b0995",
+        "step:PMC5131886:27fa15d47ecb84da"
+      ],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Top-level mechanism evidence and model text connect active drug concentration to inhibited sVEGFR2 release/production.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "model_system": "clinical"
+      }
+    },
+    {
+      "node_id": "svegfr2_biomarker",
+      "label": "sVEGFR2 plasma biomarker",
+      "node_type": "pd_biomarker",
+      "source_record_ids": [
+        "step:PMC5131886:05f1ecda4b6b0995",
+        "simulation_parameter:PMC5131886:76cce742eb8dbe47",
+        "simulation_parameter:PMC5131886:ba06755d727bb0dd"
+      ],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The paper uses soluble VEGFR2 as the angiogenic biomarker linking exposure to tumor progression.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical",
+        "drug_or_analyte": "sVEGFR2"
+      }
+    },
+    {
+      "node_id": "delta_svegfr2",
+      "label": "Delta sVEGFR2 from baseline",
+      "node_type": "pd_model_quantity",
+      "source_record_ids": [
+        "step:PMC5131886:d0ac7603ff3f2325",
+        "simulation_parameter:PMC5131886:556c9768d5621cc3",
+        "simulation_parameter:PMC5131886:63ea798bd0197392"
+      ],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Figure 1 states that the difference from baseline sVEGFR2 drives the tumor growth-rate effect.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "baseline, treated",
+        "matrix": "plasma",
+        "model_system": "clinical",
+        "drug_or_analyte": "sVEGFR2"
+      }
+    },
+    {
+      "node_id": "tumor_growth_rate",
+      "label": "HCC tumor growth-rate constant",
+      "node_type": "pd_model_quantity",
+      "source_record_ids": ["step:PMC5131886:d0ac7603ff3f2325"],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The curated graph keeps kg as a model quantity rather than normalizing it to a biological protein target.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "baseline, treated",
+        "model_system": "clinical"
+      }
+    },
+    {
+      "node_id": "tumor_volume",
+      "label": "Tumor volume",
+      "node_type": "pd_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:34731f9af2b0b435",
+        "simulation_parameter:PMC5131886:5870934d4a4a9ec7",
+        "simulation_parameter:PMC5131886:de5919a059d778eb"
+      ],
+      "review_status": "review_only",
+      "reason": "Tumor volume records are digitized calibration/validation endpoints.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "model_system": "clinical"
+      },
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
+    },
+    {
+      "node_id": "ttp_hazard",
+      "label": "Time-to-tumor-progression hazard",
+      "node_type": "time_to_event_model_quantity",
+      "source_record_ids": [
+        "eq:PMC5131886:ece40d8b730a6d9b",
+        "simulation_parameter:PMC5131886:05e6b2f90cab61c4",
+        "simulation_parameter:PMC5131886:e17d8934bdafa104"
+      ],
+      "review_status": "review_only",
+      "reason": "The TTP hazard model form is extracted, but parameter bindings and units require review.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "model_system": "clinical"
+      },
+      "warnings": ["hazard_parameters_need_review"]
+    },
+    {
+      "node_id": "ttp_probability",
+      "label": "Time-to-tumor-progression probability",
+      "node_type": "clinical_endpoint",
+      "source_record_ids": [
+        "step:PMC5131886:05f1ecda4b6b0995",
+        "simulation_parameter:PMC5131886:d6ac5922bf5437b1"
+      ],
+      "review_status": "review_only",
+      "reason": "The paper states daily sVEGFR2 exposure predicts TTP, but executable probability mapping is not curated.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "model_system": "clinical"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "curated_edge:PMC5131886:dose_to_sunitinib_plasma",
+      "source": "sunitinib_dose",
+      "target": "sunitinib_plasma",
+      "relation": "drives",
+      "causal_role": "dosing_to_parent_exposure",
+      "support_level": "review_only_context",
+      "source_record_ids": ["obs:PMC5131886:43214157cd0a65ff"],
+      "review_status": "review_only",
+      "reason": "Dose/regimen is required for the chain but is not model-safe in the extracted annotations.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "clinical"},
+      "warnings": ["missing_model_safe_dosing_regimen"]
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:sunitinib_plasma_to_active_unbound",
+      "source": "sunitinib_plasma",
+      "target": "active_unbound_concentration",
+      "relation": "contributes_to",
+      "causal_role": "parent_concentration_to_active_unbound_exposure",
+      "support_level": "model_form_supported",
+      "supporting_mechanism_step_ids": ["step:PMC5131886:27fa15d47ecb84da"],
+      "supporting_parameter_ids": ["simulation_parameter:PMC5131886:03ac85c6f0bc4f7c"],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The active unbound concentration model form uses parent sunitinib concentration.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "clinical"}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:su12662_plasma_to_active_unbound",
+      "source": "su12662_plasma",
+      "target": "active_unbound_concentration",
+      "relation": "contributes_to",
+      "causal_role": "metabolite_concentration_to_active_unbound_exposure",
+      "support_level": "model_form_supported",
+      "supporting_mechanism_step_ids": ["step:PMC5131886:27fa15d47ecb84da"],
+      "supporting_parameter_ids": ["simulation_parameter:PMC5131886:7e49718692ac32c2"],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The active unbound concentration model form uses active metabolite concentration.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "clinical"}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:active_unbound_inhibits_svegfr2_production",
+      "source": "active_unbound_concentration",
+      "target": "svegfr2_production",
+      "relation": "inhibits",
+      "causal_role": "exposure_to_biomarker_production",
+      "support_level": "model_derived_pd_relation",
+      "supporting_mechanism_step_ids": ["step:PMC5131886:27fa15d47ecb84da", "step:PMC5131886:05f1ecda4b6b0995"],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Top-level mechanism and Figure 1 model text support active concentration inhibiting sVEGFR2 production/release.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "clinical"}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:svegfr2_production_drives_biomarker",
+      "source": "svegfr2_production",
+      "target": "svegfr2_biomarker",
+      "relation": "drives",
+      "causal_role": "biomarker_process_to_measured_biomarker",
+      "support_level": "model_form_supported",
+      "supporting_mechanism_step_ids": ["step:PMC5131886:27fa15d47ecb84da"],
+      "supporting_parameter_ids": ["simulation_parameter:PMC5131886:76cce742eb8dbe47"],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "The indirect response model links production/removal to observed plasma sVEGFR2.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "model_system": "clinical"}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:svegfr2_to_delta_svegfr2",
+      "source": "svegfr2_biomarker",
+      "target": "delta_svegfr2",
+      "relation": "defines_change_from_baseline",
+      "causal_role": "biomarker_to_baseline_delta",
+      "support_level": "model_form_supported",
+      "supporting_mechanism_step_ids": ["step:PMC5131886:d0ac7603ff3f2325"],
+      "supporting_parameter_ids": ["simulation_parameter:PMC5131886:556c9768d5621cc3", "simulation_parameter:PMC5131886:63ea798bd0197392"],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Figure 1 defines delta sVEGFR2 as the difference from baseline concentration.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "baseline, treated", "matrix": "plasma", "model_system": "clinical"}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:delta_svegfr2_inhibits_tumor_growth_rate",
+      "source": "delta_svegfr2",
+      "target": "tumor_growth_rate",
+      "relation": "inhibits",
+      "causal_role": "biomarker_delta_to_tumor_growth_rate",
+      "support_level": "model_derived_pd_relation",
+      "supporting_mechanism_step_ids": ["step:PMC5131886:d0ac7603ff3f2325"],
+      "supporting_parameter_ids": ["simulation_parameter:PMC5131886:b9e399006482a232", "simulation_parameter:PMC5131886:d9a2875ae08b8179"],
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Top-level mechanism verification marks delta sVEGFR2 inhibiting kg as a model-derived PD relation.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "baseline, treated", "model_system": "clinical"}
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:tumor_growth_rate_drives_tumor_volume",
+      "source": "tumor_growth_rate",
+      "target": "tumor_volume",
+      "relation": "drives",
+      "causal_role": "growth_rate_to_tumor_volume_endpoint",
+      "support_level": "model_endpoint_supported",
+      "source_record_ids": ["simulation:PMC5131886:05ab0b1801332e16"],
+      "supporting_parameter_ids": ["simulation_parameter:PMC5131886:34731f9af2b0b435", "simulation_parameter:PMC5131886:5870934d4a4a9ec7"],
+      "review_status": "review_only",
+      "reason": "Tumor volume is represented as a calibration/validation endpoint until tumor growth equation bindings are curated.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "clinical"},
+      "warnings": ["tumor_growth_equation_binding_missing"]
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:delta_svegfr2_predicts_ttp_hazard",
+      "source": "delta_svegfr2",
+      "target": "ttp_hazard",
+      "relation": "predicts",
+      "causal_role": "biomarker_exposure_to_ttp_hazard",
+      "support_level": "model_form_supported",
+      "supporting_parameter_ids": ["simulation_parameter:PMC5131886:05e6b2f90cab61c4"],
+      "supporting_equation_ids": ["eq:PMC5131886:ece40d8b730a6d9b"],
+      "review_status": "review_only",
+      "reason": "The hazard model includes sVEGFR2 AUC, but parameter units and binding direction require review.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "clinical"},
+      "warnings": ["hazard_parameter_units_missing"]
+    },
+    {
+      "edge_id": "curated_edge:PMC5131886:ttp_hazard_drives_ttp_probability",
+      "source": "ttp_hazard",
+      "target": "ttp_probability",
+      "relation": "drives",
+      "causal_role": "hazard_to_time_to_event_endpoint",
+      "support_level": "model_form_supported",
+      "supporting_equation_ids": ["eq:PMC5131886:ece40d8b730a6d9b"],
+      "supporting_parameter_ids": ["simulation_parameter:PMC5131886:d6ac5922bf5437b1", "simulation_parameter:PMC5131886:e17d8934bdafa104"],
+      "review_status": "review_only",
+      "reason": "The extracted hazard equation supports a TTP endpoint link, but probability mapping is not executable.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "clinical"}
+    }
+  ],
+  "parameters": [
+    {
+      "parameter_id": "curated_parameter:PMC5131886:dose_50_mg_daily",
+      "name": "Sunitinib dose regimen",
+      "symbol": "Dose",
+      "role": "model_input",
+      "value": 50.0,
+      "unit": "mg/day",
+      "target_node_id": "sunitinib_dose",
+      "source_record_ids": ["obs:PMC5131886:43214157cd0a65ff"],
+      "review_status": "review_only",
+      "reason": "Included as a required dosing input, but extracted source scope is unsafe.",
+      "promotion_blockers": ["route_schedule_context_requires_manual_review"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "drug_or_analyte": "sunitinib"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:sunitinib_plasma_endpoint",
+      "name": "Sunitinib plasma concentration endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "value": 15.0,
+      "unit": "ug/L",
+      "target_node_id": "sunitinib_plasma",
+      "source_record_ids": ["simulation_parameter:PMC5131886:03ac85c6f0bc4f7c"],
+      "review_status": "review_only",
+      "reason": "Figure-derived concentration endpoint; not a direct PK parameter prior.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "drug_or_analyte": "sunitinib"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:su12662_plasma_endpoint",
+      "name": "SU12662 plasma concentration endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "value": 13.0,
+      "unit": "ug/L",
+      "target_node_id": "su12662_plasma",
+      "source_record_ids": ["simulation_parameter:PMC5131886:7e49718692ac32c2"],
+      "review_status": "review_only",
+      "reason": "Figure-derived metabolite concentration endpoint; not a direct PK parameter prior.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "drug_or_analyte": "SU12662"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:svegfr2_baseline_r0",
+      "name": "sVEGFR2 baseline level",
+      "symbol": "R0",
+      "role": "candidate_model_input",
+      "value": 18.3,
+      "unit": "ug/L",
+      "target_node_id": "delta_svegfr2",
+      "source_record_ids": ["simulation_parameter:PMC5131886:63ea798bd0197392"],
+      "review_status": "review_only",
+      "reason": "Candidate baseline biomarker input from figure-derived evidence; table/figure reconciliation required.",
+      "promotion_blockers": ["needs_table_figure_reconciliation", "validation_status_needs_review"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "baseline", "matrix": "plasma", "drug_or_analyte": "sVEGFR2"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:tgi_ic50",
+      "name": "Delta sVEGFR2 effect IC50",
+      "symbol": "IC50",
+      "role": "review_only_candidate_input",
+      "value": 1.83,
+      "unit": "L",
+      "target_edge_id": "curated_edge:PMC5131886:delta_svegfr2_inhibits_tumor_growth_rate",
+      "source_record_ids": ["simulation_parameter:PMC5131886:d9a2875ae08b8179", "obs:PMC5131886:c52fafe15e0c7632"],
+      "review_status": "review_only",
+      "reason": "The extracted value/unit are preserved but require manual review before model use.",
+      "promotion_blockers": ["unit_or_table_row_semantics_uncertain"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:slope_hazard_delta_auc_svegfr2",
+      "name": "Slope hazard Delta AUC0-24h sVEGFR2",
+      "role": "model_input",
+      "value": 0.03,
+      "unit": null,
+      "target_edge_id": "curated_edge:PMC5131886:delta_svegfr2_predicts_ttp_hazard",
+      "source_record_ids": ["simulation_parameter:PMC5131886:05e6b2f90cab61c4", "obs:PMC5131886:4676d2dab946af5a"],
+      "review_status": "review_only",
+      "reason": "Directly supported hazard parameter, but missing unit blocks promotion.",
+      "promotion_blockers": ["missing_unit"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+    }
+  ],
+  "equations": [
+    {
+      "equation_id": "curated_equation:PMC5131886:active_unbound_concentration",
+      "expression_text": "ACub = fub_D * C_D + fub_M * C_M",
+      "binding_type": "equation_defines_node",
+      "target_node_id": "active_unbound_concentration",
+      "source_record_ids": ["step:PMC5131886:27fa15d47ecb84da"],
+      "model_form": "active unbound parent plus metabolite exposure calculation",
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Model form appears in Figure 1 text and defines the active exposure node.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+    },
+    {
+      "equation_id": "curated_equation:PMC5131886:svegfr2_indirect_response",
+      "expression_text": "dR/dt = kin * (1 - E_ACub) - kout * R",
+      "binding_type": "equation_parameterizes_edge",
+      "target_edge_id": "curated_edge:PMC5131886:active_unbound_inhibits_svegfr2_production",
+      "source_record_ids": ["step:PMC5131886:27fa15d47ecb84da"],
+      "model_form": "indirect response model with zero-order production and first-order removal",
+      "review_status": "review_only",
+      "reason": "Model form is supported, but exact parameter bindings are not curated.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+    },
+    {
+      "equation_id": "curated_equation:PMC5131886:delta_svegfr2",
+      "expression_text": "Delta_sVEGFR2 = sVEGFR2 - R0",
+      "binding_type": "equation_defines_node",
+      "target_node_id": "delta_svegfr2",
+      "source_record_ids": ["step:PMC5131886:d0ac7603ff3f2325", "simulation_parameter:PMC5131886:63ea798bd0197392"],
+      "model_form": "difference from baseline biomarker concentration",
+      "review_status": "candidate_for_pathway_patch",
+      "reason": "Figure 1 defines the model quantity as the difference from baseline concentration.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "baseline, treated"}
+    },
+    {
+      "equation_id": "curated_equation:PMC5131886:tgi_growth_rate_effect",
+      "expression_text": "kg_effect = kg * inhibition(Delta_sVEGFR2)",
+      "binding_type": "equation_parameterizes_edge",
+      "target_edge_id": "curated_edge:PMC5131886:delta_svegfr2_inhibits_tumor_growth_rate",
+      "source_record_ids": ["step:PMC5131886:d0ac7603ff3f2325"],
+      "model_form": "tumor growth inhibition model driven by delta sVEGFR2",
+      "review_status": "review_only",
+      "reason": "Causal model form is supported; exact executable expression and parameter values need review.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+    },
+    {
+      "equation_id": "eq:PMC5131886:ece40d8b730a6d9b",
+      "expression_text": "DDT_Hazard = Z0* exp ( Z1*TTP+Z2*AUC)",
+      "binding_type": "equation_defines_hazard",
+      "target_node_id": "ttp_hazard",
+      "source_record_ids": ["eq:PMC5131886:ece40d8b730a6d9b"],
+      "model_form": "TTP hazard model using TTP and AUC terms",
+      "review_status": "review_only",
+      "reason": "The hazard equation is extracted but state and parameter bindings are not executable.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+    },
+    {
+      "equation_id": "eq:PMC5131886:f40c3d716a3c69c2",
+      "expression_text": "k10 = CL/V1 k12",
+      "binding_type": "model_form_for_node",
+      "target_node_id": "sunitinib_plasma",
+      "source_record_ids": ["eq:PMC5131886:f40c3d716a3c69c2"],
+      "model_form": "PK compartment rate relation",
+      "review_status": "review_only",
+      "reason": "PK equation is preserved as a model form but not executable.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+    },
+    {
+      "equation_id": "eq:PMC5131886:4d9cbb929eb262d6",
+      "expression_text": "k21 = Q/V2",
+      "binding_type": "model_form_for_node",
+      "target_node_id": "sunitinib_plasma",
+      "source_record_ids": ["eq:PMC5131886:4d9cbb929eb262d6"],
+      "model_form": "PK compartment rate relation",
+      "review_status": "review_only",
+      "reason": "PK equation is preserved as a model form but not executable.",
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+    }
+  ],
+  "missing_inputs": [
+    {
+      "name": "pk_exposure_parameters",
+      "reason": "No model-safe PK/PBPK exposure parameters are available; concentration records are calibration endpoints.",
+      "severity": "warning"
+    },
+    {
+      "name": "dosing_regimen",
+      "reason": "Route/schedule/dose regimen is present but not model-safe.",
+      "severity": "warning"
+    },
+    {
+      "name": "mouse_pk_for_species_translation",
+      "reason": "Preclinical/xenograft context appears in annotations but mouse exposure inputs are not curated.",
+      "severity": "warning"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "curated_parameters_require_review",
+      "message": "Curated parameters are attached to nodes/edges but remain review-only until table values, units, and contexts are manually checked."
+    },
+    {
+      "code": "curated_graph_not_executable",
+      "message": "This graph is a curated review artifact, not a runtime pathway."
+    }
+  ]
+}

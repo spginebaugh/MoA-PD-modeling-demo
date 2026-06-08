@@ -11,7 +11,9 @@ from services.pathway import GraphComposeRequest, compose_graph, load_pathway
 
 
 def graph_from_configuration(pathway_id: PathwayId | str, configuration: str) -> MoAGraph:
-    return compose_graph(GraphComposeRequest(pathway_id=PathwayId(str(pathway_id)), configuration=configuration))
+    return compose_graph(
+        GraphComposeRequest(pathway_id=PathwayId(str(pathway_id)), configuration=configuration)
+    )
 
 
 def graph_from_pathway(pathway_id: PathwayId | str) -> MoAGraph:

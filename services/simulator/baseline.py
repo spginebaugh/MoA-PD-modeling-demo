@@ -28,14 +28,18 @@ def _warning(category: WarningCategory, message: str) -> ModelWarning:
 
 def seed_initial_conditions(simulation_input: SimulationInput) -> dict[StateId, float]:
     initials = dict(simulation_input.model.metadata.initial_conditions)
-    initials.update({state: float(value) for state, value in simulation_input.initial_condition_overrides.items()})
+    initials.update(
+        {state: float(value) for state, value in simulation_input.initial_condition_overrides.items()}
+    )
     drug_state = simulation_input.model.metadata.drug_state
     if drug_state is not None and drug_state in initials:
         initials[drug_state] = 0.0
     return {state: max(float(initials[state]), 0.0) for state in simulation_input.model.states}
 
 
-def set_state_value(states: tuple[StateId, ...], values: np.ndarray, state: StateId | None, value: float) -> None:
+def set_state_value(
+    states: tuple[StateId, ...], values: np.ndarray, state: StateId | None, value: float
+) -> None:
     if state is not None and state in states:
         values[states.index(state)] = value
 

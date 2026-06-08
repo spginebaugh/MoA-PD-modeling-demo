@@ -27,7 +27,9 @@ def _rise_fraction(maximum: float, baseline: float) -> float | None:
     return float(max((maximum - baseline) / baseline, 0.0))
 
 
-def _time_to_fraction_drop(time: np.ndarray, values: np.ndarray, baseline: float, fraction: float) -> float | None:
+def _time_to_fraction_drop(
+    time: np.ndarray, values: np.ndarray, baseline: float, fraction: float
+) -> float | None:
     if values.size == 0 or abs(baseline) <= EPSILON:
         return None
     threshold = baseline * (1.0 - fraction)
@@ -76,7 +78,9 @@ def series_tuple(series_by_state: dict[StateId, tuple[float, ...]]) -> tuple[Sta
     return tuple(StateSeries(state=state, values=values) for state, values in series_by_state.items())
 
 
-def control_normalized_series(model: CompiledModel, treated: np.ndarray, control: np.ndarray) -> tuple[StateSeries, ...]:
+def control_normalized_series(
+    model: CompiledModel, treated: np.ndarray, control: np.ndarray
+) -> tuple[StateSeries, ...]:
     normalized: list[StateSeries] = []
     plot_states = set(model.metadata.plot_states or model.states)
     for index, state in enumerate(model.states):

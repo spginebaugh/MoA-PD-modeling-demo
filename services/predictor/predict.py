@@ -49,8 +49,12 @@ def _matched_guardrails(request: OperatorPredictionInput) -> tuple[PredictionGua
     pathway = load_pathway(request.pathway_id)
     matched: list[PredictionGuardrail] = []
     for guardrail in pathway.prediction.guardrails:
-        all_ok = not guardrail.when_all_keywords or matches_keywords(request.claim_text, guardrail.when_all_keywords)
-        any_ok = not guardrail.when_any_keywords or matches_any_keyword(request.claim_text, guardrail.when_any_keywords)
+        all_ok = not guardrail.when_all_keywords or matches_keywords(
+            request.claim_text, guardrail.when_all_keywords
+        )
+        any_ok = not guardrail.when_any_keywords or matches_any_keyword(
+            request.claim_text, guardrail.when_any_keywords
+        )
         if all_ok and any_ok:
             matched.append(guardrail)
     return tuple(matched)
@@ -86,7 +90,9 @@ def _patch_to_candidate(patch: CandidatePatch, score: float, features: tuple[str
     )
 
 
-def _structured_context_score(candidate: CandidatePatch, request: OperatorPredictionInput) -> tuple[float, tuple[str, ...]]:
+def _structured_context_score(
+    candidate: CandidatePatch, request: OperatorPredictionInput
+) -> tuple[float, tuple[str, ...]]:
     score = 0.0
     features: list[str] = []
     if request.target_edge_id is not None and candidate.target == request.target_edge_id:
@@ -106,7 +112,9 @@ def _structured_context_score(candidate: CandidatePatch, request: OperatorPredic
     return score, tuple(features)
 
 
-def _training_score(candidate: CandidatePatch, request: OperatorPredictionInput) -> tuple[float, tuple[str, ...]]:
+def _training_score(
+    candidate: CandidatePatch, request: OperatorPredictionInput
+) -> tuple[float, tuple[str, ...]]:
     pathway = load_pathway(request.pathway_id)
     active = active_claim_text_for_keywords(request.claim_text).lower()
     score = 0.1
@@ -130,7 +138,9 @@ def _training_score(candidate: CandidatePatch, request: OperatorPredictionInput)
     return min(score, 0.95), tuple(dict.fromkeys(features))
 
 
-def _rank_candidates(candidates: tuple[CandidatePatch, ...], request: OperatorPredictionInput) -> tuple[ScoredPatch, ...]:
+def _rank_candidates(
+    candidates: tuple[CandidatePatch, ...], request: OperatorPredictionInput
+) -> tuple[ScoredPatch, ...]:
     scored: list[ScoredPatch] = []
     for candidate in candidates:
         score, features = _training_score(candidate, request)
@@ -151,9 +161,13 @@ def _constrained_candidates(
 ) -> tuple[CandidatePatch, ...]:
     constrained = candidates
     if request.target_edge_id is not None:
-        constrained = tuple(candidate for candidate in constrained if candidate.target == request.target_edge_id)
+        constrained = tuple(
+            candidate for candidate in constrained if candidate.target == request.target_edge_id
+        )
     if request.desired_relation is not None:
-        constrained = tuple(candidate for candidate in constrained if candidate.relation == request.desired_relation)
+        constrained = tuple(
+            candidate for candidate in constrained if candidate.relation == request.desired_relation
+        )
     return constrained
 
 
@@ -218,7 +232,11 @@ def _operator_probabilities(ranked: Sequence[ScoredPatch]) -> tuple[OperatorProb
     for item in ranked:
         scores[item.patch.operator] = max(scores.get(item.patch.operator, 0.0), item.score)
     total = sum(scores.values())
-    normalized = dict.fromkeys(scores, 1.0 / len(scores)) if total <= 0.0 else {operator: score / total for operator, score in scores.items()}
+    normalized = (
+        dict.fromkeys(scores, 1.0 / len(scores))
+        if total <= 0.0
+        else {operator: score / total for operator, score in scores.items()}
+    )
     return tuple(
         OperatorProbability(operator=operator, probability=probability)
         for operator, probability in sorted(normalized.items(), key=lambda item: item[1], reverse=True)
@@ -268,10 +286,14 @@ def predict_operator(request: OperatorPredictionInput) -> tuple[OperatorPredicti
         raise ValueError(f"Prediction is disabled for pathway {request.pathway_id}")
     guardrails = _matched_guardrails(request)
     graph = _prediction_graph(request, guardrails)
-    raw_candidates = generate_edge_patch_candidates(graph, pathway.prediction, source_node_id=request.source_node_id)
+    raw_candidates = generate_edge_patch_candidates(
+        graph, pathway.prediction, source_node_id=request.source_node_id
+    )
     candidates = _constrained_candidates(raw_candidates, request)
     if not candidates:
-        raise ValueError("Prediction graph produced no edge-patch candidates matching the selected target/effect")
+        raise ValueError(
+            "Prediction graph produced no edge-patch candidates matching the selected target/effect"
+        )
 
     ranked = list(_rank_candidates(candidates, request))
     if not ranked:
@@ -300,7 +322,9 @@ def predict_operator(request: OperatorPredictionInput) -> tuple[OperatorPredicti
     model_recommendations = (model_top.to_recommendation(),)
     recommendations = tuple(candidate.to_recommendation() for candidate in final_candidates)
     guardrail_recommendations = tuple(candidate.to_recommendation() for candidate in guardrail_candidates)
-    included_modules = tuple(sorted({str(module) for guardrail in guardrails for module in guardrail.include_modules}))
+    included_modules = tuple(
+        sorted({str(module) for guardrail in guardrails for module in guardrail.include_modules})
+    )
 
     prediction = OperatorPrediction(
         predicted_operator=final_operator,

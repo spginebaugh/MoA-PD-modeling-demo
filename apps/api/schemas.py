@@ -7,7 +7,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
-from services.annotation_import.models import PaperEvidenceGraph, PathwayProposal
+from services.annotation_import.models import CuratedPaperMoaGraph, PaperEvidenceGraph, PathwayProposal
 from services.domain import (
     CompiledModel,
     MoAGraph,
@@ -151,6 +151,13 @@ class PaperEvidenceGraphResponse(BaseModel):
 
     ok: Literal[True] = True
     graph: PaperEvidenceGraph
+
+
+class CuratedPaperMoaGraphResponse(BaseModel):
+    model_config = STRICT_MODEL_CONFIG
+
+    ok: Literal[True] = True
+    graph: CuratedPaperMoaGraph
 
 
 class PathwayProposalResponse(BaseModel):

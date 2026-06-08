@@ -171,7 +171,11 @@ def _evidence_quality_warnings(graph: MoAGraph) -> tuple[ModelWarning, ...]:
                     details={"confidence": edge.confidence},
                 )
             )
-        low_evidence = tuple(evidence for evidence in edge.evidence if evidence.confidence is not None and evidence.confidence < 0.5)
+        low_evidence = tuple(
+            evidence
+            for evidence in edge.evidence
+            if evidence.confidence is not None and evidence.confidence < 0.5
+        )
         if low_evidence:
             warnings.append(
                 _warning(
@@ -189,7 +193,9 @@ def _expression_ir(expression: ExecutableOrDisplayExpression) -> Expression:
     return expression
 
 
-def _state_equations(states: tuple[StateId, ...], terms: tuple[EquationTerm, ...]) -> tuple[StateEquation, ...]:
+def _state_equations(
+    states: tuple[StateId, ...], terms: tuple[EquationTerm, ...]
+) -> tuple[StateEquation, ...]:
     terms_by_state: dict[StateId, list[EquationTerm]] = {state: [] for state in states}
     for term in terms:
         terms_by_state.setdefault(term.state, []).append(term)
@@ -197,8 +203,14 @@ def _state_equations(states: tuple[StateId, ...], terms: tuple[EquationTerm, ...
     equations: list[StateEquation] = []
     for state in states:
         state_terms = tuple(terms_by_state[state])
-        expression = Add(terms=tuple(_expression_ir(term.expression) for term in state_terms)) if state_terms else Constant(value=0.0)
-        source_edges = tuple(sorted({edge_id for term in state_terms for edge_id in (*term.source_edges, *term.modifiers)}))
+        expression = (
+            Add(terms=tuple(_expression_ir(term.expression) for term in state_terms))
+            if state_terms
+            else Constant(value=0.0)
+        )
+        source_edges = tuple(
+            sorted({edge_id for term in state_terms for edge_id in (*term.source_edges, *term.modifiers)})
+        )
         parameters = expression_parameters(expression)
         equations.append(
             StateEquation(
@@ -324,7 +336,9 @@ def _generic_expression(graph: MoAGraph, edge: Edge, operator: OperatorId) -> Ex
     base = f"{edge.source}_to_{edge.target}"
     match str(operator):
         case "activation" | "dimerization" | "ubiquitination" | "phenotype_drive":
-            return saturable_source_term(_parameter_id(f"k_{base}"), source_state, _parameter_id(f"K_{edge.source}"))
+            return saturable_source_term(
+                _parameter_id(f"k_{base}"), source_state, _parameter_id(f"K_{edge.source}")
+            )
         case "phosphorylation":
             return mul(p(f"k_{base}"), s(source_state))
         case "inhibition":
@@ -334,7 +348,9 @@ def _generic_expression(graph: MoAGraph, edge: Edge, operator: OperatorId) -> Ex
         case "delay":
             return delay_term(source_state, target_state, _parameter_id(f"tau_{base}"))
         case _:
-            return saturable_source_term(_parameter_id(f"k_{base}"), source_state, _parameter_id(f"K_{edge.source}"))
+            return saturable_source_term(
+                _parameter_id(f"k_{base}"), source_state, _parameter_id(f"K_{edge.source}")
+            )
 
 
 def _compile_causal_edge_terms(
@@ -355,7 +371,9 @@ def _compile_causal_edge_terms(
         )
         return ()
     operator = _generic_operator_for_relation(edge.relation, edge.operator)
-    expression = edge.expression if edge.expression is not None else _generic_expression(graph, edge, operator)
+    expression = (
+        edge.expression if edge.expression is not None else _generic_expression(graph, edge, operator)
+    )
     sign = edge.sign if edge.sign != Sign.UNKNOWN else relation_default_sign(str(edge.relation))
     try:
         return (
@@ -431,7 +449,9 @@ def _generated_parameter_catalog(
     if not generated:
         return base_catalog, ()
 
-    missing_defaults = tuple(sorted(parameter for parameter, item in generated.items() if item.default_value is None))
+    missing_defaults = tuple(
+        sorted(parameter for parameter, item in generated.items() if item.default_value is None)
+    )
     warnings: list[ModelWarning] = []
     if missing_defaults:
         warnings.append(
@@ -472,7 +492,9 @@ def _append_model_structure_warnings(graph: MoAGraph, warnings: list[ModelWarnin
                 )
 
 
-def _initial_conditions_for_states(pathway: PathwayDefinition, graph: MoAGraph, states: tuple[StateId, ...]) -> dict[StateId, float]:
+def _initial_conditions_for_states(
+    pathway: PathwayDefinition, graph: MoAGraph, states: tuple[StateId, ...]
+) -> dict[StateId, float]:
     initials = dict(pathway.initial_conditions.values)
     for node in graph.nodes:
         if node.state is not None and node.state.initial is not None:
@@ -504,7 +526,9 @@ def compile_graph(graph: MoAGraph, pathway: PathwayDefinition | None = None) -> 
 
     base_catalog = pathway.parameters.catalog()
     term_tuple = tuple(terms)
-    parameter_catalog, parameter_warnings = _generated_parameter_catalog(base_catalog, term_tuple, modifiers, pathway)
+    parameter_catalog, parameter_warnings = _generated_parameter_catalog(
+        base_catalog, term_tuple, modifiers, pathway
+    )
     warnings.extend(parameter_warnings)
     _append_model_structure_warnings(graph, warnings)
 
@@ -526,8 +550,12 @@ def compile_graph(graph: MoAGraph, pathway: PathwayDefinition | None = None) -> 
             included_modules=graph.metadata.included_modules,
             drug_effects=graph.metadata.drug_effects,
             drug_state=graph.drug_state(),
-            endpoint_states=tuple(state for state in pathway.presentation.endpoint_states if state in state_set),
-            plot_states=tuple(state.state for state in pathway.presentation.plot_states if state.state in state_set),
+            endpoint_states=tuple(
+                state for state in pathway.presentation.endpoint_states if state in state_set
+            ),
+            plot_states=tuple(
+                state.state for state in pathway.presentation.plot_states if state.state in state_set
+            ),
             initial_conditions=initial_conditions,
             logic_checks=logic_checks,
             graph_summary=graph.summarize(),

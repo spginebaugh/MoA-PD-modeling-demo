@@ -163,7 +163,9 @@ def _configuration_modules(
     if request.configuration is not None:
         configuration = pathway.configurations.get(request.configuration)
         if configuration is None:
-            raise ValueError(f"Unknown configuration {request.configuration!r} for pathway {pathway.pathway_id}")
+            raise ValueError(
+                f"Unknown configuration {request.configuration!r} for pathway {pathway.pathway_id}"
+            )
         selected_configuration = configuration.id
         modules.update(configuration.include_modules)
         modules.difference_update(configuration.exclude_modules)
@@ -201,7 +203,9 @@ def compose_graph(request: GraphComposeRequest) -> MoAGraph:
             edges,
             tuple(_edge_from_effect_patch(patch, effect.label) for patch in effect.patches),
         )
-    _merge_unique_edges(edges, tuple(_edge_from_ad_hoc(patch, source_node) for patch in request.ad_hoc_modifiers))
+    _merge_unique_edges(
+        edges, tuple(_edge_from_ad_hoc(patch, source_node) for patch in request.ad_hoc_modifiers)
+    )
 
     duplicate_effects = duplicate_items(drug_effect_ids)
     if duplicate_effects:
@@ -220,7 +224,9 @@ def compose_graph(request: GraphComposeRequest) -> MoAGraph:
     )
     return MoAGraph(
         graph_id=GraphId(f"{pathway.pathway_id}_{graph_suffix}"),
-        label=pathway.configurations[selected_configuration].label if selected_configuration else f"{pathway.label} custom graph",
+        label=pathway.configurations[selected_configuration].label
+        if selected_configuration
+        else f"{pathway.label} custom graph",
         context=pathway.context,
         nodes=tuple(nodes),
         edges=tuple(edges),
@@ -238,10 +244,16 @@ def contract_for_pathway(pathway: PathwayDefinition) -> PathwayContract:
     return PathwayContract(
         pathway_id=pathway.pathway_id,
         label=pathway.label,
-        configurations=tuple(DisplayOption(value=str(item.id), label=item.label) for item in pathway.configurations.values()),
-        modules=tuple(DisplayOption(value=str(item.id), label=item.label) for item in pathway.modules.values()),
+        configurations=tuple(
+            DisplayOption(value=str(item.id), label=item.label) for item in pathway.configurations.values()
+        ),
+        modules=tuple(
+            DisplayOption(value=str(item.id), label=item.label) for item in pathway.modules.values()
+        ),
         default_modules=tuple(module.id for module in pathway.modules.values() if module.default_included),
-        drug_effects=tuple(DisplayOption(value=str(item.id), label=item.label) for item in pathway.drug_effects.values()),
+        drug_effects=tuple(
+            DisplayOption(value=str(item.id), label=item.label) for item in pathway.drug_effects.values()
+        ),
         modifier_relations=tuple(
             DisplayOption(value=str(relation), label=modifier_labels.get(str(relation), str(relation)))
             for relation in pathway.prediction.allowed_modifier_relations

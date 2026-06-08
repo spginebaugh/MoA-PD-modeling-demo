@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 from apps.api.main import app
 from apps.api.schemas import (
     CompileResponse,
+    CuratedPaperMoaGraphResponse,
     ErrorResponse,
     PaperEvidenceGraphResponse,
     PathwayProposalResponse,
@@ -48,6 +49,10 @@ def test_annotation_evidence_graph_and_proposal_endpoints() -> None:
     assert listing.status_code == 200
     assert listing.json()["paper_ids"] == ["PMC3693219", "PMC5131886"]
 
+    curated_listing = client.get("/curated-annotation-graphs")
+    assert curated_listing.status_code == 200
+    assert curated_listing.json()["paper_ids"] == ["PMC3693219", "PMC5131886"]
+
     graph_response = client.get("/annotation-graphs/PMC5131886")
     assert graph_response.status_code == 200
     graph = PaperEvidenceGraphResponse.model_validate_json(graph_response.text).graph
@@ -56,10 +61,18 @@ def test_annotation_evidence_graph_and_proposal_endpoints() -> None:
     assert any(link.relation == "equation_defines" for link in graph.links)
     assert any(link.relation == "simulation_parameter_for" for link in graph.links)
 
+    curated_response = client.get("/annotation-graphs/PMC5131886/curated")
+    assert curated_response.status_code == 200
+    curated = CuratedPaperMoaGraphResponse.model_validate_json(curated_response.text).graph
+    assert curated.graph_kind == "curated_moa"
+    assert len(curated.edges) == 10
+    assert all(edge.evidence_anchor_ids for edge in curated.edges)
+
     proposal_response = client.get("/annotation-graphs/PMC5131886/proposal")
     assert proposal_response.status_code == 200
     proposal = PathwayProposalResponse.model_validate_json(proposal_response.text).proposal
     assert proposal.proposal_kind == "new_pathway"
+    assert proposal.curated_graph_id == curated.graph_id
     assert proposal.executable is False
     assert all(edge.provenance is not None for edge in proposal.proposed_edges)
 
@@ -133,7 +146,9 @@ def test_compose_compile_simulate_api_flow() -> None:
 def test_default_simulation_exposure_decays_drug_bolus() -> None:
     composed = client.post(
         "/graph/compose",
-        json=GraphComposeRequest(pathway_id=PATHWAY, configuration="direct_kinase_inhibition").model_dump(mode="json"),
+        json=GraphComposeRequest(pathway_id=PATHWAY, configuration="direct_kinase_inhibition").model_dump(
+            mode="json"
+        ),
     )
     graph = composed.json()["graph"]
     compiled_response = client.post("/model/compile", json={"pathway_id": PATHWAY_ID, "graph": graph})
@@ -165,7 +180,9 @@ def test_default_simulation_exposure_decays_drug_bolus() -> None:
 
 
 def test_invalid_graph_returns_useful_error() -> None:
-    composed = client.post("/graph/compose", json={"pathway_id": PATHWAY_ID, "configuration": "base_signaling"})
+    composed = client.post(
+        "/graph/compose", json={"pathway_id": PATHWAY_ID, "configuration": "base_signaling"}
+    )
     assert composed.status_code == 200
     graph = composed.json()["graph"]
     graph["edges"][0]["source"] = "missing"
@@ -202,8 +219,7 @@ def test_prediction_apply_respects_selected_ligand_target_with_cbl_module() -> N
             "input": {
                 "pathway_id": PATHWAY_ID,
                 "claim_text": (
-                    "Compound inhibits CBL-mediated receptor turnover module "
-                    "EGF ligand -> EGFR active dimer."
+                    "Compound inhibits CBL-mediated receptor turnover module EGF ligand -> EGFR active dimer."
                 ),
                 "include_modules": ["cbl_turnover"],
                 "target_edge_id": "e_ligand_dimerizes_egfr",

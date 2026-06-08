@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
-from services.annotation_import.models import PaperEvidenceGraph, PathwayProposal, WarningRecord
+from services.annotation_import.models import (
+    CuratedPaperMoaGraph,
+    PaperEvidenceGraph,
+    PathwayProposal,
+    WarningRecord,
+)
 
 
 def validate_evidence_graph(graph: PaperEvidenceGraph) -> tuple[WarningRecord, ...]:
@@ -202,6 +207,194 @@ def validate_pathway_proposal(proposal: PathwayProposal) -> tuple[WarningRecord,
 
 def assert_valid_pathway_proposal(proposal: PathwayProposal) -> None:
     warnings = validate_pathway_proposal(proposal)
+    errors = tuple(warning for warning in warnings if warning.severity == "error")
+    if errors:
+        messages = "; ".join(error.message for error in errors)
+        raise ValueError(messages)
+
+
+def validate_curated_paper_moa_graph(graph: CuratedPaperMoaGraph) -> tuple[WarningRecord, ...]:
+    warnings: list[WarningRecord] = []
+    if graph.executable:
+        warnings.append(
+            WarningRecord(
+                code="curated_graph_claims_executable",
+                message=f"Curated graph {graph.graph_id} is marked executable.",
+                severity="error",
+            )
+        )
+
+    node_ids = {node.node_id for node in graph.nodes}
+    edge_ids = {edge.edge_id for edge in graph.edges}
+    for edge in graph.edges:
+        if edge.source not in node_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_edge_missing_source_node",
+                    message=f"Curated edge {edge.edge_id} has missing source node {edge.source}.",
+                    severity="error",
+                    source_record_type="curated_edge",
+                    source_record_id=edge.edge_id,
+                )
+            )
+        if edge.target not in node_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_edge_missing_target_node",
+                    message=f"Curated edge {edge.edge_id} has missing target node {edge.target}.",
+                    severity="error",
+                    source_record_type="curated_edge",
+                    source_record_id=edge.edge_id,
+                )
+            )
+        if edge.review_status != "review_only":
+            if not edge.evidence_anchor_ids:
+                warnings.append(
+                    WarningRecord(
+                        code="curated_candidate_edge_missing_anchor",
+                        message=f"Curated candidate edge {edge.edge_id} has no evidence anchors.",
+                        severity="error",
+                        source_record_type="curated_edge",
+                        source_record_id=edge.edge_id,
+                    )
+                )
+            if not edge.provenance:
+                warnings.append(
+                    WarningRecord(
+                        code="curated_candidate_edge_missing_provenance",
+                        message=f"Curated candidate edge {edge.edge_id} has no provenance records.",
+                        severity="error",
+                        source_record_type="curated_edge",
+                        source_record_id=edge.edge_id,
+                    )
+                )
+
+    for parameter in graph.parameters:
+        if parameter.target_node_id and parameter.target_node_id not in node_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_parameter_missing_target_node",
+                    message=(
+                        f"Curated parameter {parameter.parameter_id} targets missing node "
+                        f"{parameter.target_node_id}."
+                    ),
+                    severity="error",
+                    source_record_type="curated_parameter",
+                    source_record_id=parameter.parameter_id,
+                )
+            )
+        if parameter.target_edge_id and parameter.target_edge_id not in edge_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_parameter_missing_target_edge",
+                    message=(
+                        f"Curated parameter {parameter.parameter_id} targets missing edge "
+                        f"{parameter.target_edge_id}."
+                    ),
+                    severity="error",
+                    source_record_type="curated_parameter",
+                    source_record_id=parameter.parameter_id,
+                )
+            )
+        if (
+            parameter.role == "calibration_or_validation_endpoint"
+            and parameter.review_status != "review_only"
+        ):
+            warnings.append(
+                WarningRecord(
+                    code="curated_calibration_endpoint_promoted",
+                    message=f"Calibration endpoint {parameter.parameter_id} must remain review-only.",
+                    severity="error",
+                    source_record_type="curated_parameter",
+                    source_record_id=parameter.parameter_id,
+                )
+            )
+        if (
+            parameter.review_status != "review_only"
+            and parameter.role != "calibration_or_validation_endpoint"
+        ):
+            if parameter.value is None:
+                warnings.append(
+                    WarningRecord(
+                        code="curated_promoted_parameter_missing_value",
+                        message=f"Promoted curated parameter {parameter.parameter_id} has no value.",
+                        severity="error",
+                        source_record_type="curated_parameter",
+                        source_record_id=parameter.parameter_id,
+                    )
+                )
+            if parameter.unit is None:
+                warnings.append(
+                    WarningRecord(
+                        code="curated_promoted_parameter_missing_unit",
+                        message=f"Promoted curated parameter {parameter.parameter_id} has no unit.",
+                        severity="error",
+                        source_record_type="curated_parameter",
+                        source_record_id=parameter.parameter_id,
+                    )
+                )
+            if not (
+                parameter.context.species
+                or parameter.context.translation_stage
+                or parameter.context.model_system
+            ):
+                warnings.append(
+                    WarningRecord(
+                        code="curated_promoted_parameter_missing_context",
+                        message=f"Promoted curated parameter {parameter.parameter_id} has no species/stage context.",
+                        severity="error",
+                        source_record_type="curated_parameter",
+                        source_record_id=parameter.parameter_id,
+                    )
+                )
+            if not parameter.evidence_anchor_ids or not parameter.provenance:
+                warnings.append(
+                    WarningRecord(
+                        code="curated_promoted_parameter_missing_evidence",
+                        message=f"Promoted curated parameter {parameter.parameter_id} lacks evidence/provenance.",
+                        severity="error",
+                        source_record_type="curated_parameter",
+                        source_record_id=parameter.parameter_id,
+                    )
+                )
+
+    for equation in graph.equations:
+        if equation.target_node_id and equation.target_node_id not in node_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_equation_missing_target_node",
+                    message=f"Curated equation {equation.equation_id} targets missing node {equation.target_node_id}.",
+                    severity="error",
+                    source_record_type="curated_equation",
+                    source_record_id=equation.equation_id,
+                )
+            )
+        if equation.target_edge_id and equation.target_edge_id not in edge_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_equation_missing_target_edge",
+                    message=f"Curated equation {equation.equation_id} targets missing edge {equation.target_edge_id}.",
+                    severity="error",
+                    source_record_type="curated_equation",
+                    source_record_id=equation.equation_id,
+                )
+            )
+        if not equation.expression_text:
+            warnings.append(
+                WarningRecord(
+                    code="curated_equation_missing_expression",
+                    message=f"Curated equation {equation.equation_id} has no expression text.",
+                    severity="error",
+                    source_record_type="curated_equation",
+                    source_record_id=equation.equation_id,
+                )
+            )
+
+    return tuple(warnings)
+
+
+def assert_valid_curated_paper_moa_graph(graph: CuratedPaperMoaGraph) -> None:
+    warnings = validate_curated_paper_moa_graph(graph)
     errors = tuple(warning for warning in warnings if warning.severity == "error")
     if errors:
         messages = "; ".join(error.message for error in errors)

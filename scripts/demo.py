@@ -68,7 +68,9 @@ def _first_falling_state(response: SimulationResult, states: tuple[StateId, ...]
 
 
 def _parameter_values(response: SimulationResult, parameters: tuple[ParameterId, ...]) -> dict[str, float]:
-    return {str(parameter): value for parameter, value in response.parameters.items() if parameter in parameters}
+    return {
+        str(parameter): value for parameter, value in response.parameters.items() if parameter in parameters
+    }
 
 
 def _term_summary(term: EquationTerm) -> dict[str, object]:
@@ -94,7 +96,9 @@ def _compiled_focus(model: CompiledModel, states: tuple[StateId, ...]) -> dict[s
     return {
         "modifiers": [_modifier_summary(modifier) for modifier in model.modifiers],
         "terms": [_term_summary(term) for term in model.terms if term.state in state_set],
-        "state_equations": [_equation_summary(equation) for equation in model.equations if equation.state in state_set],
+        "state_equations": [
+            _equation_summary(equation) for equation in model.equations if equation.state in state_set
+        ],
     }
 
 
@@ -106,7 +110,9 @@ def _hypothesis_edges(graph_model_dump: dict[str, object]) -> list[object]:
 def _run_configuration(pathway_id: str, configuration: str) -> tuple[CompiledModel, SimulationResult]:
     graph = compose_graph(GraphComposeRequest(pathway_id=PathwayId(pathway_id), configuration=configuration))
     compiled = compile_graph(graph)
-    response = simulate(SimulationInput(model=compiled, settings=SimulationSettings(dose=1.0, t_end=48, n_points=161)))
+    response = simulate(
+        SimulationInput(model=compiled, settings=SimulationSettings(dose=1.0, t_end=48, n_points=161))
+    )
     return compiled, response
 
 
@@ -153,7 +159,9 @@ def _prediction_demo(pathway_id: str) -> dict[str, object]:
         "simulation": {
             "first_falling_state": _first_falling_state(patched_response, focus_states),
             "summaries": _state_summaries(patched_response, focus_states),
-            "biological_logic": [logic.model_dump(mode="json") for logic in patched_response.biological_logic],
+            "biological_logic": [
+                logic.model_dump(mode="json") for logic in patched_response.biological_logic
+            ],
             "parameter_values": _parameter_values(patched_response, focus_parameters),
         },
         "contrast": {
@@ -172,9 +180,13 @@ def generate_demo_outputs(output_dir: Path, pathway_id: str | None = None) -> No
     pathway = load_pathway(pathway_id)
     comparison: dict[str, dict[str, object]] = {}
     for configuration in pathway.configurations:
-        graph = compose_graph(GraphComposeRequest(pathway_id=PathwayId(pathway_id), configuration=configuration))
+        graph = compose_graph(
+            GraphComposeRequest(pathway_id=PathwayId(pathway_id), configuration=configuration)
+        )
         compiled = compile_graph(graph)
-        response = simulate(SimulationInput(model=compiled, settings=SimulationSettings(dose=1.0, t_end=48, n_points=161)))
+        response = simulate(
+            SimulationInput(model=compiled, settings=SimulationSettings(dose=1.0, t_end=48, n_points=161))
+        )
         write_json(output_dir / f"{configuration}_graph.json", graph.model_dump(mode="json"))
         write_json(output_dir / f"{configuration}_compiled_model.json", compiled.model_dump(mode="json"))
         write_json(output_dir / f"{configuration}_simulation.json", response.model_dump(mode="json"))
@@ -191,8 +203,15 @@ def generate_demo_outputs(output_dir: Path, pathway_id: str | None = None) -> No
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="Directory for generated demo artifacts.")
-    parser.add_argument("--pathway", type=str, default=None, help="Pathway id to render. Defaults to the first loaded pathway.")
+    parser.add_argument(
+        "--out", type=Path, default=DEFAULT_OUT, help="Directory for generated demo artifacts."
+    )
+    parser.add_argument(
+        "--pathway",
+        type=str,
+        default=None,
+        help="Pathway id to render. Defaults to the first loaded pathway.",
+    )
     return parser.parse_args()
 
 

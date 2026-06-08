@@ -19,7 +19,9 @@ from services.domain.base import JsonValue
 SUPPORTED_EXECUTION_MODEL = "graph_derived_expression_ir_v2"
 
 
-def _error(category: WarningCategory, message: str, *, details: dict[str, JsonValue] | None = None) -> ModelWarning:
+def _error(
+    category: WarningCategory, message: str, *, details: dict[str, JsonValue] | None = None
+) -> ModelWarning:
     return ModelWarning(
         category=category,
         severity=WarningSeverity.ERROR,
@@ -35,7 +37,9 @@ def validate_simulation_ready(
     """Return typed error diagnostics that make a compiled model unsafe to simulate."""
 
     overrides = frozenset(parameter_overrides or {})
-    errors: list[ModelWarning] = [warning for warning in model.warnings if warning.severity == WarningSeverity.ERROR]
+    errors: list[ModelWarning] = [
+        warning for warning in model.warnings if warning.severity == WarningSeverity.ERROR
+    ]
 
     if model.metadata.execution_model != SUPPORTED_EXECUTION_MODEL:
         errors.append(
@@ -58,7 +62,9 @@ def validate_simulation_ready(
         )
 
     display_equations = tuple(
-        str(equation.state) for equation in model.equations if isinstance(equation.expression, DisplayExpression)
+        str(equation.state)
+        for equation in model.equations
+        if isinstance(equation.expression, DisplayExpression)
     )
     if display_equations:
         errors.append(

@@ -90,7 +90,9 @@ def apply_edge_recommendations(
     edge_map = base_graph.edge_map()
     if not recommendations:
         raise ValueError("At least one prediction recommendation is required")
-    duplicate_recommendations = duplicate_items(tuple(recommendation.edge_id for recommendation in recommendations))
+    duplicate_recommendations = duplicate_items(
+        tuple(recommendation.edge_id for recommendation in recommendations)
+    )
     if duplicate_recommendations:
         raise ValueError(f"Duplicate recommendation edge ids: {list(duplicate_recommendations)}")
 
@@ -104,7 +106,10 @@ def apply_edge_recommendations(
         if recommendation.edge_id in edge_map:
             raise ValueError(f"Recommendation edge id {recommendation.edge_id!r} already exists in graph")
 
-    hypothesis_edges = tuple(_hypothesis_edge(recommendation, claim_text=claim_text, decision_source=decision_source) for recommendation in recommendations)
+    hypothesis_edges = tuple(
+        _hypothesis_edge(recommendation, claim_text=claim_text, decision_source=decision_source)
+        for recommendation in recommendations
+    )
     return base_graph.model_copy(
         update={
             "graph_id": GraphId(f"{base_graph.graph_id}_predicted_patches"),

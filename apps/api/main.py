@@ -22,6 +22,7 @@ from apps.api.schemas import (
     CompileRequest,
     CompileResponse,
     CompileStatus,
+    CuratedPaperMoaGraphResponse,
     ErrorLocation,
     ErrorResponse,
     GraphComposeResponse,
@@ -36,10 +37,16 @@ from apps.api.schemas import (
     SimulateRequest,
     SimulateResponse,
 )
+from services.annotation_import.curated_graph_builder import build_curated_paper_moa_graph
 from services.annotation_import.graph_builder import build_paper_evidence_graph
 from services.annotation_import.loader import list_annotation_bundles, load_annotation_bundle
 from services.annotation_import.pathway_patch import build_pathway_proposal
-from services.annotation_import.validation import assert_valid_evidence_graph, assert_valid_pathway_proposal
+from services.annotation_import.rules import list_curated_graph_rules
+from services.annotation_import.validation import (
+    assert_valid_curated_paper_moa_graph,
+    assert_valid_evidence_graph,
+    assert_valid_pathway_proposal,
+)
 from services.domain import (
     CompiledModel,
     ModelWarning,
@@ -205,7 +212,9 @@ def _raise_if_diagnostic_compile(model: CompiledModel) -> None:
         raise ApiBoundaryError(_api_error_from_warning(warning) for warning in errors)
 
 
-def _raise_if_simulation_not_ready(model: CompiledModel, parameter_overrides: dict[ParameterId, float]) -> None:
+def _raise_if_simulation_not_ready(
+    model: CompiledModel, parameter_overrides: dict[ParameterId, float]
+) -> None:
     errors = validate_simulation_ready(model, parameter_overrides)
     if errors:
         raise ApiBoundaryError(_api_error_from_warning(warning) for warning in errors)
@@ -254,6 +263,11 @@ def annotation_graphs() -> AnnotationGraphsResponse:
     return AnnotationGraphsResponse(paper_ids=list_annotation_bundles())
 
 
+@app.get("/curated-annotation-graphs", response_model=AnnotationGraphsResponse, responses=ERROR_RESPONSES)
+def curated_annotation_graphs() -> AnnotationGraphsResponse:
+    return AnnotationGraphsResponse(paper_ids=list_curated_graph_rules())
+
+
 @app.get(
     "/annotation-graphs/{paper_id}",
     response_model=PaperEvidenceGraphResponse,
@@ -264,6 +278,22 @@ def annotation_graph(paper_id: str) -> PaperEvidenceGraphResponse:
         graph = build_paper_evidence_graph(load_annotation_bundle(paper_id))
         assert_valid_evidence_graph(graph)
         return PaperEvidenceGraphResponse(graph=graph)
+    except (ValidationError, ValueError) as exc:
+        _raise_api_boundary_error(exc)
+
+
+@app.get(
+    "/annotation-graphs/{paper_id}/curated",
+    response_model=CuratedPaperMoaGraphResponse,
+    responses=ERROR_RESPONSES,
+)
+def curated_annotation_graph(paper_id: str) -> CuratedPaperMoaGraphResponse:
+    try:
+        evidence_graph = build_paper_evidence_graph(load_annotation_bundle(paper_id))
+        assert_valid_evidence_graph(evidence_graph)
+        graph = build_curated_paper_moa_graph(evidence_graph)
+        assert_valid_curated_paper_moa_graph(graph)
+        return CuratedPaperMoaGraphResponse(graph=graph)
     except (ValidationError, ValueError) as exc:
         _raise_api_boundary_error(exc)
 

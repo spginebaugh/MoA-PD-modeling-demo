@@ -40,8 +40,10 @@ def context_scope(
 
     species = _first_context_value(context, ("species",)) or _first_rule_match(lowered, context_rules.species)
     translation_stage = _first_context_value(context, ("translation_stage", "study_context_type"))
-    if translation_stage is None and species == "human" and _rule_value_matches(
-        lowered, context_rules.translation_stage, "clinical"
+    if (
+        translation_stage is None
+        and species == "human"
+        and _rule_value_matches(lowered, context_rules.translation_stage, "clinical")
     ):
         translation_stage = "clinical"
     translation_stage = translation_stage or _first_rule_match(lowered, context_rules.translation_stage)

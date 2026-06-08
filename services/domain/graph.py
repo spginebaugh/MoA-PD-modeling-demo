@@ -238,7 +238,9 @@ class MoAGraph(BaseModel):
 
     def node_for_state(self, state: StateId | str) -> Node | None:
         state_id = StateId(str(state))
-        return next((node for node in self.nodes if node.state is not None and node.state.id == state_id), None)
+        return next(
+            (node for node in self.nodes if node.state is not None and node.state.id == state_id), None
+        )
 
     def drug_state(self) -> StateId | None:
         if self.metadata.drug_state is not None:
@@ -263,7 +265,11 @@ class MoAGraph(BaseModel):
         return tuple(edge for edge in self.edges if edge.target == target)
 
     def modifiers_for_edge(self, edge_id: EdgeId) -> tuple[Edge, ...]:
-        return tuple(edge for edge in self.edges if edge.target == edge_id and str(edge.relation) in EDGE_TARGET_RELATIONS)
+        return tuple(
+            edge
+            for edge in self.edges
+            if edge.target == edge_id and str(edge.relation) in EDGE_TARGET_RELATIONS
+        )
 
     def structural_edges(self) -> tuple[Edge, ...]:
         return tuple(edge for edge in self.edges if str(edge.relation) not in EDGE_TARGET_RELATIONS)

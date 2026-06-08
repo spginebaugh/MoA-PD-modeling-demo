@@ -86,7 +86,9 @@ demo_outputs/                Generated sample graphs, models, simulations, and C
 | `GET` | `/pathways/{pathway_id}` | Return the loaded pathway definition |
 | `GET` | `/pathways/{pathway_id}/contract` | Return UI-facing configurations, modules, modifier relations, prediction tasks, and presentation metadata |
 | `GET` | `/annotation-graphs` | List available paper annotation bundles |
+| `GET` | `/curated-annotation-graphs` | List paper IDs with curated non-executable MOA graph rules |
 | `GET` | `/annotation-graphs/{paper_id}` | Build and return a connected paper evidence graph with provenance |
+| `GET` | `/annotation-graphs/{paper_id}/curated` | Build and return a curated non-executable paper MOA graph with causal edges, parameters, equations, context, and provenance |
 | `GET` | `/annotation-graphs/{paper_id}/proposal` | Build and return a review-only pathway proposal from the evidence graph |
 | `POST` | `/graph/compose` | Compose a graph from pathway, configuration, modules, predefined effects, and ad hoc modifiers |
 | `POST` | `/graph/patch` | Compose a graph through the same graph-operation boundary for patch-style clients |
