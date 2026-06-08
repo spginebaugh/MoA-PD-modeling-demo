@@ -231,6 +231,132 @@
         "state": "treated",
         "model_system": "clinical"
       }
+    },
+    {
+      "node_id": "pk_model_structure",
+      "label": "Population PK/PKPD model structure",
+      "node_type": "pk_model_structure",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:e4c44b2bc3130b86",
+        "simulation_parameter:PMC5131886:dd600f1f47ee8209",
+        "simulation_parameter:PMC5131886:e98288b948c16208"
+      ],
+      "review_status": "review_only",
+      "reason": "Population PK and PKPD model structure records are retained as review-only model context.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "model_system": "population PK/PKPD model"
+      },
+      "warnings": ["model_structure_not_executable"]
+    },
+    {
+      "node_id": "pk_equation_variables",
+      "label": "PK equation variables",
+      "node_type": "pk_model_quantity",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:99668a066e814199",
+        "simulation_parameter:PMC5131886:3cec07cf5ad1b024",
+        "simulation_parameter:PMC5131886:33a10367c3d94cf3",
+        "simulation_parameter:PMC5131886:1a53f2132f547baf"
+      ],
+      "review_status": "review_only",
+      "reason": "Equation variables are preserved for model-form review and are not parameter priors.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "model_system": "population PK model"
+      },
+      "warnings": ["equation_variable_not_parameter_prior"]
+    },
+    {
+      "node_id": "plasma_compartment",
+      "label": "Plasma compartment",
+      "node_type": "pk_compartment",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:655170ee3e735046",
+        "simulation_parameter:PMC5131886:a380a289659cbb34"
+      ],
+      "review_status": "review_only",
+      "reason": "Plasma compartment evidence is retained as model-structure context.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "population PK model"
+      },
+      "warnings": ["model_structure_not_executable"]
+    },
+    {
+      "node_id": "tumor_compartment",
+      "label": "Tumor compartment",
+      "node_type": "pd_compartment",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:2a99b15f749b8927",
+        "simulation_parameter:PMC5131886:768abd21dc994e13"
+      ],
+      "review_status": "review_only",
+      "reason": "Tumor compartment evidence is retained as model-structure context.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "tissue_or_organ": "tumor",
+        "model_system": "PKPD/tumor growth model"
+      },
+      "warnings": ["model_structure_not_executable"]
+    },
+    {
+      "node_id": "svegfr2_endpoint_family",
+      "label": "sVEGFR2 observed/predicted endpoint family",
+      "node_type": "pd_endpoint_family",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:76cce742eb8dbe47",
+        "simulation_parameter:PMC5131886:ba06755d727bb0dd",
+        "simulation_parameter:PMC5131886:d57c91ec7d12dfd6",
+        "simulation_parameter:PMC5131886:fb57a36b1fef03f6"
+      ],
+      "review_status": "review_only",
+      "reason": "sVEGFR2 endpoint family is preserved as calibration/validation evidence.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PKPD model",
+        "drug_or_analyte": "sVEGFR2"
+      },
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
+    },
+    {
+      "node_id": "tumor_volume_endpoint_family",
+      "label": "Tumor volume endpoint family",
+      "node_type": "pd_endpoint_family",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:34731f9af2b0b435",
+        "simulation_parameter:PMC5131886:5870934d4a4a9ec7",
+        "simulation_parameter:PMC5131886:de5919a059d778eb",
+        "simulation_parameter:PMC5131886:e8b3e6c25f03399c"
+      ],
+      "review_status": "review_only",
+      "reason": "Tumor volume endpoint family is preserved as calibration/validation evidence.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "HCC",
+        "state": "treated",
+        "tissue_or_organ": "tumor",
+        "model_system": "clinical PKPD/tumor growth model"
+      },
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
     }
   ],
   "edges": [
@@ -447,6 +573,331 @@
       "reason": "Directly supported hazard parameter, but missing unit blocks promotion.",
       "promotion_blockers": ["missing_unit"],
       "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:population_pk_model_structure",
+      "name": "Population PK model structure",
+      "role": "pk_model_structure",
+      "target_node_id": "pk_model_structure",
+      "source_record_ids": ["simulation_parameter:PMC5131886:e4c44b2bc3130b86"],
+      "review_status": "review_only",
+      "reason": "Population PK model type is preserved as model-structure evidence.",
+      "promotion_blockers": ["model_structure_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "population PK model"},
+      "metadata": {"parameter_group": "pk_model_structure"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:pkpd_model_structure",
+      "name": "PKPD model structure",
+      "role": "pkpd_model_structure",
+      "target_node_id": "pk_model_structure",
+      "source_record_ids": ["simulation_parameter:PMC5131886:dd600f1f47ee8209"],
+      "review_status": "review_only",
+      "reason": "PKPD model type is preserved as model-structure evidence.",
+      "promotion_blockers": ["model_structure_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "PKPD model"},
+      "metadata": {"parameter_group": "pk_model_structure"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:monolix_platform",
+      "name": "Monolix model platform",
+      "role": "model_platform",
+      "target_node_id": "pk_model_structure",
+      "source_record_ids": ["simulation_parameter:PMC5131886:e98288b948c16208"],
+      "review_status": "review_only",
+      "reason": "Platform evidence is retained for reproducibility context.",
+      "promotion_blockers": ["platform_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "Monolix"},
+      "metadata": {"parameter_group": "pk_model_structure"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:plasma_compartment",
+      "name": "Plasma compartment",
+      "role": "pk_model_structure",
+      "target_node_id": "plasma_compartment",
+      "source_record_ids": ["simulation_parameter:PMC5131886:655170ee3e735046"],
+      "review_status": "review_only",
+      "reason": "Plasma compartment is retained as model-structure evidence.",
+      "promotion_blockers": ["model_structure_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "model_system": "population PK model"},
+      "metadata": {"parameter_group": "pk_model_structure"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:tumor_compartment",
+      "name": "Tumor compartment",
+      "role": "pd_model_structure",
+      "target_node_id": "tumor_compartment",
+      "source_record_ids": ["simulation_parameter:PMC5131886:2a99b15f749b8927"],
+      "review_status": "review_only",
+      "reason": "Tumor compartment is retained as model-structure evidence.",
+      "promotion_blockers": ["model_structure_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "tissue_or_organ": "tumor", "model_system": "PKPD/tumor growth model"},
+      "metadata": {"parameter_group": "pd_model_structure"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:pk_variable_cl",
+      "name": "CL equation variable",
+      "symbol": "CL",
+      "role": "pk_equation_variable",
+      "target_node_id": "pk_equation_variables",
+      "source_record_ids": ["simulation_parameter:PMC5131886:99668a066e814199"],
+      "review_status": "review_only",
+      "reason": "Clearance variable is present in PK equation text but has no curated numeric value.",
+      "promotion_blockers": ["missing_value", "missing_unit", "equation_variable_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "population PK model"},
+      "metadata": {"parameter_group": "pk_equation_variable"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:pk_variable_v1",
+      "name": "V1 equation variable",
+      "symbol": "V1",
+      "role": "pk_equation_variable",
+      "target_node_id": "pk_equation_variables",
+      "source_record_ids": ["simulation_parameter:PMC5131886:3cec07cf5ad1b024"],
+      "review_status": "review_only",
+      "reason": "Central volume variable is present in PK equation text but has no curated numeric value.",
+      "promotion_blockers": ["missing_value", "missing_unit", "equation_variable_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "population PK model"},
+      "metadata": {"parameter_group": "pk_equation_variable"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:pk_variable_q",
+      "name": "Q equation variable",
+      "symbol": "Q",
+      "role": "pk_equation_variable",
+      "target_node_id": "pk_equation_variables",
+      "source_record_ids": ["simulation_parameter:PMC5131886:33a10367c3d94cf3"],
+      "review_status": "review_only",
+      "reason": "Intercompartmental flow variable is present in PK equation text but has no curated numeric value.",
+      "promotion_blockers": ["missing_value", "missing_unit", "equation_variable_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "population PK model"},
+      "metadata": {"parameter_group": "pk_equation_variable"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:pk_variable_v2",
+      "name": "V2 equation variable",
+      "symbol": "V2",
+      "role": "pk_equation_variable",
+      "target_node_id": "pk_equation_variables",
+      "source_record_ids": ["simulation_parameter:PMC5131886:1a53f2132f547baf"],
+      "review_status": "review_only",
+      "reason": "Peripheral volume variable is present in PK equation text but has no curated numeric value.",
+      "promotion_blockers": ["missing_value", "missing_unit", "equation_variable_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "population PK model"},
+      "metadata": {"parameter_group": "pk_equation_variable"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:pk_variable_k10",
+      "name": "k10 equation variable",
+      "symbol": "k10",
+      "role": "pk_equation_variable",
+      "target_node_id": "pk_equation_variables",
+      "source_record_ids": ["simulation_parameter:PMC5131886:8709c763926142af"],
+      "review_status": "review_only",
+      "reason": "PK rate variable is present in equation text but has no curated numeric value.",
+      "promotion_blockers": ["missing_value", "missing_unit", "equation_variable_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "population PK model"},
+      "metadata": {"parameter_group": "pk_equation_variable"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:pk_variable_k12",
+      "name": "k12 equation variable",
+      "symbol": "k12",
+      "role": "pk_equation_variable",
+      "target_node_id": "pk_equation_variables",
+      "source_record_ids": ["simulation_parameter:PMC5131886:3761087c9f4dd447"],
+      "review_status": "review_only",
+      "reason": "PK rate variable is present in equation text but has no curated numeric value.",
+      "promotion_blockers": ["missing_value", "missing_unit", "equation_variable_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "population PK model"},
+      "metadata": {"parameter_group": "pk_equation_variable"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:pk_variable_k21",
+      "name": "k21 equation variable",
+      "symbol": "k21",
+      "role": "pk_equation_variable",
+      "target_node_id": "pk_equation_variables",
+      "source_record_ids": ["simulation_parameter:PMC5131886:50bfb5ae8bacb17d"],
+      "review_status": "review_only",
+      "reason": "PK rate variable is present in equation text but has no curated numeric value.",
+      "promotion_blockers": ["missing_value", "missing_unit", "equation_variable_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "population PK model"},
+      "metadata": {"parameter_group": "pk_equation_variable"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:sunitinib_observed_plasma_endpoint",
+      "name": "Observed sunitinib plasma concentration endpoint",
+      "role": "pk_exposure_endpoint",
+      "value": 180.0,
+      "unit": "ug/L",
+      "target_node_id": "sunitinib_plasma",
+      "source_record_ids": ["simulation_parameter:PMC5131886:4fc85b696909940f"],
+      "review_status": "review_only",
+      "reason": "Observed concentration endpoint is figure-derived calibration evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "model_system": "clinical PK/model-derived simulation", "drug_or_analyte": "sunitinib"},
+      "metadata": {"parameter_group": "pk_exposure_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:sunitinib_predicted_plasma_endpoint",
+      "name": "Predicted sunitinib plasma concentration endpoint",
+      "role": "pk_exposure_endpoint",
+      "value": 150.0,
+      "unit": "ug/L",
+      "target_node_id": "sunitinib_plasma",
+      "source_record_ids": ["simulation_parameter:PMC5131886:cd90cbc6cf906a22"],
+      "review_status": "review_only",
+      "reason": "Predicted concentration endpoint is figure-derived calibration evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "model_system": "clinical PK/model-derived simulation", "drug_or_analyte": "sunitinib"},
+      "metadata": {"parameter_group": "pk_exposure_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:su12662_observed_plasma_endpoint",
+      "name": "Observed SU12662 plasma concentration endpoint",
+      "role": "pk_exposure_endpoint",
+      "value": 53.0,
+      "unit": "ug/L",
+      "target_node_id": "su12662_plasma",
+      "source_record_ids": ["simulation_parameter:PMC5131886:d1f39ba1783bb406"],
+      "review_status": "review_only",
+      "reason": "Observed metabolite concentration endpoint is figure-derived calibration evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "model_system": "clinical PK/model-derived simulation", "drug_or_analyte": "SU12662"},
+      "metadata": {"parameter_group": "pk_exposure_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:su12662_predicted_plasma_endpoint",
+      "name": "Predicted SU12662 plasma concentration endpoint",
+      "role": "pk_exposure_endpoint",
+      "value": 30.0,
+      "unit": "ug/L",
+      "target_node_id": "su12662_plasma",
+      "source_record_ids": ["simulation_parameter:PMC5131886:eca77cef32067794"],
+      "review_status": "review_only",
+      "reason": "Predicted metabolite concentration endpoint is figure-derived calibration evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "model_system": "clinical PK/model-derived simulation", "drug_or_analyte": "SU12662"},
+      "metadata": {"parameter_group": "pk_exposure_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:alpha_slope_acub_on_svegfr2",
+      "name": "Slope effect of active concentration on sVEGFR2",
+      "symbol": "alpha",
+      "role": "pd_model_input",
+      "value": 2.0,
+      "unit": "L",
+      "target_edge_id": "curated_edge:PMC5131886:active_unbound_inhibits_svegfr2_production",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:dfccb203dcf5ad53",
+        "obs:PMC5131886:5139b60b0049e4a6"
+      ],
+      "review_status": "review_only",
+      "reason": "PD slope value is extracted but unit/table semantics require manual review.",
+      "promotion_blockers": ["unit_or_table_row_semantics_uncertain"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "model_system": "clinical PKPD model", "drug_or_analyte": "sVEGFR2"},
+      "metadata": {"parameter_group": "pd_model_input"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:kd_review_candidate",
+      "name": "kd review-only candidate",
+      "symbol": "kd",
+      "role": "pd_model_input",
+      "value": 4.0,
+      "unit": null,
+      "target_node_id": "tumor_growth_rate",
+      "source_record_ids": [
+        "simulation_parameter:PMC5131886:3cc293d705608e3d",
+        "obs:PMC5131886:52d44db97187875f"
+      ],
+      "review_status": "review_only",
+      "reason": "kd candidate is present in supplementary extraction but lacks unit and complete biological scope.",
+      "promotion_blockers": ["missing_unit", "pd_scope_requires_review"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "tissue_or_organ": "tumor", "model_system": "PKPD/tumor growth model"},
+      "metadata": {"parameter_group": "pd_model_input"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:svegfr2_observed_endpoint",
+      "name": "Observed sVEGFR2 plasma endpoint",
+      "role": "pd_endpoint",
+      "value": 36.0,
+      "unit": "ug/L",
+      "target_node_id": "svegfr2_endpoint_family",
+      "source_record_ids": ["simulation_parameter:PMC5131886:ba06755d727bb0dd"],
+      "review_status": "review_only",
+      "reason": "Observed biomarker endpoint is calibration/validation evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "model_system": "clinical PKPD model", "drug_or_analyte": "sVEGFR2"},
+      "metadata": {"parameter_group": "pd_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:svegfr2_predicted_endpoint",
+      "name": "Predicted sVEGFR2 plasma endpoint",
+      "role": "pd_endpoint",
+      "value": 18.0,
+      "unit": "ug/L",
+      "target_node_id": "svegfr2_endpoint_family",
+      "source_record_ids": ["simulation_parameter:PMC5131886:fb57a36b1fef03f6"],
+      "review_status": "review_only",
+      "reason": "Predicted biomarker endpoint is calibration/validation evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "matrix": "plasma", "model_system": "clinical PKPD model", "drug_or_analyte": "sVEGFR2"},
+      "metadata": {"parameter_group": "pd_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:tumor_volume_observed_endpoint",
+      "name": "Observed tumor volume endpoint",
+      "role": "pd_endpoint",
+      "value": 370.0,
+      "unit": "mm3",
+      "target_node_id": "tumor_volume_endpoint_family",
+      "source_record_ids": ["simulation_parameter:PMC5131886:de5919a059d778eb"],
+      "review_status": "review_only",
+      "reason": "Observed tumor volume endpoint is calibration/validation evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "tissue_or_organ": "tumor", "model_system": "clinical PKPD/tumor growth model"},
+      "metadata": {"parameter_group": "pd_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:tumor_volume_placebo_endpoint",
+      "name": "Placebo tumor volume endpoint",
+      "role": "pd_endpoint",
+      "value": 960.0,
+      "unit": "mm3",
+      "target_node_id": "tumor_volume_endpoint_family",
+      "source_record_ids": ["simulation_parameter:PMC5131886:5870934d4a4a9ec7"],
+      "review_status": "review_only",
+      "reason": "Placebo tumor volume endpoint is calibration/validation evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "untreated, placebo", "tissue_or_organ": "tumor", "model_system": "clinical PKPD/tumor growth model"},
+      "metadata": {"parameter_group": "pd_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:hazard_variable_z2_auc",
+      "name": "Z2 AUC hazard equation variable",
+      "symbol": "Z2",
+      "role": "pd_equation_variable",
+      "target_node_id": "ttp_hazard",
+      "source_record_ids": ["simulation_parameter:PMC5131886:fe61aa3cc7f09f37"],
+      "review_status": "review_only",
+      "reason": "AUC hazard equation variable is preserved, but no numeric binding is curated.",
+      "promotion_blockers": ["missing_value", "missing_unit", "equation_variable_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "time-to-event model"},
+      "metadata": {"parameter_group": "pd_equation_variable"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC5131886:hazard_variable_auc",
+      "name": "AUC hazard equation variable",
+      "symbol": "AUC",
+      "role": "pd_equation_variable",
+      "target_node_id": "ttp_hazard",
+      "source_record_ids": ["simulation_parameter:PMC5131886:ce7acad9b1e2424c"],
+      "review_status": "review_only",
+      "reason": "AUC variable is preserved from the TTP hazard equation but is not numerically bound.",
+      "promotion_blockers": ["missing_value", "missing_unit", "equation_variable_not_parameter_prior"],
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated", "model_system": "time-to-event model"},
+      "metadata": {"parameter_group": "pd_equation_variable"}
     }
   ],
   "equations": [
@@ -514,7 +965,8 @@
       "model_form": "PK compartment rate relation",
       "review_status": "review_only",
       "reason": "PK equation is preserved as a model form but not executable.",
-      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"}
+      "context": {"species": "human", "translation_stage": "clinical", "disease": "HCC", "state": "treated"},
+      "warnings": ["malformed_equation_text_needs_manual_review"]
     },
     {
       "equation_id": "eq:PMC5131886:4d9cbb929eb262d6",

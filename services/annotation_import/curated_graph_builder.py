@@ -292,6 +292,7 @@ def _resolve_sources(source_ids: tuple[str, ...], index: _EvidenceIndex) -> _Res
                 WarningRecord(
                     code="curated_source_record_missing",
                     message=f"Curated graph source record {source_id!r} was not found in the evidence graph.",
+                    severity="error",
                     source_record_id=source_id,
                 )
             )

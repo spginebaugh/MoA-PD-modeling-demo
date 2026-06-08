@@ -20,8 +20,8 @@
         "anchor:PMC3693219:figure_001:figure"
       ],
       "context": {
-        "species": null,
-        "translation_stage": null,
+        "species": "human",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": null,
         "state": "treated",
@@ -29,7 +29,7 @@
         "matrix": "plasma",
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": null,
+        "model_system": "clinical PK/model-derived simulation",
         "drug_or_analyte": "erlotinib",
         "source_section": "FIGURE 3",
         "source_anchor_ids": [
@@ -135,8 +135,8 @@
         "anchor:PMC3693219:figure_005:figure"
       ],
       "context": {
-        "species": null,
-        "translation_stage": null,
+        "species": "human",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": null,
         "state": "treated",
@@ -144,7 +144,7 @@
         "matrix": null,
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": null,
+        "model_system": "clinical/model-derived dosing",
         "drug_or_analyte": "erlotinib",
         "source_section": "Dosing Schedules Affect the Dynamics of Resistance",
         "source_anchor_ids": [
@@ -243,8 +243,8 @@
         "anchor:PMC3693219:figure_003:figure"
       ],
       "context": {
-        "species": null,
-        "translation_stage": null,
+        "species": "human",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": null,
         "state": "resistant",
@@ -252,8 +252,8 @@
         "matrix": "plasma",
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": null,
-        "drug_or_analyte": null,
+        "model_system": "model-derived resistance simulation",
+        "drug_or_analyte": "erlotinib",
         "source_section": "FIGURE 3",
         "source_anchor_ids": [
           "anchor:PMC3693219:figure_003:figure"
@@ -360,8 +360,8 @@
         "anchor:PMC3693219:figure_005:figure"
       ],
       "context": {
-        "species": null,
-        "translation_stage": null,
+        "species": "human",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": null,
         "state": "resistant",
@@ -369,8 +369,8 @@
         "matrix": "plasma",
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": null,
-        "drug_or_analyte": null,
+        "model_system": "model-derived tumor population simulation",
+        "drug_or_analyte": "erlotinib",
         "source_section": "FIGURE 3",
         "source_anchor_ids": [
           "anchor:PMC3693219:figure_003:figure",
@@ -481,8 +481,8 @@
         "matrix": "plasma",
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": "clinical",
-        "drug_or_analyte": "Erlotinib",
+        "model_system": "model-derived tumor population simulation",
+        "drug_or_analyte": "erlotinib",
         "source_section": "FIGURE 5",
         "source_anchor_ids": [
           "anchor:PMC3693219:figure_005:figure"
@@ -579,8 +579,8 @@
         "anchor:PMC3693219:chunk_001:study3"
       ],
       "context": {
-        "species": null,
-        "translation_stage": null,
+        "species": "human",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": "EGFR-mutant",
         "state": null,
@@ -588,7 +588,7 @@
         "matrix": null,
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": null,
+        "model_system": "clinical",
         "drug_or_analyte": null,
         "source_section": "Abstract",
         "source_anchor_ids": [
@@ -620,6 +620,692 @@
       ],
       "warnings": [],
       "metadata": {}
+    },
+    {
+      "node_id": "smoker_exposure_context",
+      "label": "Smoker erlotinib exposure context",
+      "node_type": "pk_context",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:28d1235fdf96648a",
+        "simulation_parameter:PMC3693219:21dd53ffc548f80f"
+      ],
+      "review_status": "review_only",
+      "reason": "Smoker exposure records are useful PK context but remain figure-derived endpoints.",
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure",
+        "anchor:PMC3693219:figure_003:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure",
+          "anchor:PMC3693219:figure_003:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:28d1235fdf96648a",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "250 ng/mL",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:28d1235fdf96648a",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:21dd53ffc548f80f",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_003:figure"
+          ],
+          "source_section": "FIGURE 3",
+          "source_chunk_id": "figure_003",
+          "source_table_or_figure": "F3",
+          "quote_or_sentence": "3 µM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:21dd53ffc548f80f",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [
+        "figure_derived_exposure_context"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "nonsmoker_exposure_context",
+      "label": "Nonsmoker erlotinib exposure context",
+      "node_type": "pk_context",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:2af80e8bd65d3e72",
+        "simulation_parameter:PMC3693219:0982f1c0ae1c27b1"
+      ],
+      "review_status": "review_only",
+      "reason": "Nonsmoker exposure records are useful PK context but remain figure-derived endpoints.",
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure",
+        "anchor:PMC3693219:figure_003:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure",
+          "anchor:PMC3693219:figure_003:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:2af80e8bd65d3e72",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "100 ng/mL",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:2af80e8bd65d3e72",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:0982f1c0ae1c27b1",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_003:figure"
+          ],
+          "source_section": "FIGURE 3",
+          "source_chunk_id": "figure_003",
+          "source_table_or_figure": "F3",
+          "quote_or_sentence": "4 µM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:0982f1c0ae1c27b1",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [
+        "figure_derived_exposure_context"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "high_dose_pulse_schedule",
+      "label": "High-dose pulse schedule",
+      "node_type": "dose_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:1b16b614a9128402",
+        "simulation_parameter:PMC3693219:157cc99bb41df362"
+      ],
+      "review_status": "review_only",
+      "reason": "Pulse-dose schedule evidence is present but requires interval and route curation.",
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_005:figure",
+        "anchor:PMC3693219:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": "tumor, plasma",
+        "cell_line": null,
+        "model_system": "model-derived dosing simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 5",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_005:figure",
+          "anchor:PMC3693219:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:1b16b614a9128402",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_005:figure"
+          ],
+          "source_section": "FIGURE 5",
+          "source_chunk_id": "figure_005",
+          "source_table_or_figure": "F5",
+          "quote_or_sentence": "1600 mg",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:1b16b614a9128402",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:157cc99bb41df362",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_002:figure"
+          ],
+          "source_section": "FIGURE 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "F2",
+          "quote_or_sentence": "19.5 μM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:157cc99bb41df362",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [
+        "schedule_scope_requires_review"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "withdrawal_schedule",
+      "label": "Treatment withdrawal schedule",
+      "node_type": "dose_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:71815c0de9447ac5",
+        "simulation_parameter:PMC3693219:1c95cf7e297dd0f8"
+      ],
+      "review_status": "review_only",
+      "reason": "Withdrawal scenario evidence is retained as model-derived schedule context.",
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_005:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated, withdrawal",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "model-derived dosing simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 5",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_005:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:71815c0de9447ac5",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_005:figure"
+          ],
+          "source_section": "FIGURE 5",
+          "source_chunk_id": "figure_005",
+          "source_table_or_figure": "F5",
+          "quote_or_sentence": "0",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:71815c0de9447ac5",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:1c95cf7e297dd0f8",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_005:figure"
+          ],
+          "source_section": "FIGURE 5",
+          "source_chunk_id": "figure_005",
+          "source_table_or_figure": "F5",
+          "quote_or_sentence": "10^5.5",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:1c95cf7e297dd0f8",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [
+        "model_scenario_not_executable_schedule"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "erlotinib_cmax_endpoint",
+      "label": "Erlotinib Cmax/exposure endpoint",
+      "node_type": "pk_exposure",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:0868ae127afd0fad",
+        "simulation_parameter:PMC3693219:1b12a489281480b6",
+        "simulation_parameter:PMC3693219:9f0159dd1423dcea"
+      ],
+      "review_status": "review_only",
+      "reason": "Cmax and steady-state endpoints are preserved as PK evidence, not as direct priors.",
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure",
+        "anchor:PMC3693219:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure",
+          "anchor:PMC3693219:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:0868ae127afd0fad",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "3.3 µM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:0868ae127afd0fad",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:1b12a489281480b6",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "22.7 µM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:1b12a489281480b6",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:9f0159dd1423dcea",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_002:figure"
+          ],
+          "source_section": "FIGURE 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "F2",
+          "quote_or_sentence": "2.4 μM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:9f0159dd1423dcea",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "erlotinib_half_life",
+      "label": "Erlotinib half-life",
+      "node_type": "pk_parameter",
+      "source_record_ids": [
+        "obs:PMC3693219:3358c2283df08130",
+        "obs:PMC3693219:dfed009b71e8ff68"
+      ],
+      "review_status": "review_only",
+      "reason": "Half-life candidates are supported but need scope review before model promotion.",
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:chunk_002:s4m1",
+        "anchor:PMC3693219:chunk_002:s4m2"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "Body",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:chunk_002:s4m1",
+          "anchor:PMC3693219:chunk_002:s4m2"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC3693219:3358c2283df08130",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:chunk_002:s4m1"
+          ],
+          "source_section": "Body",
+          "source_chunk_id": "chunk_002",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "18",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": "paper_trusted",
+          "warnings": [
+            "no_primary_or_supporting_paper_map_context",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC3693219:dfed009b71e8ff68",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:chunk_002:s4m2"
+          ],
+          "source_section": "Body",
+          "source_chunk_id": "chunk_002",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "40",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": "paper_trusted",
+          "warnings": [
+            "no_primary_or_supporting_paper_map_context",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [
+        "population_scope_requires_review"
+      ],
+      "metadata": {}
+    },
+    {
+      "node_id": "erlotinib_elimination_rate_constant",
+      "label": "Erlotinib elimination rate constant",
+      "node_type": "pk_parameter",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:881a3bc1c6ca6a93",
+        "simulation_parameter:PMC3693219:b7eb1593be3272eb",
+        "simulation_parameter:PMC3693219:1712979aa21708c8",
+        "simulation_parameter:PMC3693219:17b42cb3d6e42735"
+      ],
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constants are preserved by smoker/nonsmoker context.",
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": "plasma",
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:881a3bc1c6ca6a93",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "0.106",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:881a3bc1c6ca6a93",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:b7eb1593be3272eb",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "0.085",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:b7eb1593be3272eb",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:1712979aa21708c8",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "0.051",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:1712979aa21708c8",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:17b42cb3d6e42735",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "0.042",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:17b42cb3d6e42735",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [
+        "figure_derived_pk_parameter_needs_review"
+      ],
+      "metadata": {}
     }
   ],
   "edges": [],
@@ -646,7 +1332,7 @@
       ],
       "context": {
         "species": "human",
-        "translation_stage": "in_vitro",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": null,
         "state": "treated",
@@ -654,7 +1340,7 @@
         "matrix": "plasma",
         "tissue_or_organ": "tumor, plasma",
         "cell_line": null,
-        "model_system": "in_vitro",
+        "model_system": "clinical/model-derived dosing",
         "drug_or_analyte": "erlotinib",
         "source_section": "FIGURE 5",
         "source_anchor_ids": [
@@ -711,7 +1397,7 @@
       ],
       "context": {
         "species": "human",
-        "translation_stage": "in_vitro",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": null,
         "state": "treated",
@@ -719,7 +1405,7 @@
         "matrix": "plasma",
         "tissue_or_organ": "tumor, plasma",
         "cell_line": null,
-        "model_system": "in_vitro",
+        "model_system": "model-derived dosing simulation",
         "drug_or_analyte": "erlotinib",
         "source_section": "FIGURE 5",
         "source_anchor_ids": [
@@ -775,8 +1461,8 @@
         "anchor:PMC3693219:figure_003:figure"
       ],
       "context": {
-        "species": null,
-        "translation_stage": null,
+        "species": "human",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": null,
         "state": "treated",
@@ -784,7 +1470,7 @@
         "matrix": "plasma",
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": null,
+        "model_system": "clinical PK/model-derived simulation",
         "drug_or_analyte": "erlotinib",
         "source_section": "FIGURE 3",
         "source_anchor_ids": [
@@ -843,8 +1529,8 @@
         "anchor:PMC3693219:figure_003:figure"
       ],
       "context": {
-        "species": null,
-        "translation_stage": null,
+        "species": "human",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": null,
         "state": "resistant",
@@ -852,8 +1538,8 @@
         "matrix": "plasma",
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": null,
-        "drug_or_analyte": null,
+        "model_system": "model-derived resistance simulation",
+        "drug_or_analyte": "erlotinib",
         "source_section": "FIGURE 3",
         "source_anchor_ids": [
           "anchor:PMC3693219:figure_003:figure"
@@ -911,8 +1597,8 @@
         "anchor:PMC3693219:figure_003:figure"
       ],
       "context": {
-        "species": null,
-        "translation_stage": null,
+        "species": "human",
+        "translation_stage": "clinical",
         "disease": "EGFR-mutant lung cancer",
         "disease_subtype": null,
         "state": "resistant",
@@ -920,8 +1606,8 @@
         "matrix": "plasma",
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": null,
-        "drug_or_analyte": null,
+        "model_system": "model-derived tumor population simulation",
+        "drug_or_analyte": "erlotinib",
         "source_section": "FIGURE 3",
         "source_anchor_ids": [
           "anchor:PMC3693219:figure_003:figure"
@@ -987,7 +1673,7 @@
         "matrix": "plasma",
         "tissue_or_organ": null,
         "cell_line": null,
-        "model_system": "clinical",
+        "model_system": "model-derived tumor population simulation",
         "drug_or_analyte": "Erlotinib",
         "source_section": "FIGURE 5",
         "source_anchor_ids": [
@@ -1022,13 +1708,1068 @@
       ],
       "warnings": [],
       "metadata": {}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:half_life_18h",
+      "name": "Erlotinib half-life candidate 18 h",
+      "role": "pk_model_input",
+      "source_record_ids": [
+        "obs:PMC3693219:3358c2283df08130",
+        "simulation_parameter:PMC3693219:1d82c54c4d09ab22"
+      ],
+      "symbol": null,
+      "value": 18.0,
+      "unit": "h",
+      "target_node_id": "erlotinib_half_life",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Half-life value is preserved as a PK candidate; population and dosing scope require review.",
+      "promotion_blockers": [
+        "population_scope_requires_review"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:chunk_002:s4m1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "Body",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:chunk_002:s4m1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC3693219:3358c2283df08130",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:chunk_002:s4m1"
+          ],
+          "source_section": "Body",
+          "source_chunk_id": "chunk_002",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "18",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": "paper_trusted",
+          "warnings": [
+            "no_primary_or_supporting_paper_map_context",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:1d82c54c4d09ab22",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:chunk_002:s4m1"
+          ],
+          "source_section": "Body",
+          "source_chunk_id": "chunk_002",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "18",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:1d82c54c4d09ab22",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_model_input"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:half_life_40h",
+      "name": "Erlotinib half-life candidate 40 h",
+      "role": "pk_model_input",
+      "source_record_ids": [
+        "obs:PMC3693219:dfed009b71e8ff68",
+        "simulation_parameter:PMC3693219:3e04930e3383a7c7"
+      ],
+      "symbol": null,
+      "value": 40.0,
+      "unit": "h",
+      "target_node_id": "erlotinib_half_life",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Alternative half-life value is preserved as a PK candidate; population and dosing scope require review.",
+      "promotion_blockers": [
+        "population_scope_requires_review"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:chunk_002:s4m2"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "Body",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:chunk_002:s4m2"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC3693219:dfed009b71e8ff68",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:chunk_002:s4m2"
+          ],
+          "source_section": "Body",
+          "source_chunk_id": "chunk_002",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "40",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "verified",
+          "trust_level": "paper_trusted",
+          "warnings": [
+            "no_primary_or_supporting_paper_map_context",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:3e04930e3383a7c7",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:chunk_002:s4m2"
+          ],
+          "source_section": "Body",
+          "source_chunk_id": "chunk_002",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "40",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:3e04930e3383a7c7",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_model_input"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:elim_k_smokers_150",
+      "name": "Elimination rate constant - smokers 150 mg",
+      "role": "pk_model_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:881a3bc1c6ca6a93"
+      ],
+      "symbol": null,
+      "value": 0.106,
+      "unit": "h^-1",
+      "target_node_id": "erlotinib_elimination_rate_constant",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constant; useful for smoker context but not a direct prior.",
+      "promotion_blockers": [
+        "figure_derived_pk_parameter_needs_review"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": "plasma",
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:881a3bc1c6ca6a93",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "0.106",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:881a3bc1c6ca6a93",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_model_input",
+        "exposure_context": "smoker",
+        "dose_context": "150 mg"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:elim_k_smokers_300",
+      "name": "Elimination rate constant - smokers 300 mg",
+      "role": "pk_model_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:b7eb1593be3272eb"
+      ],
+      "symbol": null,
+      "value": 0.085,
+      "unit": "h^-1",
+      "target_node_id": "erlotinib_elimination_rate_constant",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constant; useful for smoker context but not a direct prior.",
+      "promotion_blockers": [
+        "figure_derived_pk_parameter_needs_review"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": "plasma",
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:b7eb1593be3272eb",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "0.085",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:b7eb1593be3272eb",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_model_input",
+        "exposure_context": "smoker",
+        "dose_context": "300 mg"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:elim_k_nonsmokers_150",
+      "name": "Elimination rate constant - nonsmokers 150 mg",
+      "role": "pk_model_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:1712979aa21708c8"
+      ],
+      "symbol": null,
+      "value": 0.051,
+      "unit": "h^-1",
+      "target_node_id": "erlotinib_elimination_rate_constant",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constant; useful for nonsmoker context but not a direct prior.",
+      "promotion_blockers": [
+        "figure_derived_pk_parameter_needs_review"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": "plasma",
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:1712979aa21708c8",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "0.051",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:1712979aa21708c8",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_model_input",
+        "exposure_context": "nonsmoker",
+        "dose_context": "150 mg"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:elim_k_nonsmokers_300",
+      "name": "Elimination rate constant - nonsmokers 300 mg",
+      "role": "pk_model_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:17b42cb3d6e42735"
+      ],
+      "symbol": null,
+      "value": 0.042,
+      "unit": "h^-1",
+      "target_node_id": "erlotinib_elimination_rate_constant",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constant; useful for nonsmoker context but not a direct prior.",
+      "promotion_blockers": [
+        "figure_derived_pk_parameter_needs_review"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": "plasma",
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:17b42cb3d6e42735",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "0.042",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:17b42cb3d6e42735",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_model_input",
+        "exposure_context": "nonsmoker",
+        "dose_context": "300 mg"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:hamilton_cmax_endpoint",
+      "name": "Hamilton et al Cmax endpoint",
+      "role": "pk_exposure_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:0868ae127afd0fad"
+      ],
+      "symbol": null,
+      "value": 3.3,
+      "unit": "uM",
+      "target_node_id": "erlotinib_cmax_endpoint",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Figure-derived Cmax endpoint; retained for calibration review.",
+      "promotion_blockers": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:0868ae127afd0fad",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "3.3 µM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:0868ae127afd0fad",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_exposure_endpoint"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:trial_248_005_cmax_endpoint",
+      "name": "Trial 248-005 Cmax endpoint",
+      "role": "pk_exposure_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:1b12a489281480b6"
+      ],
+      "symbol": null,
+      "value": 22.7,
+      "unit": "uM",
+      "target_node_id": "erlotinib_cmax_endpoint",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Figure-derived Cmax endpoint; retained for calibration review.",
+      "promotion_blockers": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 1",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_001:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:1b12a489281480b6",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_001:figure"
+          ],
+          "source_section": "FIGURE 1",
+          "source_chunk_id": "figure_001",
+          "source_table_or_figure": "F1",
+          "quote_or_sentence": "22.7 µM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:1b12a489281480b6",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_exposure_endpoint"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:smoker_150_plasma_endpoint",
+      "name": "Smoker 150 mg plasma endpoint",
+      "role": "pk_exposure_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:21dd53ffc548f80f"
+      ],
+      "symbol": null,
+      "value": 3.0,
+      "unit": "uM",
+      "target_node_id": "smoker_exposure_context",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Smoker-specific concentration endpoint from figure evidence.",
+      "promotion_blockers": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_003:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 3",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_003:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:21dd53ffc548f80f",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_003:figure"
+          ],
+          "source_section": "FIGURE 3",
+          "source_chunk_id": "figure_003",
+          "source_table_or_figure": "F3",
+          "quote_or_sentence": "3 µM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:21dd53ffc548f80f",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_exposure_endpoint",
+        "exposure_context": "smoker",
+        "dose_context": "150 mg/day"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:nonsmoker_150_plasma_endpoint",
+      "name": "Nonsmoker 150 mg plasma endpoint",
+      "role": "pk_exposure_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:0982f1c0ae1c27b1"
+      ],
+      "symbol": null,
+      "value": 4.0,
+      "unit": "uM",
+      "target_node_id": "nonsmoker_exposure_context",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Nonsmoker-specific concentration endpoint from figure evidence.",
+      "promotion_blockers": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_003:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 3",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_003:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:0982f1c0ae1c27b1",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_003:figure"
+          ],
+          "source_section": "FIGURE 3",
+          "source_chunk_id": "figure_003",
+          "source_table_or_figure": "F3",
+          "quote_or_sentence": "4 µM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:0982f1c0ae1c27b1",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_exposure_endpoint",
+        "exposure_context": "nonsmoker",
+        "dose_context": "150 mg/day"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:dose_300_mg_daily",
+      "name": "Erlotinib 300 mg daily dose candidate",
+      "role": "review_only_candidate_input",
+      "source_record_ids": [
+        "obs:PMC3693219:bb49aeea2f7c379b",
+        "obs:PMC3693219:06fecfb948f70388"
+      ],
+      "symbol": null,
+      "value": 300.0,
+      "unit": "mg/day",
+      "target_node_id": "dosing_schedule",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Candidate dose is present but source extraction needs interval and route review.",
+      "promotion_blockers": [
+        "route_interval_scope_requires_review"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:chunk_007:s5m2",
+        "anchor:PMC3693219:chunk_007:s15m1"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": null,
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "clinical/model-derived dosing",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "Pharmacokinetic Effects Alter the Dynamics of Resistance",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:chunk_007:s5m2",
+          "anchor:PMC3693219:chunk_007:s15m1"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC3693219:bb49aeea2f7c379b",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:chunk_007:s5m2"
+          ],
+          "source_section": "Pharmacokinetic Effects Alter the Dynamics of Resistance",
+          "source_chunk_id": "chunk_007",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "300",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": "candidate",
+          "warnings": [
+            "missing_unit",
+            "no_primary_or_supporting_paper_map_context",
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        },
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "observation",
+          "source_record_id": "obs:PMC3693219:06fecfb948f70388",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:chunk_007:s15m1"
+          ],
+          "source_section": "Pharmacokinetic Effects Alter the Dynamics of Resistance",
+          "source_chunk_id": "chunk_007",
+          "source_table_or_figure": null,
+          "quote_or_sentence": "300",
+          "simulation_model_id": null,
+          "simulation_parameter_id": null,
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": "candidate",
+          "warnings": [
+            "missing_unit",
+            "no_primary_or_supporting_paper_map_context",
+            "validation_status:needs_review",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "review_only_candidate_input"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:maintenance_50_mg_concentration_endpoint",
+      "name": "50 mg/day erlotinib concentration endpoint",
+      "role": "pk_exposure_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:869da90f28dc00ed"
+      ],
+      "symbol": null,
+      "value": 1.6,
+      "unit": "uM",
+      "target_node_id": "dosing_schedule",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Maintenance-dose concentration endpoint is retained for overlay calibration review.",
+      "promotion_blockers": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_002:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "model-derived dosing simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 2",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_002:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:869da90f28dc00ed",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_002:figure"
+          ],
+          "source_section": "FIGURE 2",
+          "source_chunk_id": "figure_002",
+          "source_table_or_figure": "F2",
+          "quote_or_sentence": "1.6 μM",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:869da90f28dc00ed",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "pk_exposure_endpoint",
+        "dose_context": "50 mg/day"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:pulse_probability_resistance_endpoint",
+      "name": "1600 mg/wk resistance probability endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:4dca50b6660c163e"
+      ],
+      "symbol": null,
+      "value": 0.5,
+      "unit": null,
+      "target_node_id": "resistance_probability",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Pulse-dose resistance probability is model-derived calibration evidence.",
+      "promotion_blockers": [
+        "missing_unit",
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_003:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "resistant",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "model-derived resistance simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 3",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_003:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:4dca50b6660c163e",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_003:figure"
+          ],
+          "source_section": "FIGURE 3",
+          "source_chunk_id": "figure_003",
+          "source_table_or_figure": "F3",
+          "quote_or_sentence": "0.5",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:4dca50b6660c163e",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "missing_unit",
+            "calibration_or_validation_endpoint",
+            "missing_species_or_translation_context"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "calibration_or_validation_endpoint",
+        "dose_context": "1600 mg/wk"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:withdrawal_population_endpoint",
+      "name": "Withdrawal total population endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:1c95cf7e297dd0f8"
+      ],
+      "symbol": null,
+      "value": 360000.0,
+      "unit": "cells",
+      "target_node_id": "withdrawal_schedule",
+      "target_edge_id": null,
+      "review_status": "review_only",
+      "reason": "Withdrawal scenario population endpoint is model-derived calibration evidence.",
+      "promotion_blockers": [
+        "calibration_endpoint_not_parameter_prior"
+      ],
+      "evidence_anchor_ids": [
+        "anchor:PMC3693219:figure_005:figure"
+      ],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": null,
+        "state": "treated, withdrawal",
+        "assay": "western_blot",
+        "matrix": "plasma",
+        "tissue_or_organ": null,
+        "cell_line": null,
+        "model_system": "model-derived tumor population simulation",
+        "drug_or_analyte": "erlotinib",
+        "source_section": "FIGURE 5",
+        "source_anchor_ids": [
+          "anchor:PMC3693219:figure_005:figure"
+        ]
+      },
+      "provenance": [
+        {
+          "paper_id": "PMC3693219",
+          "paper_title": "Effects of Pharmacokinetic Processes and Varied Dosing Schedules on the Dynamics of Acquired Resistance to Erlotinib in EGFR-Mutant Lung Cancer",
+          "source_record_type": "simulation_parameter",
+          "source_record_id": "simulation_parameter:PMC3693219:1c95cf7e297dd0f8",
+          "evidence_anchor_ids": [
+            "anchor:PMC3693219:figure_005:figure"
+          ],
+          "source_section": "FIGURE 5",
+          "source_chunk_id": "figure_005",
+          "source_table_or_figure": "F5",
+          "quote_or_sentence": "10^5.5",
+          "simulation_model_id": null,
+          "simulation_parameter_id": "simulation_parameter:PMC3693219:1c95cf7e297dd0f8",
+          "verification_id": null,
+          "verification_verdict": null,
+          "relation_class": null,
+          "validation_status": "needs_review",
+          "trust_level": null,
+          "warnings": [
+            "validation_status:needs_review",
+            "calibration_or_validation_endpoint"
+          ]
+        }
+      ],
+      "warnings": [],
+      "metadata": {
+        "parameter_group": "calibration_or_validation_endpoint"
+      }
     }
   ],
   "equations": [],
   "contexts": [
     {
-      "species": null,
-      "translation_stage": null,
+      "species": "human",
+      "translation_stage": "clinical",
       "disease": "EGFR-mutant lung cancer",
       "disease_subtype": null,
       "state": "treated",
@@ -1036,7 +2777,7 @@
       "matrix": "plasma",
       "tissue_or_organ": null,
       "cell_line": null,
-      "model_system": null,
+      "model_system": "clinical PK/model-derived simulation",
       "drug_or_analyte": "erlotinib",
       "source_section": "FIGURE 3",
       "source_anchor_ids": [
@@ -1045,8 +2786,8 @@
       ]
     },
     {
-      "species": null,
-      "translation_stage": null,
+      "species": "human",
+      "translation_stage": "clinical",
       "disease": "EGFR-mutant lung cancer",
       "disease_subtype": null,
       "state": "treated",
@@ -1054,7 +2795,7 @@
       "matrix": null,
       "tissue_or_organ": null,
       "cell_line": null,
-      "model_system": null,
+      "model_system": "clinical/model-derived dosing",
       "drug_or_analyte": "erlotinib",
       "source_section": "Dosing Schedules Affect the Dynamics of Resistance",
       "source_anchor_ids": [
@@ -1063,8 +2804,8 @@
       ]
     },
     {
-      "species": null,
-      "translation_stage": null,
+      "species": "human",
+      "translation_stage": "clinical",
       "disease": "EGFR-mutant lung cancer",
       "disease_subtype": null,
       "state": "resistant",
@@ -1072,16 +2813,16 @@
       "matrix": "plasma",
       "tissue_or_organ": null,
       "cell_line": null,
-      "model_system": null,
-      "drug_or_analyte": null,
+      "model_system": "model-derived resistance simulation",
+      "drug_or_analyte": "erlotinib",
       "source_section": "FIGURE 3",
       "source_anchor_ids": [
         "anchor:PMC3693219:figure_003:figure"
       ]
     },
     {
-      "species": null,
-      "translation_stage": null,
+      "species": "human",
+      "translation_stage": "clinical",
       "disease": "EGFR-mutant lung cancer",
       "disease_subtype": null,
       "state": "resistant",
@@ -1089,8 +2830,8 @@
       "matrix": "plasma",
       "tissue_or_organ": null,
       "cell_line": null,
-      "model_system": null,
-      "drug_or_analyte": null,
+      "model_system": "model-derived tumor population simulation",
+      "drug_or_analyte": "erlotinib",
       "source_section": "FIGURE 3",
       "source_anchor_ids": [
         "anchor:PMC3693219:figure_003:figure",
@@ -1107,16 +2848,16 @@
       "matrix": "plasma",
       "tissue_or_organ": null,
       "cell_line": null,
-      "model_system": "clinical",
-      "drug_or_analyte": "Erlotinib",
+      "model_system": "model-derived tumor population simulation",
+      "drug_or_analyte": "erlotinib",
       "source_section": "FIGURE 5",
       "source_anchor_ids": [
         "anchor:PMC3693219:figure_005:figure"
       ]
     },
     {
-      "species": null,
-      "translation_stage": null,
+      "species": "human",
+      "translation_stage": "clinical",
       "disease": "EGFR-mutant lung cancer",
       "disease_subtype": "EGFR-mutant",
       "state": null,
@@ -1124,7 +2865,7 @@
       "matrix": null,
       "tissue_or_organ": null,
       "cell_line": null,
-      "model_system": null,
+      "model_system": "clinical",
       "drug_or_analyte": null,
       "source_section": "Abstract",
       "source_anchor_ids": [
@@ -1133,24 +2874,7 @@
     },
     {
       "species": "human",
-      "translation_stage": "in_vitro",
-      "disease": "EGFR-mutant lung cancer",
-      "disease_subtype": null,
-      "state": "treated",
-      "assay": "western_blot",
-      "matrix": "plasma",
-      "tissue_or_organ": "tumor, plasma",
-      "cell_line": null,
-      "model_system": "in_vitro",
-      "drug_or_analyte": "erlotinib",
-      "source_section": "FIGURE 5",
-      "source_anchor_ids": [
-        "anchor:PMC3693219:figure_005:figure"
-      ]
-    },
-    {
-      "species": null,
-      "translation_stage": null,
+      "translation_stage": "clinical",
       "disease": "EGFR-mutant lung cancer",
       "disease_subtype": null,
       "state": "treated",
@@ -1158,11 +2882,288 @@
       "matrix": "plasma",
       "tissue_or_organ": null,
       "cell_line": null,
-      "model_system": null,
+      "model_system": "clinical PK/model-derived simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 1",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure",
+        "anchor:PMC3693219:figure_003:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": "tumor, plasma",
+      "cell_line": null,
+      "model_system": "model-derived dosing simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 5",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_005:figure",
+        "anchor:PMC3693219:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated, withdrawal",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "model-derived dosing simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 5",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_005:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical PK/model-derived simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 1",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure",
+        "anchor:PMC3693219:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical PK",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "Body",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:chunk_002:s4m1",
+        "anchor:PMC3693219:chunk_002:s4m2"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": "plasma",
+      "cell_line": null,
+      "model_system": "clinical PK/model-derived simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 1",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": "tumor, plasma",
+      "cell_line": null,
+      "model_system": "clinical/model-derived dosing",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 5",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_005:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": "tumor, plasma",
+      "cell_line": null,
+      "model_system": "model-derived dosing simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 5",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_005:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical PK/model-derived simulation",
       "drug_or_analyte": "erlotinib",
       "source_section": "FIGURE 3",
       "source_anchor_ids": [
         "anchor:PMC3693219:figure_003:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "resistant",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "model-derived tumor population simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 3",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_003:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "model-derived tumor population simulation",
+      "drug_or_analyte": "Erlotinib",
+      "source_section": "FIGURE 5",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_005:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical PK",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "Body",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:chunk_002:s4m1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical PK",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "Body",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:chunk_002:s4m2"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical PK/model-derived simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 1",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_001:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": null,
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "clinical/model-derived dosing",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "Pharmacokinetic Effects Alter the Dynamics of Resistance",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:chunk_007:s5m2",
+        "anchor:PMC3693219:chunk_007:s15m1"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "model-derived dosing simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 2",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_002:figure"
+      ]
+    },
+    {
+      "species": "human",
+      "translation_stage": "clinical",
+      "disease": "EGFR-mutant lung cancer",
+      "disease_subtype": null,
+      "state": "treated, withdrawal",
+      "assay": "western_blot",
+      "matrix": "plasma",
+      "tissue_or_organ": null,
+      "cell_line": null,
+      "model_system": "model-derived tumor population simulation",
+      "drug_or_analyte": "erlotinib",
+      "source_section": "FIGURE 5",
+      "source_anchor_ids": [
+        "anchor:PMC3693219:figure_005:figure"
       ]
     }
   ],
@@ -1188,6 +3189,46 @@
       "end": 661
     },
     {
+      "anchor_id": "anchor:PMC3693219:chunk_002:s4m1",
+      "paper_id": "PMC3693219",
+      "source_type": "text",
+      "chunk_id": "chunk_002",
+      "section": "Body",
+      "quote": "For example, the oral kinase inhibitor imatinib, used in frontline therapy for chronic myeloid leukemia (CML), causes prolonged inhibition of the breakpoint cluster region-Abelson tyrosine kinase 1 (BCR-ABL) kinase 24 hours after a single dose; the drug has a half-life of 18 hours and a long-acting metabolite with a half-life of 40 hours.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 1082,
+      "end": 1422
+    },
+    {
+      "anchor_id": "anchor:PMC3693219:chunk_002:s4m2",
+      "paper_id": "PMC3693219",
+      "source_type": "text",
+      "chunk_id": "chunk_002",
+      "section": "Body",
+      "quote": "For example, the oral kinase inhibitor imatinib, used in frontline therapy for chronic myeloid leukemia (CML), causes prolonged inhibition of the breakpoint cluster region-Abelson tyrosine kinase 1 (BCR-ABL) kinase 24 hours after a single dose; the drug has a half-life of 18 hours and a long-acting metabolite with a half-life of 40 hours.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 1082,
+      "end": 1422
+    },
+    {
       "anchor_id": "anchor:PMC3693219:chunk_006:s5m1",
       "paper_id": "PMC3693219",
       "source_type": "text",
@@ -1206,6 +3247,46 @@
       "metadata": {},
       "start": 482,
       "end": 761
+    },
+    {
+      "anchor_id": "anchor:PMC3693219:chunk_007:s15m1",
+      "paper_id": "PMC3693219",
+      "source_type": "text",
+      "chunk_id": "chunk_007",
+      "section": "Pharmacokinetic Effects Alter the Dynamics of Resistance",
+      "quote": "By taking a double dose of 300 mg/d, fast metabolizers could effectively reduce the growth of the resistant population; however, the benefit conferred was not sufficient to overcome the faster rate of drug metabolism.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 1991,
+      "end": 2208
+    },
+    {
+      "anchor_id": "anchor:PMC3693219:chunk_007:s5m2",
+      "paper_id": "PMC3693219",
+      "source_type": "text",
+      "chunk_id": "chunk_007",
+      "section": "Pharmacokinetic Effects Alter the Dynamics of Resistance",
+      "quote": "In the case of no preexisting resistant cells, the probability of developing resistance in fast metabolizers was approximately two orders of magnitude higher than that for slow metabolizers, for both a standard dose of 150 mg/d or a double dose of 300 mg/d (Figs.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": null,
+      "panel_id": null,
+      "metadata": {},
+      "start": 853,
+      "end": 1116
     },
     {
       "anchor_id": "anchor:PMC3693219:figure_001:figure",
@@ -1228,6 +3309,32 @@
         "caption": "Pharmacokinetics of NSCLC cells. Plasma concentration over time for smokers and nonsmokers after (A) a 150 mg dose and (B) a 300 mg dose, both shown on a log-linear plot. Fitted plasma concentration over time for smokers and nonsmokers after (C) a 150 mg dose and (D) a 300 mg dose, both on a linear plot. E, The mean Cmax of erlotinib as a function of the oral dose administered, with error bars reflecting the minimum and maximum values observed. The average time of Cmax varied between 2 and 9 hours. Data were obtained from the Tarceva Investigators Brochure and Hamilton et al.14",
         "local_image_path": "data\\fetched_papers\\PMC3693219\\assets\\figures\\F1.jpg",
         "source_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/instance/3693219/bin/nihms-486053-f0001.jpg",
+        "image_asset_status": "fetched"
+      },
+      "start": null,
+      "end": null
+    },
+    {
+      "anchor_id": "anchor:PMC3693219:figure_002:figure",
+      "paper_id": "PMC3693219",
+      "source_type": "figure",
+      "chunk_id": "figure_002",
+      "section": "FIGURE 2",
+      "quote": "The choice of treatment schedule influences the plasma concentrations of erlotinib. Erlotinib plasma concentration as a function of time during several dosing schedules (50 mg/d, 25 mg/d, 150 mg/d, and 1600 mg/week, and 1600 mg/week with 50 mg on remaining days.",
+      "table_id": null,
+      "row_id": null,
+      "column_id": null,
+      "cell_id": null,
+      "row_header": null,
+      "column_header": null,
+      "column_path": [],
+      "figure_id": "F2",
+      "panel_id": null,
+      "metadata": {
+        "figure_label": "FIGURE 2",
+        "caption": "The choice of treatment schedule influences the plasma concentrations of erlotinib. Erlotinib plasma concentration as a function of time during several dosing schedules (50 mg/d, 25 mg/d, 150 mg/d, and 1600 mg/week, and 1600 mg/week with 50 mg on remaining days.",
+        "local_image_path": "data\\fetched_papers\\PMC3693219\\assets\\figures\\F2.jpg",
+        "source_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/instance/3693219/bin/nihms-486053-f0002.jpg",
         "image_asset_status": "fetched"
       },
       "start": null,
@@ -1376,21 +3483,21 @@
   "executable": false,
   "promotion_note": "Curated review artifact only; not loaded by pathway runtime.",
   "summary": {
-    "node_count": 6,
+    "node_count": 13,
     "edge_count": 0,
-    "parameter_count": 6,
+    "parameter_count": 20,
     "equation_count": 0,
-    "context_count": 8,
-    "evidence_anchor_count": 5,
+    "context_count": 23,
+    "evidence_anchor_count": 10,
     "warning_count": 9,
     "review_status_counts": {
       "nodes": {
-        "review_only": 5,
+        "review_only": 12,
         "accepted_for_evidence_graph": 1
       },
       "edges": {},
       "parameters": {
-        "review_only": 6
+        "review_only": 20
       },
       "equations": {}
     },

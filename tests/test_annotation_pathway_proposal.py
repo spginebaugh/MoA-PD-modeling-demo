@@ -61,7 +61,7 @@ def test_sunitinib_bundle_generates_separate_review_only_pathway_proposal() -> N
     assert proposal.proposed_pathway_id == rule.proposed_pathway_id
     assert proposal.curated_graph_id == "curated:PMC5131886:sunitinib_vegfr2_hcc_moa"
     assert proposal.executable is False
-    assert len(proposal.proposed_nodes) == 11
+    assert len(proposal.proposed_nodes) == 17
     assert len(proposal.proposed_edges) == 10
     assert {edge.verification_verdict for edge in proposal.proposed_edges} == {None}
     assert "curated_edge:PMC5131886:delta_svegfr2_predicts_ttp_hazard" in {
@@ -69,7 +69,17 @@ def test_sunitinib_bundle_generates_separate_review_only_pathway_proposal() -> N
     }
     assert all(edge.evidence_anchor_ids for edge in proposal.proposed_edges)
     assert all(edge.provenance is not None for edge in proposal.proposed_edges)
-    assert len(proposal.proposed_parameters) == 6
+    assert {
+        "curated_parameter:PMC5131886:population_pk_model_structure",
+        "curated_parameter:PMC5131886:pk_variable_cl",
+        "curated_parameter:PMC5131886:pk_variable_k10",
+        "curated_parameter:PMC5131886:sunitinib_observed_plasma_endpoint",
+        "curated_parameter:PMC5131886:su12662_predicted_plasma_endpoint",
+        "curated_parameter:PMC5131886:svegfr2_observed_endpoint",
+        "curated_parameter:PMC5131886:tumor_volume_observed_endpoint",
+        "curated_parameter:PMC5131886:hazard_variable_auc",
+    }.issubset({parameter.parameter_id for parameter in proposal.proposed_parameters})
+    assert len(proposal.proposed_parameters) == 30
     assert len(proposal.proposed_equations) == 7
     assert all(equation.evidence_anchor_ids for equation in proposal.proposed_equations)
     assert all(equation.provenance is not None for equation in proposal.proposed_equations)

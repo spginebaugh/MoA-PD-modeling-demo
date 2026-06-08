@@ -19,7 +19,15 @@
       ],
       "review_status": "review_only",
       "reason": "Exposure evidence is present but mostly figure-derived and not model-safe.",
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "matrix": "plasma", "drug_or_analyte": "erlotinib"},
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
       "warnings": ["calibration_endpoint_not_parameter_prior"]
     },
     {
@@ -33,7 +41,14 @@
       ],
       "review_status": "review_only",
       "reason": "Dosing candidates need manual unit, interval, and route curation before model use.",
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "drug_or_analyte": "erlotinib"},
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "clinical/model-derived dosing",
+        "drug_or_analyte": "erlotinib"
+      },
       "warnings": ["dose_regimen_not_model_safe"]
     },
     {
@@ -47,7 +62,14 @@
       ],
       "review_status": "review_only",
       "reason": "Resistance probability endpoints are figure-derived calibration/validation records.",
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "resistant"},
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "resistant",
+        "model_system": "model-derived resistance simulation",
+        "drug_or_analyte": "erlotinib"
+      },
       "warnings": ["calibration_endpoint_not_parameter_prior"]
     },
     {
@@ -61,7 +83,14 @@
       ],
       "review_status": "review_only",
       "reason": "Resistant population values are useful overlay evidence but are not direct executable state priors.",
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "resistant"},
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "resistant",
+        "model_system": "model-derived tumor population simulation",
+        "drug_or_analyte": "erlotinib"
+      },
       "warnings": ["calibration_endpoint_not_parameter_prior"]
     },
     {
@@ -75,7 +104,14 @@
       ],
       "review_status": "review_only",
       "reason": "Sensitive population values are useful overlay evidence but are not direct executable state priors.",
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated"},
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "model-derived tumor population simulation",
+        "drug_or_analyte": "erlotinib"
+      },
       "warnings": ["calibration_endpoint_not_parameter_prior"]
     },
     {
@@ -85,7 +121,160 @@
       "source_record_ids": ["anchor:PMC3693219:chunk_001:study3"],
       "review_status": "accepted_for_evidence_graph",
       "reason": "Disease context is retained as context evidence for the overlay.",
-      "context": {"disease": "EGFR-mutant lung cancer", "disease_subtype": "EGFR-mutant"}
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "disease_subtype": "EGFR-mutant",
+        "model_system": "clinical"
+      }
+    },
+    {
+      "node_id": "smoker_exposure_context",
+      "label": "Smoker erlotinib exposure context",
+      "node_type": "pk_context",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:28d1235fdf96648a",
+        "simulation_parameter:PMC3693219:21dd53ffc548f80f"
+      ],
+      "review_status": "review_only",
+      "reason": "Smoker exposure records are useful PK context but remain figure-derived endpoints.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "warnings": ["figure_derived_exposure_context"]
+    },
+    {
+      "node_id": "nonsmoker_exposure_context",
+      "label": "Nonsmoker erlotinib exposure context",
+      "node_type": "pk_context",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:2af80e8bd65d3e72",
+        "simulation_parameter:PMC3693219:0982f1c0ae1c27b1"
+      ],
+      "review_status": "review_only",
+      "reason": "Nonsmoker exposure records are useful PK context but remain figure-derived endpoints.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "warnings": ["figure_derived_exposure_context"]
+    },
+    {
+      "node_id": "high_dose_pulse_schedule",
+      "label": "High-dose pulse schedule",
+      "node_type": "dose_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:1b16b614a9128402",
+        "simulation_parameter:PMC3693219:157cc99bb41df362"
+      ],
+      "review_status": "review_only",
+      "reason": "Pulse-dose schedule evidence is present but requires interval and route curation.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "model-derived dosing simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "warnings": ["schedule_scope_requires_review"]
+    },
+    {
+      "node_id": "withdrawal_schedule",
+      "label": "Treatment withdrawal schedule",
+      "node_type": "dose_input",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:71815c0de9447ac5",
+        "simulation_parameter:PMC3693219:1c95cf7e297dd0f8"
+      ],
+      "review_status": "review_only",
+      "reason": "Withdrawal scenario evidence is retained as model-derived schedule context.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated, withdrawal",
+        "model_system": "model-derived dosing simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "warnings": ["model_scenario_not_executable_schedule"]
+    },
+    {
+      "node_id": "erlotinib_cmax_endpoint",
+      "label": "Erlotinib Cmax/exposure endpoint",
+      "node_type": "pk_exposure",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:0868ae127afd0fad",
+        "simulation_parameter:PMC3693219:1b12a489281480b6",
+        "simulation_parameter:PMC3693219:9f0159dd1423dcea"
+      ],
+      "review_status": "review_only",
+      "reason": "Cmax and steady-state endpoints are preserved as PK evidence, not as direct priors.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "warnings": ["calibration_endpoint_not_parameter_prior"]
+    },
+    {
+      "node_id": "erlotinib_half_life",
+      "label": "Erlotinib half-life",
+      "node_type": "pk_parameter",
+      "source_record_ids": [
+        "obs:PMC3693219:3358c2283df08130",
+        "obs:PMC3693219:dfed009b71e8ff68"
+      ],
+      "review_status": "review_only",
+      "reason": "Half-life candidates are supported but need scope review before model promotion.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "clinical PK",
+        "drug_or_analyte": "erlotinib"
+      },
+      "warnings": ["population_scope_requires_review"]
+    },
+    {
+      "node_id": "erlotinib_elimination_rate_constant",
+      "label": "Erlotinib elimination rate constant",
+      "node_type": "pk_parameter",
+      "source_record_ids": [
+        "simulation_parameter:PMC3693219:881a3bc1c6ca6a93",
+        "simulation_parameter:PMC3693219:b7eb1593be3272eb",
+        "simulation_parameter:PMC3693219:1712979aa21708c8",
+        "simulation_parameter:PMC3693219:17b42cb3d6e42735"
+      ],
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constants are preserved by smoker/nonsmoker context.",
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "warnings": ["figure_derived_pk_parameter_needs_review"]
     }
   ],
   "edges": [],
@@ -101,7 +290,14 @@
       "review_status": "review_only",
       "reason": "Candidate dose is preserved for overlay review only.",
       "promotion_blockers": ["route_interval_scope_requires_review"],
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "drug_or_analyte": "erlotinib"}
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "clinical/model-derived dosing",
+        "drug_or_analyte": "erlotinib"
+      }
     },
     {
       "parameter_id": "curated_parameter:PMC3693219:pulse_dose",
@@ -114,7 +310,14 @@
       "review_status": "review_only",
       "reason": "Pulse-dose candidate requires schedule and model structure review.",
       "promotion_blockers": ["schedule_scope_requires_review"],
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "drug_or_analyte": "erlotinib"}
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "model-derived dosing simulation",
+        "drug_or_analyte": "erlotinib"
+      }
     },
     {
       "parameter_id": "curated_parameter:PMC3693219:plasma_concentration_endpoint",
@@ -127,7 +330,15 @@
       "review_status": "review_only",
       "reason": "Figure-derived concentration endpoint; not a direct PK parameter prior.",
       "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated", "matrix": "plasma", "drug_or_analyte": "erlotinib"}
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      }
     },
     {
       "parameter_id": "curated_parameter:PMC3693219:resistance_probability_endpoint",
@@ -140,7 +351,14 @@
       "review_status": "review_only",
       "reason": "Figure-derived probability endpoint lacks model structure and remains review-only.",
       "promotion_blockers": ["missing_model_structure", "calibration_endpoint_not_parameter_prior"],
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "resistant"}
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "resistant",
+        "model_system": "model-derived resistance simulation",
+        "drug_or_analyte": "erlotinib"
+      }
     },
     {
       "parameter_id": "curated_parameter:PMC3693219:resistant_population_endpoint",
@@ -153,7 +371,14 @@
       "review_status": "review_only",
       "reason": "Figure-derived resistant population endpoint; not a direct executable state prior.",
       "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "resistant"}
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "resistant",
+        "model_system": "model-derived tumor population simulation",
+        "drug_or_analyte": "erlotinib"
+      }
     },
     {
       "parameter_id": "curated_parameter:PMC3693219:sensitive_population_endpoint",
@@ -166,7 +391,325 @@
       "review_status": "review_only",
       "reason": "Figure-derived sensitive population endpoint; not a direct executable state prior.",
       "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
-      "context": {"disease": "EGFR-mutant lung cancer", "state": "treated"}
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "model-derived tumor population simulation"
+      }
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:half_life_18h",
+      "name": "Erlotinib half-life candidate 18 h",
+      "role": "pk_model_input",
+      "value": 18.0,
+      "unit": "h",
+      "target_node_id": "erlotinib_half_life",
+      "source_record_ids": [
+        "obs:PMC3693219:3358c2283df08130",
+        "simulation_parameter:PMC3693219:1d82c54c4d09ab22"
+      ],
+      "review_status": "review_only",
+      "reason": "Half-life value is preserved as a PK candidate; population and dosing scope require review.",
+      "promotion_blockers": ["population_scope_requires_review"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "clinical PK",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_model_input"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:half_life_40h",
+      "name": "Erlotinib half-life candidate 40 h",
+      "role": "pk_model_input",
+      "value": 40.0,
+      "unit": "h",
+      "target_node_id": "erlotinib_half_life",
+      "source_record_ids": [
+        "obs:PMC3693219:dfed009b71e8ff68",
+        "simulation_parameter:PMC3693219:3e04930e3383a7c7"
+      ],
+      "review_status": "review_only",
+      "reason": "Alternative half-life value is preserved as a PK candidate; population and dosing scope require review.",
+      "promotion_blockers": ["population_scope_requires_review"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "clinical PK",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_model_input"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:elim_k_smokers_150",
+      "name": "Elimination rate constant - smokers 150 mg",
+      "role": "pk_model_input",
+      "value": 0.106,
+      "unit": "h^-1",
+      "target_node_id": "erlotinib_elimination_rate_constant",
+      "source_record_ids": ["simulation_parameter:PMC3693219:881a3bc1c6ca6a93"],
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constant; useful for smoker context but not a direct prior.",
+      "promotion_blockers": ["figure_derived_pk_parameter_needs_review"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_model_input", "exposure_context": "smoker", "dose_context": "150 mg"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:elim_k_smokers_300",
+      "name": "Elimination rate constant - smokers 300 mg",
+      "role": "pk_model_input",
+      "value": 0.085,
+      "unit": "h^-1",
+      "target_node_id": "erlotinib_elimination_rate_constant",
+      "source_record_ids": ["simulation_parameter:PMC3693219:b7eb1593be3272eb"],
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constant; useful for smoker context but not a direct prior.",
+      "promotion_blockers": ["figure_derived_pk_parameter_needs_review"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_model_input", "exposure_context": "smoker", "dose_context": "300 mg"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:elim_k_nonsmokers_150",
+      "name": "Elimination rate constant - nonsmokers 150 mg",
+      "role": "pk_model_input",
+      "value": 0.051,
+      "unit": "h^-1",
+      "target_node_id": "erlotinib_elimination_rate_constant",
+      "source_record_ids": ["simulation_parameter:PMC3693219:1712979aa21708c8"],
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constant; useful for nonsmoker context but not a direct prior.",
+      "promotion_blockers": ["figure_derived_pk_parameter_needs_review"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_model_input", "exposure_context": "nonsmoker", "dose_context": "150 mg"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:elim_k_nonsmokers_300",
+      "name": "Elimination rate constant - nonsmokers 300 mg",
+      "role": "pk_model_input",
+      "value": 0.042,
+      "unit": "h^-1",
+      "target_node_id": "erlotinib_elimination_rate_constant",
+      "source_record_ids": ["simulation_parameter:PMC3693219:17b42cb3d6e42735"],
+      "review_status": "review_only",
+      "reason": "Figure-derived elimination rate constant; useful for nonsmoker context but not a direct prior.",
+      "promotion_blockers": ["figure_derived_pk_parameter_needs_review"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_model_input", "exposure_context": "nonsmoker", "dose_context": "300 mg"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:hamilton_cmax_endpoint",
+      "name": "Hamilton et al Cmax endpoint",
+      "role": "pk_exposure_endpoint",
+      "value": 3.3,
+      "unit": "uM",
+      "target_node_id": "erlotinib_cmax_endpoint",
+      "source_record_ids": ["simulation_parameter:PMC3693219:0868ae127afd0fad"],
+      "review_status": "review_only",
+      "reason": "Figure-derived Cmax endpoint; retained for calibration review.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_exposure_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:trial_248_005_cmax_endpoint",
+      "name": "Trial 248-005 Cmax endpoint",
+      "role": "pk_exposure_endpoint",
+      "value": 22.7,
+      "unit": "uM",
+      "target_node_id": "erlotinib_cmax_endpoint",
+      "source_record_ids": ["simulation_parameter:PMC3693219:1b12a489281480b6"],
+      "review_status": "review_only",
+      "reason": "Figure-derived Cmax endpoint; retained for calibration review.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_exposure_endpoint"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:smoker_150_plasma_endpoint",
+      "name": "Smoker 150 mg plasma endpoint",
+      "role": "pk_exposure_endpoint",
+      "value": 3.0,
+      "unit": "uM",
+      "target_node_id": "smoker_exposure_context",
+      "source_record_ids": ["simulation_parameter:PMC3693219:21dd53ffc548f80f"],
+      "review_status": "review_only",
+      "reason": "Smoker-specific concentration endpoint from figure evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_exposure_endpoint", "exposure_context": "smoker", "dose_context": "150 mg/day"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:nonsmoker_150_plasma_endpoint",
+      "name": "Nonsmoker 150 mg plasma endpoint",
+      "role": "pk_exposure_endpoint",
+      "value": 4.0,
+      "unit": "uM",
+      "target_node_id": "nonsmoker_exposure_context",
+      "source_record_ids": ["simulation_parameter:PMC3693219:0982f1c0ae1c27b1"],
+      "review_status": "review_only",
+      "reason": "Nonsmoker-specific concentration endpoint from figure evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "clinical PK/model-derived simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_exposure_endpoint", "exposure_context": "nonsmoker", "dose_context": "150 mg/day"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:dose_300_mg_daily",
+      "name": "Erlotinib 300 mg daily dose candidate",
+      "role": "review_only_candidate_input",
+      "value": 300.0,
+      "unit": "mg/day",
+      "target_node_id": "dosing_schedule",
+      "source_record_ids": [
+        "obs:PMC3693219:bb49aeea2f7c379b",
+        "obs:PMC3693219:06fecfb948f70388"
+      ],
+      "review_status": "review_only",
+      "reason": "Candidate dose is present but source extraction needs interval and route review.",
+      "promotion_blockers": ["route_interval_scope_requires_review"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "model_system": "clinical/model-derived dosing",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "review_only_candidate_input"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:maintenance_50_mg_concentration_endpoint",
+      "name": "50 mg/day erlotinib concentration endpoint",
+      "role": "pk_exposure_endpoint",
+      "value": 1.6,
+      "unit": "uM",
+      "target_node_id": "dosing_schedule",
+      "source_record_ids": ["simulation_parameter:PMC3693219:869da90f28dc00ed"],
+      "review_status": "review_only",
+      "reason": "Maintenance-dose concentration endpoint is retained for overlay calibration review.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated",
+        "matrix": "plasma",
+        "model_system": "model-derived dosing simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "pk_exposure_endpoint", "dose_context": "50 mg/day"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:pulse_probability_resistance_endpoint",
+      "name": "1600 mg/wk resistance probability endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "value": 0.5,
+      "unit": null,
+      "target_node_id": "resistance_probability",
+      "source_record_ids": ["simulation_parameter:PMC3693219:4dca50b6660c163e"],
+      "review_status": "review_only",
+      "reason": "Pulse-dose resistance probability is model-derived calibration evidence.",
+      "promotion_blockers": ["missing_unit", "calibration_endpoint_not_parameter_prior"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "resistant",
+        "model_system": "model-derived resistance simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "calibration_or_validation_endpoint", "dose_context": "1600 mg/wk"}
+    },
+    {
+      "parameter_id": "curated_parameter:PMC3693219:withdrawal_population_endpoint",
+      "name": "Withdrawal total population endpoint",
+      "role": "calibration_or_validation_endpoint",
+      "value": 360000.0,
+      "unit": "cells",
+      "target_node_id": "withdrawal_schedule",
+      "source_record_ids": ["simulation_parameter:PMC3693219:1c95cf7e297dd0f8"],
+      "review_status": "review_only",
+      "reason": "Withdrawal scenario population endpoint is model-derived calibration evidence.",
+      "promotion_blockers": ["calibration_endpoint_not_parameter_prior"],
+      "context": {
+        "species": "human",
+        "translation_stage": "clinical",
+        "disease": "EGFR-mutant lung cancer",
+        "state": "treated, withdrawal",
+        "model_system": "model-derived tumor population simulation",
+        "drug_or_analyte": "erlotinib"
+      },
+      "metadata": {"parameter_group": "calibration_or_validation_endpoint"}
     }
   ],
   "equations": [],

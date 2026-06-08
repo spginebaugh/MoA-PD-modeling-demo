@@ -226,6 +226,50 @@ def validate_curated_paper_moa_graph(graph: CuratedPaperMoaGraph) -> tuple[Warni
 
     node_ids = {node.node_id for node in graph.nodes}
     edge_ids = {edge.edge_id for edge in graph.edges}
+    for graph_warning in graph.warnings:
+        if graph_warning.code == "curated_source_record_missing":
+            warnings.append(
+                WarningRecord(
+                    code="curated_source_record_missing",
+                    message=graph_warning.message,
+                    severity="error",
+                    source_record_type=graph_warning.source_record_type,
+                    source_record_id=graph_warning.source_record_id,
+                )
+            )
+
+    for node in graph.nodes:
+        if not node.evidence_anchor_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_node_missing_anchor",
+                    message=f"Curated node {node.node_id} has no evidence anchors.",
+                    severity="error",
+                    source_record_type="curated_node",
+                    source_record_id=node.node_id,
+                )
+            )
+        if not node.provenance:
+            warnings.append(
+                WarningRecord(
+                    code="curated_node_missing_provenance",
+                    message=f"Curated node {node.node_id} has no provenance records.",
+                    severity="error",
+                    source_record_type="curated_node",
+                    source_record_id=node.node_id,
+                )
+            )
+        if not _has_species_stage_context(node.context) and "missing_species_or_translation_context" not in node.warnings:
+            warnings.append(
+                WarningRecord(
+                    code="curated_node_missing_context",
+                    message=f"Curated node {node.node_id} has no species/stage/model-system context.",
+                    severity="error",
+                    source_record_type="curated_node",
+                    source_record_id=node.node_id,
+                )
+            )
+
     for edge in graph.edges:
         if edge.source not in node_ids:
             warnings.append(
@@ -247,27 +291,36 @@ def validate_curated_paper_moa_graph(graph: CuratedPaperMoaGraph) -> tuple[Warni
                     source_record_id=edge.edge_id,
                 )
             )
-        if edge.review_status != "review_only":
-            if not edge.evidence_anchor_ids:
-                warnings.append(
-                    WarningRecord(
-                        code="curated_candidate_edge_missing_anchor",
-                        message=f"Curated candidate edge {edge.edge_id} has no evidence anchors.",
-                        severity="error",
-                        source_record_type="curated_edge",
-                        source_record_id=edge.edge_id,
-                    )
+        if not edge.evidence_anchor_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_edge_missing_anchor",
+                    message=f"Curated edge {edge.edge_id} has no evidence anchors.",
+                    severity="error",
+                    source_record_type="curated_edge",
+                    source_record_id=edge.edge_id,
                 )
-            if not edge.provenance:
-                warnings.append(
-                    WarningRecord(
-                        code="curated_candidate_edge_missing_provenance",
-                        message=f"Curated candidate edge {edge.edge_id} has no provenance records.",
-                        severity="error",
-                        source_record_type="curated_edge",
-                        source_record_id=edge.edge_id,
-                    )
+            )
+        if not edge.provenance:
+            warnings.append(
+                WarningRecord(
+                    code="curated_edge_missing_provenance",
+                    message=f"Curated edge {edge.edge_id} has no provenance records.",
+                    severity="error",
+                    source_record_type="curated_edge",
+                    source_record_id=edge.edge_id,
                 )
+            )
+        if not _has_species_stage_context(edge.context) and "missing_species_or_translation_context" not in edge.warnings:
+            warnings.append(
+                WarningRecord(
+                    code="curated_edge_missing_context",
+                    message=f"Curated edge {edge.edge_id} has no species/stage/model-system context.",
+                    severity="error",
+                    source_record_type="curated_edge",
+                    source_record_id=edge.edge_id,
+                )
+            )
 
     for parameter in graph.parameters:
         if parameter.target_node_id and parameter.target_node_id not in node_ids:
@@ -290,6 +343,41 @@ def validate_curated_paper_moa_graph(graph: CuratedPaperMoaGraph) -> tuple[Warni
                     message=(
                         f"Curated parameter {parameter.parameter_id} targets missing edge "
                         f"{parameter.target_edge_id}."
+                    ),
+                    severity="error",
+                    source_record_type="curated_parameter",
+                    source_record_id=parameter.parameter_id,
+                )
+            )
+        if not parameter.evidence_anchor_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_parameter_missing_anchor",
+                    message=f"Curated parameter {parameter.parameter_id} has no evidence anchors.",
+                    severity="error",
+                    source_record_type="curated_parameter",
+                    source_record_id=parameter.parameter_id,
+                )
+            )
+        if not parameter.provenance:
+            warnings.append(
+                WarningRecord(
+                    code="curated_parameter_missing_provenance",
+                    message=f"Curated parameter {parameter.parameter_id} has no provenance records.",
+                    severity="error",
+                    source_record_type="curated_parameter",
+                    source_record_id=parameter.parameter_id,
+                )
+            )
+        if (
+            not _has_species_stage_context(parameter.context)
+            and "missing_species_or_translation_context" not in parameter.warnings
+        ):
+            warnings.append(
+                WarningRecord(
+                    code="curated_parameter_missing_context",
+                    message=(
+                        f"Curated parameter {parameter.parameter_id} has no species/stage/model-system context."
                     ),
                     severity="error",
                     source_record_type="curated_parameter",
@@ -389,6 +477,36 @@ def validate_curated_paper_moa_graph(graph: CuratedPaperMoaGraph) -> tuple[Warni
                     source_record_id=equation.equation_id,
                 )
             )
+        if not equation.evidence_anchor_ids:
+            warnings.append(
+                WarningRecord(
+                    code="curated_equation_missing_anchor",
+                    message=f"Curated equation {equation.equation_id} has no evidence anchors.",
+                    severity="error",
+                    source_record_type="curated_equation",
+                    source_record_id=equation.equation_id,
+                )
+            )
+        if not equation.provenance:
+            warnings.append(
+                WarningRecord(
+                    code="curated_equation_missing_provenance",
+                    message=f"Curated equation {equation.equation_id} has no provenance records.",
+                    severity="error",
+                    source_record_type="curated_equation",
+                    source_record_id=equation.equation_id,
+                )
+            )
+        if not _has_species_stage_context(equation.context) and "missing_species_or_translation_context" not in equation.warnings:
+            warnings.append(
+                WarningRecord(
+                    code="curated_equation_missing_context",
+                    message=f"Curated equation {equation.equation_id} has no species/stage/model-system context.",
+                    severity="error",
+                    source_record_type="curated_equation",
+                    source_record_id=equation.equation_id,
+                )
+            )
 
     return tuple(warnings)
 
@@ -399,3 +517,10 @@ def assert_valid_curated_paper_moa_graph(graph: CuratedPaperMoaGraph) -> None:
     if errors:
         messages = "; ".join(error.message for error in errors)
         raise ValueError(messages)
+
+
+def _has_species_stage_context(context: object) -> bool:
+    species = getattr(context, "species", None)
+    translation_stage = getattr(context, "translation_stage", None)
+    model_system = getattr(context, "model_system", None)
+    return bool(species or translation_stage or model_system)
