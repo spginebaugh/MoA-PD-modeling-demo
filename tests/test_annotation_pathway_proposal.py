@@ -90,7 +90,7 @@ def test_sunitinib_bundle_generates_separate_review_only_pathway_proposal() -> N
 def test_pathway_proposals_are_not_runtime_pathways() -> None:
     runtime_pathway_ids = {summary.pathway_id for summary in list_pathways()}
 
-    assert runtime_pathway_ids == {"egfr_erbb_demo"}
+    assert runtime_pathway_ids == {"egfr_erbb_demo", "sunitinib_vegfr2_hcc_demo"}
     assert not (ROOT / "data" / "pathways" / "PMC3693219.overlay.proposal.json").exists()
     assert not (ROOT / "data" / "pathways" / "PMC5131886.new_pathway.proposal.json").exists()
 

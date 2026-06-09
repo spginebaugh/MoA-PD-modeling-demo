@@ -506,12 +506,25 @@ def _initial_conditions_for_states(
 
 
 def _logic_checks_from_graph(graph: MoAGraph, pathway: PathwayDefinition) -> tuple[dict[str, JsonValue], ...]:
-    checks: list[dict[str, JsonValue]] = [dict(item) for item in pathway.logic_checks]
+    checks: list[dict[str, JsonValue]] = []
+    seen_ids: set[str] = set()
+
+    def append_once(item: Mapping[str, JsonValue]) -> None:
+        normalized = {str(key): value for key, value in item.items()}
+        check_id = normalized.get("id")
+        if isinstance(check_id, str):
+            if check_id in seen_ids:
+                return
+            seen_ids.add(check_id)
+        checks.append(normalized)
+
+    for item in pathway.logic_checks:
+        append_once(item)
     raw = graph.metadata.extension.get("logic_checks", ())
     if isinstance(raw, list):
         for item in raw:
             if isinstance(item, dict):
-                checks.append({str(key): value for key, value in item.items()})
+                append_once(item)
     return tuple(checks)
 
 

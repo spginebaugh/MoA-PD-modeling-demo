@@ -28,7 +28,10 @@ def test_pathway_definition_loads_from_single_source_of_truth() -> None:
     pathway = load_pathway(PATHWAY_ID)
 
     assert pathway.pathway_id == PATHWAY_ID
-    assert {summary.pathway_id for summary in list_pathways()} == {PATHWAY_ID}
+    assert {summary.pathway_id for summary in list_pathways()} == {
+        PATHWAY_ID,
+        "sunitinib_vegfr2_hcc_demo",
+    }
     assert "cbl_turnover" in pathway.modules
     assert "direct_kinase_inhibition" in pathway.configurations
     assert "cbl_degradation" in pathway.configurations

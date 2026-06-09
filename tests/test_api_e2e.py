@@ -24,11 +24,14 @@ PATHWAY_ID = str(PATHWAY)
 def test_health_and_pathway_contract_endpoints() -> None:
     health = client.get("/health")
     assert health.status_code == 200
-    assert health.json()["pathways"] == [PATHWAY_ID]
+    assert health.json()["pathways"] == [PATHWAY_ID, "sunitinib_vegfr2_hcc_demo"]
 
     pathways = client.get("/pathways")
     assert pathways.status_code == 200
-    assert pathways.json()["pathways"][0]["pathway_id"] == PATHWAY_ID
+    assert [item["pathway_id"] for item in pathways.json()["pathways"]] == [
+        PATHWAY_ID,
+        "sunitinib_vegfr2_hcc_demo",
+    ]
 
     contract = client.get(f"/pathways/{PATHWAY_ID}/contract")
     assert contract.status_code == 200

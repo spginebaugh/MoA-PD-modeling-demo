@@ -1,0 +1,791 @@
+{
+  "pathway_id": "sunitinib_vegfr2_hcc_demo",
+  "label": "Sunitinib VEGFR2 HCC executable slice",
+  "version": "0.1",
+  "context": {
+    "species": "human",
+    "endpoint": "TumorVolume",
+    "notes": "Normalized executable prototype derived from PMC5131886 annotation evidence. TTP hazard/probability and full parent/metabolite PK are intentionally deferred.",
+    "extension": {
+      "paper_id": "PMC5131886",
+      "disease": "HCC",
+      "disease_subtype": "advanced HCC",
+      "translation_stage": "clinical",
+      "state_scale": "normalized_baseline_relative",
+      "exposure_model": "normalized_active_unbound_exposure",
+      "curated_graph_id": "curated:PMC5131886:sunitinib_vegfr2_hcc_moa"
+    }
+  },
+  "base_graph": {
+    "graph_id": "sunitinib_vegfr2_hcc_base",
+    "label": "Sunitinib VEGFR2 HCC normalized executable base",
+    "nodes": [
+      {
+        "id": "ActiveExposure",
+        "label": "Active unbound sunitinib plus SU12662 exposure",
+        "type": "pk_exposure",
+        "aliases": [
+          "ACub",
+          "active unbound concentration"
+        ],
+        "roles": [
+          "drug"
+        ],
+        "state": {
+          "id": "ActiveExposure",
+          "executable": true,
+          "initial": 0.0
+        },
+        "metadata": {
+          "compartment": "plasma",
+          "extension": {
+            "paper_id": "PMC5131886",
+            "curated_node_id": "active_unbound_concentration",
+            "source_record_ids": [
+              "step:PMC5131886:27fa15d47ecb84da"
+            ],
+            "evidence_anchor_ids": [
+              "anchor:PMC5131886:figure_001:moa5"
+            ],
+            "modeling_note": "Parent/metabolite PK is collapsed into a normalized active exposure state for the first executable slice."
+          }
+        }
+      },
+      {
+        "id": "sVEGFR2",
+        "label": "Plasma sVEGFR2 biomarker",
+        "type": "pd_biomarker",
+        "aliases": [
+          "soluble VEGFR2",
+          "sVEGFR2 plasma biomarker"
+        ],
+        "state": {
+          "id": "sVEGFR2",
+          "executable": true,
+          "initial": 1.0
+        },
+        "metadata": {
+          "database_refs": [
+            {
+              "namespace": "UniProt",
+              "identifier": "P35968",
+              "url": "https://www.uniprot.org/uniprotkb/P35968/entry"
+            }
+          ],
+          "compartment": "plasma",
+          "extension": {
+            "paper_id": "PMC5131886",
+            "curated_node_id": "svegfr2_biomarker",
+            "source_record_ids": [
+              "step:PMC5131886:05f1ecda4b6b0995",
+              "simulation_parameter:PMC5131886:76cce742eb8dbe47"
+            ],
+            "evidence_anchor_ids": [
+              "anchor:PMC5131886:chunk_001:moa5",
+              "anchor:PMC5131886:figure_002:figure"
+            ],
+            "state_scale": "baseline-normalized concentration"
+          }
+        }
+      },
+      {
+        "id": "DeltaSVEGFR2",
+        "label": "Change in sVEGFR2 from baseline",
+        "type": "pd_model_quantity",
+        "aliases": [
+          "Delta sVEGFR2",
+          "difference from baseline sVEGFR2"
+        ],
+        "state": {
+          "id": "DeltaSVEGFR2",
+          "executable": true,
+          "initial": 0.0
+        },
+        "metadata": {
+          "compartment": "plasma",
+          "extension": {
+            "paper_id": "PMC5131886",
+            "curated_node_id": "delta_svegfr2",
+            "source_record_ids": [
+              "step:PMC5131886:d0ac7603ff3f2325",
+              "simulation_parameter:PMC5131886:63ea798bd0197392"
+            ],
+            "evidence_anchor_ids": [
+              "anchor:PMC5131886:figure_001:moa6",
+              "anchor:PMC5131886:figure_002:figure"
+            ],
+            "modeling_note": "Implemented as a relaxation state approximating baseline-normalized 1 - sVEGFR2."
+          }
+        }
+      },
+      {
+        "id": "TumorGrowthRate",
+        "label": "HCC tumor growth-rate signal",
+        "type": "pd_model_quantity",
+        "aliases": [
+          "kg",
+          "tumor growth-rate constant"
+        ],
+        "state": {
+          "id": "TumorGrowthRate",
+          "executable": true,
+          "initial": 1.0
+        },
+        "metadata": {
+          "compartment": "tumor",
+          "extension": {
+            "paper_id": "PMC5131886",
+            "curated_node_id": "tumor_growth_rate",
+            "source_record_ids": [
+              "step:PMC5131886:d0ac7603ff3f2325"
+            ],
+            "evidence_anchor_ids": [
+              "anchor:PMC5131886:figure_001:moa6"
+            ],
+            "state_scale": "baseline-normalized tumor growth signal"
+          }
+        }
+      },
+      {
+        "id": "TumorVolume",
+        "label": "Normalized tumor volume",
+        "type": "pd_endpoint",
+        "state": {
+          "id": "TumorVolume",
+          "executable": true,
+          "initial": 1.0
+        },
+        "metadata": {
+          "compartment": "tumor",
+          "extension": {
+            "paper_id": "PMC5131886",
+            "curated_node_id": "tumor_volume",
+            "source_record_ids": [
+              "simulation_parameter:PMC5131886:34731f9af2b0b435",
+              "simulation_parameter:PMC5131886:5870934d4a4a9ec7"
+            ],
+            "evidence_anchor_ids": [
+              "anchor:PMC5131886:figure_002:figure"
+            ],
+            "state_scale": "baseline-normalized tumor volume",
+            "modeling_note": "Figure-derived tumor-volume values are retained as calibration evidence; the executable value is normalized."
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_active_exposure_inhibits_svegfr2",
+        "source": "ActiveExposure",
+        "target": "sVEGFR2",
+        "relation": "inhibits",
+        "operator": "inhibition",
+        "sign": "-",
+        "confidence": 0.78,
+        "evidence": [
+          {
+            "source_type": "paper",
+            "source_label": "PMC5131886",
+            "description": "The paper states that active drug concentration, i.e. sunitinib and metabolite, inhibits release or production of sVEGFR2.",
+            "reference": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5131886/fullTextXML",
+            "confidence": 0.78
+          }
+        ],
+        "description": "Normalized active exposure suppresses plasma sVEGFR2 biomarker dynamics.",
+        "metadata": {
+          "assay_direction": "active exposure decreases sVEGFR2",
+          "temporal_order": "exposure_before_biomarker_change",
+          "extension": {
+            "paper_id": "PMC5131886",
+            "curated_edge_id": "curated_edge:PMC5131886:active_unbound_inhibits_svegfr2_production",
+            "source_record_ids": [
+              "step:PMC5131886:27fa15d47ecb84da",
+              "step:PMC5131886:05f1ecda4b6b0995"
+            ],
+            "evidence_anchor_ids": [
+              "anchor:PMC5131886:figure_001:moa5",
+              "anchor:PMC5131886:chunk_001:moa5"
+            ],
+            "source_section": "Figure 1; Abstract",
+            "source_chunk_id": "figure_001; chunk_001",
+            "verification_verdict": "model_derived_pd_relation; verified_therapeutic_moa",
+            "review_status": "candidate_for_pathway_patch",
+            "curation_note": "Accepted for executable prototype using normalized exposure and biomarker states."
+          }
+        }
+      },
+      {
+        "id": "e_svegfr2_defines_delta_svegfr2",
+        "source": "sVEGFR2",
+        "target": "DeltaSVEGFR2",
+        "relation": "delays_signal",
+        "operator": "delay",
+        "sign": "+",
+        "confidence": 0.75,
+        "evidence": [
+          {
+            "source_type": "paper",
+            "source_label": "PMC5131886",
+            "description": "Figure 1 defines Delta sVEGFR2 as the difference of sVEGFR2 from its baseline concentration.",
+            "reference": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5131886/fullTextXML",
+            "confidence": 0.75
+          }
+        ],
+        "description": "Delta sVEGFR2 relaxes toward the baseline-normalized difference 1 - sVEGFR2.",
+        "expression": {
+          "kind": "divide",
+          "numerator": {
+            "kind": "add",
+            "terms": [
+              {
+                "kind": "constant",
+                "value": 1.0
+              },
+              {
+                "kind": "multiply",
+                "factors": [
+                  {
+                    "kind": "constant",
+                    "value": -1.0
+                  },
+                  {
+                    "kind": "state_ref",
+                    "state": "sVEGFR2"
+                  }
+                ]
+              },
+              {
+                "kind": "multiply",
+                "factors": [
+                  {
+                    "kind": "constant",
+                    "value": -1.0
+                  },
+                  {
+                    "kind": "state_ref",
+                    "state": "DeltaSVEGFR2"
+                  }
+                ]
+              }
+            ]
+          },
+          "denominator": {
+            "kind": "parameter_ref",
+            "parameter": "tau_delta_svegfr2"
+          }
+        },
+        "metadata": {
+          "assay_direction": "sVEGFR2 decrease creates positive baseline delta",
+          "temporal_order": "biomarker_change_before_delta_state",
+          "extension": {
+            "paper_id": "PMC5131886",
+            "curated_edge_id": "curated_edge:PMC5131886:svegfr2_to_delta_svegfr2",
+            "source_record_ids": [
+              "step:PMC5131886:d0ac7603ff3f2325",
+              "simulation_parameter:PMC5131886:63ea798bd0197392"
+            ],
+            "evidence_anchor_ids": [
+              "anchor:PMC5131886:figure_001:moa6",
+              "anchor:PMC5131886:figure_002:figure"
+            ],
+            "source_section": "Figure 1",
+            "source_chunk_id": "figure_001",
+            "verification_verdict": "model_derived_pd_relation",
+            "review_status": "candidate_for_pathway_patch",
+            "curation_note": "Implemented as an executable relaxation approximation because algebraic derived variables are not currently supported."
+          }
+        }
+      },
+      {
+        "id": "e_delta_svegfr2_inhibits_tumor_growth_rate",
+        "source": "DeltaSVEGFR2",
+        "target": "TumorGrowthRate",
+        "relation": "inhibits",
+        "operator": "inhibition",
+        "sign": "-",
+        "confidence": 0.76,
+        "evidence": [
+          {
+            "source_type": "paper",
+            "source_label": "PMC5131886",
+            "description": "The paper states that Delta sVEGFR2 inhibits the tumor growth-rate constant controlling HCC tumor progression.",
+            "reference": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5131886/fullTextXML",
+            "confidence": 0.76
+          }
+        ],
+        "description": "Baseline sVEGFR2 decrease suppresses the normalized tumor growth-rate signal.",
+        "metadata": {
+          "assay_direction": "Delta sVEGFR2 decreases tumor growth rate",
+          "temporal_order": "biomarker_delta_before_growth_rate_change",
+          "extension": {
+            "paper_id": "PMC5131886",
+            "curated_edge_id": "curated_edge:PMC5131886:delta_svegfr2_inhibits_tumor_growth_rate",
+            "source_record_ids": [
+              "step:PMC5131886:d0ac7603ff3f2325",
+              "simulation_parameter:PMC5131886:b9e399006482a232",
+              "simulation_parameter:PMC5131886:d9a2875ae08b8179"
+            ],
+            "evidence_anchor_ids": [
+              "anchor:PMC5131886:figure_001:moa6",
+              "anchor:PMC5131886:table_002:r5c1",
+              "anchor:PMC5131886:chunk_019:s7m1"
+            ],
+            "source_section": "Figure 1; Table 2; Tumor growth inhibition model",
+            "source_chunk_id": "figure_001; table_002; chunk_019",
+            "verification_verdict": "model_derived_pd_relation",
+            "review_status": "candidate_for_pathway_patch",
+            "curation_note": "Accepted for executable prototype with normalized tumor growth signal."
+          }
+        }
+      },
+      {
+        "id": "e_tumor_growth_rate_drives_tumor_volume",
+        "source": "TumorGrowthRate",
+        "target": "TumorVolume",
+        "relation": "activates",
+        "operator": "activation",
+        "sign": "+",
+        "confidence": 0.68,
+        "evidence": [
+          {
+            "source_type": "paper",
+            "source_label": "PMC5131886",
+            "description": "The PK/PD model links the tumor growth-rate constant to tumor-volume behavior; figure-derived tumor-volume records are calibration evidence.",
+            "reference": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5131886/fullTextXML",
+            "confidence": 0.68
+          }
+        ],
+        "description": "Normalized tumor growth-rate signal drives normalized tumor volume.",
+        "expression": {
+          "kind": "multiply",
+          "factors": [
+            {
+              "kind": "parameter_ref",
+              "parameter": "k_tumor_volume_growth"
+            },
+            {
+              "kind": "state_ref",
+              "state": "TumorGrowthRate"
+            },
+            {
+              "kind": "state_ref",
+              "state": "TumorVolume"
+            }
+          ]
+        },
+        "metadata": {
+          "assay_direction": "growth rate increases tumor volume",
+          "temporal_order": "growth_rate_before_tumor_volume_change",
+          "extension": {
+            "paper_id": "PMC5131886",
+            "curated_edge_id": "curated_edge:PMC5131886:tumor_growth_rate_drives_tumor_volume",
+            "source_record_ids": [
+              "simulation:PMC5131886:05ab0b1801332e16",
+              "simulation_parameter:PMC5131886:34731f9af2b0b435",
+              "simulation_parameter:PMC5131886:5870934d4a4a9ec7"
+            ],
+            "evidence_anchor_ids": [
+              "anchor:PMC5131886:chunk_019:sim9",
+              "anchor:PMC5131886:figure_002:figure"
+            ],
+            "source_section": "Tumor growth inhibition model; Figure 2",
+            "source_chunk_id": "chunk_019; figure_002",
+            "review_status": "review_only",
+            "curation_note": "Accepted as a normalized executable endpoint relation; figure-derived values remain calibration evidence, not direct priors."
+          }
+        }
+      }
+    ]
+  },
+  "configurations": {
+    "normalized_executable_slice": {
+      "id": "normalized_executable_slice",
+      "label": "Normalized executable slice",
+      "metadata": {
+        "description": "Active-exposure to sVEGFR2 to tumor-volume executable subset; TTP and full PK are deferred."
+      }
+    }
+  },
+  "parameters": {
+    "priors": {
+      "kel_active": {
+        "id": "kel_active",
+        "value": 0.08,
+        "lower": 0.01,
+        "upper": 0.5,
+        "units": "1/h",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype normalized active-exposure elimination prior. Motivated by PMC5131886 model structure but not a direct paper estimate.",
+          "reference": "PMC5131886",
+          "confidence": 0.55
+        }
+      },
+      "k_svegfr2_prod": {
+        "id": "k_svegfr2_prod",
+        "value": 0.08,
+        "lower": 0.01,
+        "upper": 0.5,
+        "units": "normalized concentration/h",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype normalized sVEGFR2 production prior. The paper supports an indirect response form but not a fully safe executable prior.",
+          "reference": "PMC5131886",
+          "confidence": 0.55
+        }
+      },
+      "k_svegfr2_out": {
+        "id": "k_svegfr2_out",
+        "value": 0.08,
+        "lower": 0.01,
+        "upper": 0.5,
+        "units": "1/h",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype normalized sVEGFR2 first-order removal prior. The paper supports a first-order removal model form.",
+          "reference": "PMC5131886",
+          "confidence": 0.55
+        }
+      },
+      "k_ActiveExposure_to_sVEGFR2": {
+        "id": "k_ActiveExposure_to_sVEGFR2",
+        "value": 0.18,
+        "lower": 0.01,
+        "upper": 1.0,
+        "units": "1/(normalized exposure*h)",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype executable strength for active exposure suppressing sVEGFR2. Paper evidence supports direction; numeric value is normalized for execution.",
+          "reference": "PMC5131886",
+          "confidence": 0.55
+        }
+      },
+      "tau_delta_svegfr2": {
+        "id": "tau_delta_svegfr2",
+        "value": 8.0,
+        "lower": 1.0,
+        "upper": 72.0,
+        "units": "h",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype relaxation time for Delta sVEGFR2 approximating the paper's baseline-difference model quantity.",
+          "reference": "PMC5131886",
+          "confidence": 0.5
+        }
+      },
+      "k_tumor_growth_recovery": {
+        "id": "k_tumor_growth_recovery",
+        "value": 0.06,
+        "lower": 0.005,
+        "upper": 0.5,
+        "units": "normalized growth signal/h",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype normalized recovery input maintaining baseline tumor growth signal in untreated simulations.",
+          "reference": "PMC5131886",
+          "confidence": 0.5
+        }
+      },
+      "k_tumor_growth_turnover": {
+        "id": "k_tumor_growth_turnover",
+        "value": 0.06,
+        "lower": 0.005,
+        "upper": 0.5,
+        "units": "1/h",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype first-order turnover maintaining baseline tumor growth signal in untreated simulations.",
+          "reference": "PMC5131886",
+          "confidence": 0.5
+        }
+      },
+      "k_DeltaSVEGFR2_to_TumorGrowthRate": {
+        "id": "k_DeltaSVEGFR2_to_TumorGrowthRate",
+        "value": 0.16,
+        "lower": 0.01,
+        "upper": 1.0,
+        "units": "1/(normalized delta*h)",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype executable strength for Delta sVEGFR2 suppressing tumor growth-rate signal. Paper evidence supports direction; numeric value is normalized.",
+          "reference": "PMC5131886",
+          "confidence": 0.55
+        }
+      },
+      "k_tumor_volume_growth": {
+        "id": "k_tumor_volume_growth",
+        "value": 0.02,
+        "lower": 0.001,
+        "upper": 0.2,
+        "units": "1/h",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype normalized tumor-volume growth prior. Figure-derived tumor-volume records are retained as calibration evidence rather than direct priors.",
+          "reference": "PMC5131886",
+          "confidence": 0.5
+        }
+      },
+      "k_tumor_volume_turnover": {
+        "id": "k_tumor_volume_turnover",
+        "value": 0.02,
+        "lower": 0.001,
+        "upper": 0.2,
+        "units": "1/h",
+        "source": {
+          "source_type": "expert_review",
+          "source_label": "prototype_normalized_prior",
+          "description": "Prototype normalized tumor-volume turnover prior chosen to stabilize untreated baseline behavior.",
+          "reference": "PMC5131886",
+          "confidence": 0.5
+        }
+      }
+    },
+    "generated_defaults": {
+      "patterns": {}
+    }
+  },
+  "initial_conditions": {
+    "values": {
+      "ActiveExposure": 0.0,
+      "sVEGFR2": 1.0,
+      "DeltaSVEGFR2": 0.0,
+      "TumorGrowthRate": 1.0,
+      "TumorVolume": 1.0
+    }
+  },
+  "homeostasis": [
+    {
+      "state": "ActiveExposure",
+      "term_id": "term_active_exposure_elimination",
+      "operator": "pk_elimination",
+      "sign": "-",
+      "description": "First-order removal of normalized active exposure.",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "ActiveExposure",
+        "rate": "kel_active"
+      }
+    },
+    {
+      "state": "sVEGFR2",
+      "term_id": "term_svegfr2_production",
+      "operator": "synthesis",
+      "sign": "+",
+      "description": "Baseline normalized sVEGFR2 production input.",
+      "expression": {
+        "kind": "parameter_ref",
+        "parameter": "k_svegfr2_prod"
+      }
+    },
+    {
+      "state": "sVEGFR2",
+      "term_id": "term_svegfr2_removal",
+      "operator": "first_order_loss",
+      "sign": "-",
+      "description": "First-order normalized sVEGFR2 removal.",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "sVEGFR2",
+        "rate": "k_svegfr2_out"
+      }
+    },
+    {
+      "state": "TumorGrowthRate",
+      "term_id": "term_tumor_growth_rate_recovery",
+      "operator": "synthesis",
+      "sign": "+",
+      "description": "Baseline recovery input for normalized tumor growth-rate signal.",
+      "expression": {
+        "kind": "parameter_ref",
+        "parameter": "k_tumor_growth_recovery"
+      }
+    },
+    {
+      "state": "TumorGrowthRate",
+      "term_id": "term_tumor_growth_rate_turnover",
+      "operator": "first_order_loss",
+      "sign": "-",
+      "description": "First-order turnover of normalized tumor growth-rate signal.",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "TumorGrowthRate",
+        "rate": "k_tumor_growth_turnover"
+      }
+    },
+    {
+      "state": "TumorVolume",
+      "term_id": "term_tumor_volume_turnover",
+      "operator": "first_order_loss",
+      "sign": "-",
+      "description": "Baseline-normalized tumor-volume turnover term.",
+      "expression": {
+        "kind": "first_order_loss",
+        "state": "TumorVolume",
+        "rate": "k_tumor_volume_turnover"
+      }
+    }
+  ],
+  "presentation": {
+    "plot_states": [
+      {
+        "state": "ActiveExposure",
+        "label": "Active exposure",
+        "color": "#315A9A"
+      },
+      {
+        "state": "sVEGFR2",
+        "label": "sVEGFR2",
+        "color": "#2D7A57"
+      },
+      {
+        "state": "DeltaSVEGFR2",
+        "label": "Delta sVEGFR2",
+        "color": "#8B5E34"
+      },
+      {
+        "state": "TumorGrowthRate",
+        "label": "Tumor growth signal",
+        "color": "#B34C4C"
+      },
+      {
+        "state": "TumorVolume",
+        "label": "Tumor volume",
+        "color": "#5C4D8A"
+      }
+    ],
+    "graph_layout": [
+      {
+        "node": "ActiveExposure",
+        "x": 80,
+        "y": 140
+      },
+      {
+        "node": "sVEGFR2",
+        "x": 280,
+        "y": 140
+      },
+      {
+        "node": "DeltaSVEGFR2",
+        "x": 480,
+        "y": 140
+      },
+      {
+        "node": "TumorGrowthRate",
+        "x": 680,
+        "y": 140
+      },
+      {
+        "node": "TumorVolume",
+        "x": 880,
+        "y": 140
+      }
+    ],
+    "node_type_styles": [
+      {
+        "node_type": "pk_exposure",
+        "fill": "#E8F0FA",
+        "stroke": "#315A9A",
+        "text": "#182E4D"
+      },
+      {
+        "node_type": "pd_biomarker",
+        "fill": "#E8F4EE",
+        "stroke": "#2D7A57",
+        "text": "#173D2B"
+      },
+      {
+        "node_type": "pd_model_quantity",
+        "fill": "#F6EEE7",
+        "stroke": "#8B5E34",
+        "text": "#4A321C"
+      },
+      {
+        "node_type": "pd_endpoint",
+        "fill": "#F0EDF7",
+        "stroke": "#5C4D8A",
+        "text": "#302849"
+      }
+    ],
+    "edge_relation_styles": [
+      {
+        "relation": "inhibits",
+        "label": "Inhibits",
+        "color": "#B34C4C",
+        "marker": "tee"
+      },
+      {
+        "relation": "activates",
+        "label": "Drives",
+        "color": "#2D7A57",
+        "marker": "arrow"
+      },
+      {
+        "relation": "delays_signal",
+        "label": "Defines dynamic change",
+        "color": "#8B5E34",
+        "marker": "arrow"
+      }
+    ],
+    "endpoint_states": [
+      "TumorVolume"
+    ]
+  },
+  "logic_checks": [
+    {
+      "id": "svegfr2_suppressed_by_active_exposure",
+      "label": "sVEGFR2 drops under active exposure",
+      "rationale": "The paper-supported mechanism predicts that active sunitinib/SU12662 exposure suppresses sVEGFR2.",
+      "source_edges": [
+        "e_active_exposure_inhibits_svegfr2"
+      ],
+      "check": {
+        "kind": "drop_at_least",
+        "state": "sVEGFR2",
+        "fraction": 0.05
+      }
+    },
+    {
+      "id": "tumor_growth_rate_suppressed_after_svegfr2_delta",
+      "label": "Tumor growth-rate signal drops",
+      "rationale": "The model-derived PD relation predicts Delta sVEGFR2 suppresses the tumor growth-rate signal.",
+      "source_edges": [
+        "e_delta_svegfr2_inhibits_tumor_growth_rate"
+      ],
+      "check": {
+        "kind": "drop_at_least",
+        "state": "TumorGrowthRate",
+        "fraction": 0.03
+      }
+    }
+  ],
+  "metadata": {
+    "artifact_type": "hand_curated_executable_pathway",
+    "paper_id": "PMC5131886",
+    "curated_graph_id": "curated:PMC5131886:sunitinib_vegfr2_hcc_moa",
+    "source_annotation_bundle": "data/paper_annotations/PMC5131886.json",
+    "source_curated_graph": "data/curated_annotation_graphs/PMC5131886.curated_moa_graph.json",
+    "state_scale": "normalized_baseline_relative",
+    "deferred_components": [
+      "full parent/metabolite PK",
+      "oral repeated dosing",
+      "time-to-tumor-progression hazard",
+      "time-to-tumor-progression probability",
+      "dimensional unit reconciliation",
+      "calibration against figure-derived endpoints"
+    ],
+    "curation_notes": [
+      "This executable pathway is a small normalized prototype, not an automatic promotion of all curated paper evidence.",
+      "Parameter priors are explicit prototype assumptions where the annotation artifacts were unsafe or incomplete for direct promotion.",
+      "TTP and full PK remain represented in review artifacts but are not executable in this pathway."
+    ]
+  }
+}
