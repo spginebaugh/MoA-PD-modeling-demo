@@ -9,6 +9,11 @@ let latestWarnings = [];
 let heroState = null;
 let preferredClaimTarget = '';
 let claimTargetTouched = false;
+let evidencePapers = [];
+let evidenceCache = {};
+let loadedPaperId = null;
+let evidencePaperId = null;
+let pathwayAnchorIndex = {};
 
 async function getJson(path) {
   const res = await fetch(API + path);
@@ -98,7 +103,17 @@ async function loadInitial() {
   const response = await getJson('/pathways');
   pathways = response.pathways || [];
   document.getElementById('pathway').innerHTML = optionsHTML(pathways);
+  await loadPapersList();
   await loadSelectedPathway();
+}
+
+async function loadPapersList() {
+  try {
+    const response = await getJson('/annotation-graphs');
+    evidencePapers = response.paper_ids || [];
+  } catch {
+    evidencePapers = [];
+  }
 }
 
 async function loadSelectedPathway() {
@@ -118,7 +133,11 @@ async function loadSelectedPathway() {
     : '<option value="">No prediction tasks configured</option>';
   updatePathwayControls();
   renderPathwayContext();
+  loadedPaperId = paperIdForPathway();
+  evidencePaperId = loadedPaperId || evidencePapers[0] || null;
+  await ensurePathwayAnchors();
   await runScenario();
+  refreshEvidencePanel();
 }
 
 function updatePathwayControls() {
@@ -165,6 +184,431 @@ function renderPathwayContext() {
     (context.notes ? `<div class="ctx-note">${esc(context.notes)}</div>` : '') +
     (deferred.length ? `<div class="ctx-subhead">Deferred</div><div class="chip-row">${deferred.map(item => `<span class="chip">${esc(item)}</span>`).join('')}</div>` : '') +
     (notes.length ? `<div class="ctx-subhead">Curation</div>${notes.map(item => `<div class="ctx-note">${esc(item)}</div>`).join('')}` : '');
+}
+
+// --- Source paper evidence: data loading -------------------------------------
+
+function paperIdForPathway() {
+  const ext = pathwayDefinition?.context?.extension || {};
+  return ext.paper_id || pathwayDefinition?.metadata?.paper_id || null;
+}
+
+function pathwayIdsSet() {
+  return new Set((pathways || []).map(item => item.pathway_id ?? item.value ?? item));
+}
+
+function selectPathway(pathwayId) {
+  const select = document.getElementById('pathway');
+  if (Array.from(select.options).some(option => option.value === pathwayId)) {
+    select.value = pathwayId;
+    loadSelectedPathway().catch(err => setStatus(err.message, true));
+  }
+}
+
+async function loadEvidenceArtifacts(paperId) {
+  if (!paperId) return null;
+  if (evidenceCache[paperId]) return evidenceCache[paperId];
+  try {
+    const [curatedResponse, proposalResponse, evidenceResponse] = await Promise.all([
+      getJson(`/annotation-graphs/${paperId}/curated`),
+      getJson(`/annotation-graphs/${paperId}/proposal`),
+      getJson(`/annotation-graphs/${paperId}`)
+    ]);
+    const anchors = {};
+    (evidenceResponse.graph.evidence_anchors || []).forEach(anchor => { anchors[anchor.anchor_id] = anchor; });
+    (curatedResponse.graph.evidence_anchors || []).forEach(anchor => {
+      anchors[anchor.anchor_id] = anchors[anchor.anchor_id] || anchor;
+    });
+    const artifacts = { curated: curatedResponse.graph, proposal: proposalResponse.proposal, anchors };
+    evidenceCache[paperId] = artifacts;
+    return artifacts;
+  } catch (err) {
+    const artifacts = { error: err.message };
+    evidenceCache[paperId] = artifacts;
+    return artifacts;
+  }
+}
+
+async function ensurePathwayAnchors() {
+  pathwayAnchorIndex = {};
+  if (!loadedPaperId) return;
+  const artifacts = await loadEvidenceArtifacts(loadedPaperId);
+  if (artifacts && !artifacts.error) pathwayAnchorIndex = artifacts.anchors;
+}
+
+async function refreshEvidencePanel() {
+  if (evidencePaperId && !evidenceCache[evidencePaperId]) {
+    renderEvidencePanel();
+    await loadEvidenceArtifacts(evidencePaperId);
+  }
+  renderEvidencePanel();
+}
+
+async function viewEvidencePaper(paperId) {
+  evidencePaperId = paperId;
+  if (evidenceCache[paperId]?.error) delete evidenceCache[paperId];
+  await refreshEvidencePanel();
+}
+
+// --- Semantic badges and resolvable evidence anchors -------------------------
+
+const SEMANTIC_BADGES = {
+  review_status: {
+    accepted_for_evidence_graph: ['info', 'Accepted (evidence)'],
+    candidate_for_pathway_patch: ['good', 'Candidate for pathway'],
+    review_only: ['warn', 'Review only'],
+    rejected: ['bad', 'Rejected']
+  },
+  verdict: {
+    verified_therapeutic_moa: ['good', 'Verified MoA'],
+    verified_supporting: ['good', 'Verified'],
+    model_derived_pd_relation: ['info', 'Model-derived PD'],
+    unverified: ['warn', 'Unverified'],
+    refuted: ['bad', 'Refuted']
+  },
+  support_level: {
+    model_form_supported: ['good', 'Model-form supported'],
+    model_endpoint_supported: ['info', 'Endpoint supported'],
+    model_derived_pd_relation: ['info', 'Model-derived PD'],
+    review_only_context: ['warn', 'Review-only context']
+  },
+  role: {
+    calibration_or_validation_endpoint: ['warn', 'Calibration endpoint'],
+    pk_exposure_endpoint: ['warn', 'Exposure endpoint'],
+    pd_endpoint: ['warn', 'PD endpoint'],
+    review_only_candidate_input: ['warn', 'Review-only input']
+  }
+};
+
+function humanize(value) {
+  return String(value).replace(/_/g, ' ').replace(/\s+/g, ' ').trim().replace(/^\w/, char => char.toUpperCase());
+}
+
+function truncate(text, max) {
+  const value = String(text);
+  return value.length > max ? `${value.slice(0, max - 1)}…` : value;
+}
+
+function semanticBadge(kind, value) {
+  if (value == null || value === '') return '';
+  const [cls, label] = (SEMANTIC_BADGES[kind] || {})[value] || ['neutral', humanize(value)];
+  return `<span class="sbadge ${cls}" title="${esc(value)}">${esc(label)}</span>`;
+}
+
+function badgeSet(kind, value) {
+  const items = Array.isArray(value) ? value : String(value).split(/\s*;\s*/);
+  return items.filter(Boolean).map(item => semanticBadge(kind, item.trim())).join(' ');
+}
+
+function prettyId(id) {
+  const match = String(id).match(/^([a-zA-Z]+)[ _:-]?0*(\d+)$/);
+  return match ? `${match[1].replace(/^\w/, char => char.toUpperCase())} ${match[2]}` : String(id);
+}
+
+function anchorLocator(anchor) {
+  const bits = [];
+  if (anchor.section) bits.push(anchor.section);
+  if (anchor.figure_id) bits.push(prettyId(anchor.figure_id));
+  if (anchor.table_id) bits.push(prettyId(anchor.table_id));
+  const cell = anchor.cell_id || [anchor.row_id, anchor.column_id].filter(Boolean).join('');
+  if (cell) bits.push(cell);
+  if (!bits.length && anchor.chunk_id) bits.push(anchor.chunk_id);
+  return bits.join(' · ') || anchor.source_type || 'source';
+}
+
+function anchorChips(ids, index = pathwayAnchorIndex) {
+  const items = listValues(ids);
+  if (!items.length) return '<span class="muted">none</span>';
+  return `<div class="anchor-list">` + items.map(id => {
+    const anchor = index[id];
+    if (!anchor) return `<code class="chip code" title="Anchor not resolved">${esc(id)}</code>`;
+    const quote = anchor.quote ? `<span class="q">${esc(truncate(anchor.quote, 180))}</span>` : '';
+    return `<div class="anchor" title="${esc(anchor.quote || id)}"><span class="loc">${esc(anchorLocator(anchor))}</span>${quote}</div>`;
+  }).join('') + `</div>`;
+}
+
+// --- Source paper evidence: rendering ----------------------------------------
+
+function renderStatusLegend() {
+  const items = [['good', 'Candidate / verified'], ['info', 'Model-derived'], ['warn', 'Review-only / calibration'], ['bad', 'Rejected']];
+  return `<div class="status-legend">${items.map(([cls, label]) => `<span class="sbadge ${cls}">${esc(label)}</span>`).join('')}</div>`;
+}
+
+function renderPaperSwitcher() {
+  return `<div class="paper-switcher">` + evidencePapers.map(paperId => {
+    const active = paperId === evidencePaperId ? ' active' : '';
+    const sourceDot = paperId === loadedPaperId ? '<span class="src-dot" title="Source of the loaded pathway">●</span> ' : '';
+    return `<button type="button" class="paper-chip${active}" onclick="viewEvidencePaper('${esc(paperId)}')">${sourceDot}${esc(paperId)}</button>`;
+  }).join('') + `</div>`;
+}
+
+function renderEvidencePanel() {
+  const host = document.getElementById('evidencePanel');
+  if (!host) return;
+  if (!evidencePapers.length) {
+    host.className = 'panel muted';
+    host.textContent = 'No extracted paper evidence is available.';
+    return;
+  }
+  host.className = 'panel evidence-panel';
+  const header = `<div class="evi-head"><h2>Source paper evidence</h2>${renderStatusLegend()}</div>` +
+    renderPaperSwitcher() +
+    (loadedPaperId
+      ? '<div class="src-caption">● marks the paper backing the loaded pathway.</div>'
+      : '<div class="src-caption">The loaded pathway has no source paper; browsing extracted paper evidence.</div>');
+  if (!evidencePaperId) {
+    host.innerHTML = `${header}<div class="muted">Select a paper to view its extracted evidence.</div>`;
+    return;
+  }
+  const artifacts = evidenceCache[evidencePaperId];
+  if (!artifacts) {
+    host.innerHTML = `${header}<div class="muted">Loading evidence for ${esc(evidencePaperId)}…</div>`;
+    return;
+  }
+  if (artifacts.error) {
+    host.innerHTML = `${header}<div class="warning">Could not load evidence for ${esc(evidencePaperId)}: ${esc(artifacts.error)}</div>`;
+    return;
+  }
+  const { curated, anchors } = artifacts;
+  host.innerHTML = header +
+    `<div class="evi-paper-title">${esc(curated.title || evidencePaperId)}</div>` +
+    renderPromotionGap(artifacts) +
+    `<details class="ref" open><summary>Curated MoA evidence graph (${curated.nodes.length} nodes · ${curated.edges.length} edges)</summary>${renderCuratedGraph(curated)}</details>` +
+    `<details class="ref"><summary>Causal &amp; model edges (${curated.edges.length})</summary>${renderCuratedEdges(curated, anchors)}</details>` +
+    `<details class="ref"><summary>Parameters &amp; calibration endpoints (${curated.parameters.length})</summary>${renderCuratedParameters(curated, anchors)}</details>` +
+    `<details class="ref"><summary>Paper equations &amp; model forms (${curated.equations.length})</summary>${renderCuratedEquations(curated, anchors)}</details>`;
+}
+
+function reviewStatusCounts(records) {
+  const counts = { candidate: 0, review: 0, other: 0 };
+  (records || []).forEach(record => {
+    if (record.review_status === 'candidate_for_pathway_patch') counts.candidate += 1;
+    else if (record.review_status === 'review_only') counts.review += 1;
+    else counts.other += 1;
+  });
+  return counts;
+}
+
+function coverageTile(label, counts) {
+  const total = counts.candidate + counts.review + counts.other || 1;
+  const goodPct = (counts.candidate / total * 100).toFixed(1);
+  const warnPct = (counts.review / total * 100).toFixed(1);
+  const other = counts.other ? ` · ${counts.other} other` : '';
+  return `<div class="promo-stat"><div class="promo-stat-h">${esc(label)}</div>` +
+    `<div class="cov-bar"><span class="cov-good" style="width:${goodPct}%"></span><span class="cov-warn" style="width:${warnPct}%"></span></div>` +
+    `<div class="promo-stat-sub">${counts.candidate} candidate · ${counts.review} review-only${other}</div></div>`;
+}
+
+function dedupeMissing(items) {
+  const seen = new Map();
+  items.forEach(item => { if (!seen.has(item.name)) seen.set(item.name, item); });
+  return Array.from(seen.values());
+}
+
+function renderPromotionGap(artifacts) {
+  const { curated, proposal } = artifacts;
+  const nodeCounts = reviewStatusCounts(curated.nodes);
+  const edgeCounts = reviewStatusCounts(curated.edges);
+  const paramCounts = reviewStatusCounts(curated.parameters);
+  const equationCounts = reviewStatusCounts(curated.equations);
+  const knownPathways = pathwayIdsSet();
+  const loadButton = id => id === currentPathwayId()
+    ? ''
+    : `<button type="button" class="link-btn" onclick="selectPathway('${esc(id)}')">load it</button>`;
+  const proposedExists = proposal.proposed_pathway_id && knownPathways.has(proposal.proposed_pathway_id);
+  const targetExists = proposal.target_pathway_id && knownPathways.has(proposal.target_pathway_id);
+  const isLoaded = proposedExists && proposal.proposed_pathway_id === currentPathwayId();
+  let banner;
+  let bannerClass;
+  if (proposal.proposal_kind === 'new_pathway' && proposedExists) {
+    bannerClass = 'has-exec';
+    banner = isLoaded
+      ? `Executable slice loaded: <b>${esc(pathwayDefinition.label || proposal.proposed_pathway_id)}</b>`
+      : `Executable slice available: <code>${esc(proposal.proposed_pathway_id)}</code>${loadButton(proposal.proposed_pathway_id)}`;
+  } else if (proposal.proposal_kind === 'overlay') {
+    bannerClass = 'no-exec';
+    const target = targetExists
+      ? `<code>${esc(proposal.target_pathway_id)}</code>${loadButton(proposal.target_pathway_id)}`
+      : esc(proposal.target_pathway_id || 'an existing pathway');
+    banner = `Overlay review artifact — proposes evidence onto ${target}; not a standalone executable pathway.`;
+  } else {
+    bannerClass = 'no-exec';
+    banner = `No executable pathway yet — ${esc(humanize(proposal.proposal_kind))} review artifact only.`;
+  }
+  const missing = dedupeMissing([...(curated.missing_inputs || []), ...(proposal.required_missing_inputs || [])]);
+  const deferred = isLoaded ? (pathwayDefinition.metadata?.deferred_components || []) : [];
+  const calloutNeeded = paramCounts.candidate === 0 && paramCounts.review > 0;
+  return '<div class="promo">' +
+    `<div class="promo-banner ${bannerClass}">${banner}<div class="muted">${esc(proposal.promotion_note || curated.promotion_note || '')}</div></div>` +
+    `<div class="promo-grid">${coverageTile('Nodes', nodeCounts)}${coverageTile('Edges', edgeCounts)}${coverageTile('Parameters', paramCounts)}${coverageTile('Equations', equationCounts)}</div>` +
+    (calloutNeeded ? `<div class="promo-callout">All ${paramCounts.review} curated parameters are <b>review-only</b> — none are safe to promote to executable priors. The executable slice substitutes explicit prototype priors instead.</div>` : '') +
+    (missing.length ? '<div class="prov-subhead">Missing inputs blocking full execution</div>' + missing.map(item =>
+      `<div class="gap-item"><span class="sbadge ${item.severity === 'error' ? 'bad' : 'warn'}">${esc(item.severity || 'warning')}</span>` +
+      `<div><b>${esc(humanize(item.name))}</b><div class="muted">${esc(item.reason || '')}</div></div></div>`).join('') : '') +
+    (deferred.length ? `<div class="prov-subhead">Deferred from the executable slice</div><div class="chip-row">${deferred.map(item => `<span class="chip">${esc(item)}</span>`).join('')}</div>` : '') +
+    '</div>';
+}
+
+function layerNodes(nodes, edges) {
+  const ids = nodes.map(node => node.node_id);
+  const idSet = new Set(ids);
+  const adjacency = {};
+  const indegree = {};
+  ids.forEach(id => { adjacency[id] = []; indegree[id] = 0; });
+  edges.forEach(edge => {
+    if (idSet.has(edge.source) && idSet.has(edge.target) && edge.source !== edge.target) {
+      adjacency[edge.source].push(edge.target);
+      indegree[edge.target] += 1;
+    }
+  });
+  const layer = {};
+  ids.forEach(id => { layer[id] = 0; });
+  const queue = ids.filter(id => indegree[id] === 0);
+  const remaining = { ...indegree };
+  while (queue.length) {
+    const id = queue.shift();
+    adjacency[id].forEach(target => {
+      layer[target] = Math.max(layer[target], layer[id] + 1);
+      remaining[target] -= 1;
+      if (remaining[target] === 0) queue.push(target);
+    });
+  }
+  const byLayer = {};
+  ids.forEach(id => { (byLayer[layer[id]] = byLayer[layer[id]] || []).push(id); });
+  const positions = {};
+  Object.keys(byLayer).map(Number).sort((a, b) => a - b).forEach(col => {
+    byLayer[col].forEach((id, row) => { positions[id] = { col, row }; });
+  });
+  return positions;
+}
+
+function gridLayout(nodes, columns = 4) {
+  const positions = {};
+  nodes.forEach((node, index) => { positions[node.node_id] = { col: index % columns, row: Math.floor(index / columns) }; });
+  return positions;
+}
+
+function curatedRelationStyle(relation) {
+  const negative = /inhibit|suppress|block|degrade|decreas|down/i.test(relation);
+  return { color: negative ? '#B34C4C' : '#2D7A57', marker: negative ? 'tee' : 'arrow' };
+}
+
+function statusFill(reviewStatus) {
+  if (reviewStatus === 'candidate_for_pathway_patch') return { fill: '#E8F4EE', stroke: '#2D7A57', text: '#173D2B' };
+  if (reviewStatus === 'review_only') return { fill: '#FFF7ED', stroke: '#C2772E', text: '#7C3A12' };
+  if (reviewStatus === 'rejected') return { fill: '#FEECEC', stroke: '#B34C4C', text: '#7F1D1D' };
+  return { fill: '#EEF2F7', stroke: '#64748B', text: '#334155' };
+}
+
+function renderCuratedGraph(curated) {
+  const nodes = curated.nodes || [];
+  const edges = curated.edges || [];
+  if (!nodes.length) return '<div class="muted">No curated nodes.</div>';
+  const positions = edges.length ? layerNodes(nodes, edges) : gridLayout(nodes);
+  const COL_W = 184, ROW_H = 66, NODE_W = 152, NODE_H = 34, PAD = 22;
+  let maxCol = 0, maxRow = 0;
+  nodes.forEach(node => {
+    const position = positions[node.node_id];
+    maxCol = Math.max(maxCol, position.col);
+    maxRow = Math.max(maxRow, position.row);
+  });
+  const viewWidth = PAD * 2 + maxCol * COL_W + NODE_W;
+  const viewHeight = PAD * 2 + maxRow * ROW_H + NODE_H;
+  const center = id => {
+    const position = positions[id];
+    return { x: PAD + position.col * COL_W + NODE_W / 2, y: PAD + position.row * ROW_H + NODE_H / 2 };
+  };
+  const boundary = (point, tx, ty) => {
+    const dx = tx - point.x, dy = ty - point.y;
+    if (!dx && !dy) return [point.x, point.y];
+    const scale = Math.min(
+      Math.abs(dx) > 1e-6 ? (NODE_W / 2) / Math.abs(dx) : Infinity,
+      Math.abs(dy) > 1e-6 ? (NODE_H / 2) / Math.abs(dy) : Infinity
+    );
+    return [point.x + dx * scale, point.y + dy * scale];
+  };
+  const nodeById = Object.fromEntries(nodes.map(node => [node.node_id, node]));
+  const defs = '<defs>' +
+    '<marker id="cur-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L8,3 z" fill="#2D7A57"/></marker>' +
+    '<marker id="cur-tee" markerWidth="8" markerHeight="10" refX="1" refY="5" orient="auto" markerUnits="strokeWidth"><rect x="0" y="1" width="2" height="8" fill="#B34C4C"/></marker>' +
+    '</defs>';
+  let edgeSvg = '';
+  edges.forEach(edge => {
+    const source = nodeById[edge.source], target = nodeById[edge.target];
+    if (!source || !target) return;
+    const sourceCenter = center(edge.source), targetCenter = center(edge.target);
+    const [x1, y1] = boundary(sourceCenter, targetCenter.x, targetCenter.y);
+    const [x2, y2] = boundary(targetCenter, sourceCenter.x, sourceCenter.y);
+    const style = curatedRelationStyle(edge.relation);
+    const dash = edge.review_status === 'review_only' ? ' stroke-dasharray="5 4"' : '';
+    edgeSvg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${style.color}" stroke-width="1.8"${dash} marker-end="url(#${style.marker === 'tee' ? 'cur-tee' : 'cur-arrow'})"><title>${esc(humanize(edge.relation))}: ${esc(source.label)} → ${esc(target.label)}</title></line>`;
+  });
+  const nodeSvg = nodes.map(node => {
+    const point = center(node.node_id);
+    const fill = statusFill(node.review_status);
+    return `<g><title>${esc(node.label)} — ${esc(humanize(node.review_status))}${node.reason ? ': ' + esc(node.reason) : ''}</title>` +
+      `<rect x="${(point.x - NODE_W / 2).toFixed(1)}" y="${(point.y - NODE_H / 2).toFixed(1)}" width="${NODE_W}" height="${NODE_H}" rx="8" fill="${fill.fill}" stroke="${fill.stroke}" stroke-width="1.5"/>` +
+      `<text x="${point.x.toFixed(1)}" y="${point.y.toFixed(1)}" text-anchor="middle" dominant-baseline="central" style="fill:${fill.text};font-size:11px;font-weight:700">${esc(truncate(node.label, 20))}</text></g>`;
+  }).join('');
+  return `<svg class="curated-svg" viewBox="0 0 ${viewWidth.toFixed(0)} ${viewHeight.toFixed(0)}" role="img" aria-label="Curated paper MoA evidence graph">${defs}${edgeSvg}${nodeSvg}</svg>`;
+}
+
+function renderCuratedEdges(curated, anchors) {
+  const edges = curated.edges || [];
+  if (!edges.length) return '<div class="muted">No causal or model edges were extracted for this paper.</div>';
+  const labelById = Object.fromEntries((curated.nodes || []).map(node => [node.node_id, node.label]));
+  return edges.map(edge => {
+    const source = labelById[edge.source] || edge.source;
+    const target = labelById[edge.target] || edge.target;
+    const meta = [humanize(edge.relation), edge.causal_role ? humanize(edge.causal_role) : ''].filter(Boolean).join(' · ');
+    return '<div class="prov-card">' +
+      `<div class="prov-title"><b>${esc(source)} → ${esc(target)}</b></div>` +
+      `<div class="evi-badges">${semanticBadge('review_status', edge.review_status)} ${semanticBadge('support_level', edge.support_level)}</div>` +
+      `<div class="muted">${esc(meta)}</div>` +
+      (edge.reason ? `<div class="evi-reason">${esc(edge.reason)}</div>` : '') +
+      `<div class="prov-subhead">Evidence</div>${anchorChips(edge.evidence_anchor_ids, anchors)}` +
+      '</div>';
+  }).join('');
+}
+
+function renderCuratedParameters(curated, anchors) {
+  const parameters = curated.parameters || [];
+  if (!parameters.length) return '<div class="muted">No parameters were extracted for this paper.</div>';
+  return parameters.map(parameter => {
+    const value = parameter.value == null
+      ? (parameter.value_text || '—')
+      : `${fmtNum(parameter.value)}${parameter.unit ? ` ${parameter.unit}` : ''}`;
+    const blockers = (parameter.promotion_blockers || []).map(blocker => `<span class="sbadge bad" title="promotion blocker">${esc(humanize(blocker))}</span>`).join(' ');
+    return `<div class="param-card"><div class="param-head"><b>${esc(parameter.name)}</b><span>${esc(value)}</span></div>` +
+      `<div class="evi-badges">${semanticBadge('review_status', parameter.review_status)} ${semanticBadge('role', parameter.role)}</div>` +
+      (parameter.reason ? `<div class="evi-reason">${esc(parameter.reason)}</div>` : '') +
+      (blockers ? `<div class="evi-badges">${blockers}</div>` : '') +
+      `<div class="prov-subhead">Evidence</div>${anchorChips(parameter.evidence_anchor_ids, anchors)}</div>`;
+  }).join('');
+}
+
+function renderCuratedEquations(curated, anchors) {
+  const equations = curated.equations || [];
+  if (!equations.length) return '<div class="muted">No equations or model forms were extracted for this paper.</div>';
+  const execNodeIds = new Set((pathwayDefinition?.base_graph?.nodes || []).map(node => node.metadata?.extension?.curated_node_id).filter(Boolean));
+  const execEdgeIds = new Set((pathwayDefinition?.base_graph?.edges || []).map(edge => edge.metadata?.extension?.curated_edge_id).filter(Boolean));
+  const showExecTag = loadedPaperId === curated.paper_id;
+  return equations.map(equation => {
+    const inExec = (equation.target_node_id && execNodeIds.has(equation.target_node_id)) ||
+      (equation.target_edge_id && execEdgeIds.has(equation.target_edge_id));
+    const execTag = showExecTag
+      ? (inExec
+        ? '<span class="sbadge good" title="Target exists in the loaded executable slice">In executable slice</span>'
+        : '<span class="sbadge neutral">Not in executable slice</span>')
+      : '';
+    const target = equation.target_node_id || equation.target_edge_id;
+    const meta = [humanize(equation.binding_type), target ? `target ${target}` : ''].filter(Boolean).join(' · ');
+    return `<div class="param-card"><div class="param-head"><b>${esc(equation.model_form || equation.equation_id)}</b><div class="evi-badges">${semanticBadge('review_status', equation.review_status)} ${execTag}</div></div>` +
+      `<div class="eq-expr"><code>${esc(equation.expression_text)}</code></div>` +
+      `<div class="muted">${esc(meta)}</div>` +
+      (equation.reason ? `<div class="evi-reason">${esc(equation.reason)}</div>` : '') +
+      `<div class="prov-subhead">Evidence</div>${anchorChips(equation.evidence_anchor_ids, anchors)}</div>`;
+  }).join('');
 }
 
 async function compileAndSimulate(graph) {
@@ -524,23 +968,27 @@ function codeChips(values) {
   return `<div class="chip-row">${items.map(item => `<code class="chip code">${esc(item)}</code>`).join('')}</div>`;
 }
 
-function provenanceRows(metadata) {
+function provenanceRows(metadata, anchorIndex = pathwayAnchorIndex) {
   const ext = metadata?.extension || {};
   const rows = [
-    ['Paper', ext.paper_id],
-    ['Curated id', ext.curated_edge_id || ext.curated_node_id],
-    ['Source records', ext.source_record_ids],
-    ['Evidence anchors', ext.evidence_anchor_ids],
-    ['Source section', ext.source_section],
-    ['Source chunk', ext.source_chunk_id],
-    ['Verdict', ext.verification_verdict],
-    ['Review status', ext.review_status],
-    ['Curation note', ext.curation_note || ext.modeling_note]
+    ['Paper', ext.paper_id, 'text'],
+    ['Curated id', ext.curated_edge_id || ext.curated_node_id, 'code'],
+    ['Source records', ext.source_record_ids, 'code'],
+    ['Evidence', ext.evidence_anchor_ids, 'anchors'],
+    ['Section', ext.source_section, 'text'],
+    ['Verdict', ext.verification_verdict, 'verdict'],
+    ['Review status', ext.review_status, 'review_status'],
+    ['Note', ext.curation_note || ext.modeling_note, 'text']
   ];
   return rows
     .filter(([, value]) => listValues(value).length)
-    .map(([label, value]) => {
-      const rendered = Array.isArray(value) ? codeChips(value) : esc(value);
+    .map(([label, value, type]) => {
+      let rendered;
+      if (type === 'anchors') rendered = anchorChips(value, anchorIndex);
+      else if (type === 'code') rendered = Array.isArray(value) ? codeChips(value) : `<code class="chip code">${esc(value)}</code>`;
+      else if (type === 'verdict') rendered = badgeSet('verdict', value);
+      else if (type === 'review_status') rendered = semanticBadge('review_status', value);
+      else rendered = esc(value);
       return `<div class="prov-row"><span>${esc(label)}</span><div>${rendered}</div></div>`;
     })
     .join('');
@@ -633,9 +1081,15 @@ function renderParameterCatalog(compiled) {
     const bounds = [parameter.lower, parameter.upper].every(value => value != null)
       ? `bounds ${fmtNum(parameter.lower)}-${fmtNum(parameter.upper)}`
       : 'no bounds';
+    const [cls, classLabel] = priorClassification(parameter.source);
     return `<div class="param-card"><div class="param-head"><b>${esc(parameter.id)}</b><span>${esc(fmtNum(parameter.value))}${parameter.units ? ` ${esc(parameter.units)}` : ''}</span></div>` +
+      `<div class="evi-badges"><span class="sbadge ${cls}">${esc(classLabel)}</span></div>` +
       `<div class="muted">${esc(bounds)}</div>${sourceBlock(parameter.source)}</div>`;
   }).join('');
+  const paperDerived = priors.filter(parameter => priorClassification(parameter.source)[1] === 'Paper-derived').length;
+  const priorsNote = priors.length
+    ? `<div class="src-caption">${priors.length} prior${priors.length === 1 ? '' : 's'} · ${paperDerived} paper-derived · ${priors.length - paperDerived} assumption/calibration</div>`
+    : '';
   const generatedRows = generated.map(parameter => {
     const value = parameter.default_value == null ? 'override required' : `default ${fmtNum(parameter.default_value)}`;
     return `<div class="param-card"><div class="param-head"><b>${esc(parameter.id)}</b><span>${esc(value)}</span></div>` +
@@ -643,8 +1097,17 @@ function renderParameterCatalog(compiled) {
   }).join('');
   host.className = '';
   host.innerHTML =
-    `<div class="prov-section"><h3>Prior parameters</h3>${priorRows || '<div class="muted">No prior parameters.</div>'}</div>` +
+    `<div class="prov-section"><h3>Prior parameters</h3>${priorsNote}${priorRows || '<div class="muted">No prior parameters.</div>'}</div>` +
     `<div class="prov-section"><h3>Generated parameters</h3>${generatedRows || '<div class="muted">No generated parameters.</div>'}</div>`;
+}
+
+function priorClassification(source) {
+  const type = (source?.source_type || '').toLowerCase();
+  const label = (source?.source_label || '').toLowerCase();
+  if (type === 'paper') return ['good', 'Paper-derived'];
+  if (label.includes('calibration') || label.includes('endpoint')) return ['warn', 'Calibration'];
+  if (type === 'expert_review' || label.includes('prototype') || label.includes('assumption')) return ['warn', 'Prototype assumption'];
+  return ['neutral', humanize(source?.source_type || 'unspecified')];
 }
 
 function plotSpecies() {
