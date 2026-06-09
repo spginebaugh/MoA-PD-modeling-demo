@@ -1,6 +1,7 @@
 const API = window.location.origin;
 let pathways = [];
 let contract = null;
+let pathwayDefinition = null;
 let latestGraph = null;
 let latestCompiled = null;
 let latestSimulation = null;
@@ -21,8 +22,24 @@ async function postJson(path, body) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
-  if (!res.ok) throw new Error(`${path} failed (${res.status}): ${await res.text()}`);
+  if (!res.ok) throw new Error(await formatApiError(path, res));
   return await res.json();
+}
+
+async function formatApiError(path, res) {
+  const body = await res.text();
+  try {
+    const parsed = JSON.parse(body);
+    const messages = (parsed.errors || []).map(error => {
+      const params = error.details?.parameters;
+      const suffix = Array.isArray(params) && params.length ? ` (${params.join(', ')})` : '';
+      return `${error.message}${suffix}`;
+    });
+    if (messages.length) return `${path} failed (${res.status}): ${messages.join(' ')}`;
+  } catch {
+    // Fall back to the raw body below.
+  }
+  return `${path} failed (${res.status}): ${body}`;
 }
 
 function esc(value) {
@@ -85,13 +102,69 @@ async function loadInitial() {
 }
 
 async function loadSelectedPathway() {
-  const response = await getJson(`/pathways/${currentPathwayId()}/contract`);
-  contract = response.contract;
+  const pathwayId = currentPathwayId();
+  const [contractResponse, pathwayResponse] = await Promise.all([
+    getJson(`/pathways/${pathwayId}/contract`),
+    getJson(`/pathways/${pathwayId}`)
+  ]);
+  contract = contractResponse.contract;
+  pathwayDefinition = pathwayResponse.pathway;
   document.getElementById('configuration').innerHTML = optionsHTML(contract.configurations, contract.configurations[0]?.value);
   document.getElementById('claim-effect').innerHTML = effectOptionsHTML('inhibits_edge');
   document.getElementById('claim-module').innerHTML = moduleOptionsHTML();
-  document.getElementById('prediction-claim').innerHTML = optionsHTML(contract.prediction_claims || []);
+  const predictionClaims = contract.prediction_claims || [];
+  document.getElementById('prediction-claim').innerHTML = predictionClaims.length
+    ? optionsHTML(predictionClaims)
+    : '<option value="">No prediction tasks configured</option>';
+  updatePathwayControls();
+  renderPathwayContext();
   await runScenario();
+}
+
+function updatePathwayControls() {
+  const predictionClaims = contract?.prediction_claims || [];
+  const predictionSelect = document.getElementById('prediction-claim');
+  const predictionButton = document.getElementById('prediction-button');
+  const predictionDisabled = predictionClaims.length === 0;
+  predictionSelect.disabled = predictionDisabled;
+  predictionButton.disabled = predictionDisabled;
+  predictionButton.title = predictionDisabled
+    ? 'This pathway has no configured graph-patch prediction tasks.'
+    : '';
+
+  const moduleSelect = document.getElementById('claim-module');
+  const hasModules = (contract?.modules || []).length > 0;
+  moduleSelect.disabled = !hasModules;
+  moduleSelect.title = hasModules ? '' : 'No optional pathway modules are configured for this pathway.';
+}
+
+function renderPathwayContext() {
+  const host = document.getElementById('pathwayContext');
+  if (!pathwayDefinition) {
+    host.className = 'panel muted';
+    host.textContent = 'No pathway loaded.';
+    return;
+  }
+  const context = pathwayDefinition.context || {};
+  const ext = context.extension || {};
+  const metadata = pathwayDefinition.metadata || {};
+  const chips = [
+    ['Species', context.species],
+    ['Endpoint', context.endpoint],
+    ['Disease', ext.disease || ext.disease_subtype],
+    ['Stage', ext.translation_stage],
+    ['Paper', ext.paper_id || metadata.paper_id],
+    ['Scale', ext.state_scale || metadata.state_scale]
+  ].filter(([, value]) => value != null && value !== '');
+  const deferred = Array.isArray(metadata.deferred_components) ? metadata.deferred_components : [];
+  const notes = Array.isArray(metadata.curation_notes) ? metadata.curation_notes : [];
+  host.className = 'panel pathway-context';
+  host.innerHTML =
+    `<div class="ctx-title">${esc(pathwayDefinition.label || pathwayDefinition.pathway_id)}</div>` +
+    `<div class="ctx-grid">${chips.map(([key, value]) => `<span><b>${esc(key)}</b>${esc(value)}</span>`).join('')}</div>` +
+    (context.notes ? `<div class="ctx-note">${esc(context.notes)}</div>` : '') +
+    (deferred.length ? `<div class="ctx-subhead">Deferred</div><div class="chip-row">${deferred.map(item => `<span class="chip">${esc(item)}</span>`).join('')}</div>` : '') +
+    (notes.length ? `<div class="ctx-subhead">Curation</div>${notes.map(item => `<div class="ctx-note">${esc(item)}</div>`).join('')}` : '');
 }
 
 async function compileAndSimulate(graph) {
@@ -171,6 +244,7 @@ async function runStructuredClaim() {
     const relation = document.getElementById('claim-effect').value;
     const target = document.getElementById('claim-target').value;
     if (!target) throw new Error('Select a target edge.');
+    const expression = structuredModifierExpression(relation);
     setStatus('Applying structured drug modifier and simulating...');
     const sign = relation === 'inhibits_edge' ? '-' : '+';
     const response = await postJson('/graph/compose', structuredBaseRequest({
@@ -178,6 +252,7 @@ async function runStructuredClaim() {
         target_edge: target,
         relation,
         sign,
+        expression,
         rationale: `Structured UI ${relation} modifier on ${target}.`
       }]
     }));
@@ -193,6 +268,27 @@ async function runStructuredClaim() {
   } catch (err) {
     setStatus(err.message, true);
   }
+}
+
+function structuredModifierExpression(relation) {
+  const drugState = latestGraph?.metadata?.drug_state;
+  if (!drugState) throw new Error('The selected graph has no executable drug state for a structured modifier.');
+  const drug = { kind: 'state_ref', state: drugState };
+  const halfMax = { kind: 'constant', value: 0.75 };
+  if (relation === 'inhibits_edge') {
+    return { kind: 'hill_inhibition', signal: drug, half_max: halfMax };
+  }
+  return {
+    kind: 'add',
+    terms: [
+      { kind: 'constant', value: 1.0 },
+      {
+        kind: 'saturating_activation',
+        signal: drug,
+        half_max: halfMax
+      }
+    ]
+  };
 }
 
 async function runToyModel() {
@@ -289,6 +385,14 @@ function updateStructuredTargets() {
   const previous = preferredClaimTarget || target.value;
   target.innerHTML = edges.map(edge => `<option value="${esc(edge.id)}">${esc(edgeLabel(latestGraph, edge))}</option>`).join('') || '<option value="">No target edges</option>';
   const values = new Set(edges.map(edge => edge.id));
+  const effect = document.getElementById('claim-effect');
+  const structuredButton = document.getElementById('structured-claim-button');
+  target.disabled = edges.length === 0;
+  effect.disabled = effect.options.length === 0;
+  structuredButton.disabled = edges.length === 0 || effect.options.length === 0;
+  structuredButton.title = structuredButton.disabled
+    ? 'No structural edge is available for a user-defined modifier.'
+    : '';
   if (claimTargetTouched && values.has(previous)) {
     target.value = previous;
     return;
@@ -297,7 +401,6 @@ function updateStructuredTargets() {
   if (moduleEdge && values.has(moduleEdge.id)) {
     target.value = moduleEdge.id;
     preferredClaimTarget = moduleEdge.id;
-    const effect = document.getElementById('claim-effect');
     if (!claimTargetTouched && Array.from(effect.options).some(option => option.value === 'activates_edge')) {
       effect.value = 'activates_edge';
     }
@@ -337,11 +440,24 @@ function graphLayout(graph) {
   return pos;
 }
 
-function markerSuffixForColor(color) {
-  if (color === '#b91c1c') return 'red';
-  if (color === '#059669') return 'green';
-  if (color === '#7c3aed') return 'drug';
-  return 'slate';
+function markerId(style) {
+  const kind = style.marker === 'tee' ? 'tee' : 'ah';
+  const colorKey = String(style.color || '#64748b').replace(/[^a-zA-Z0-9]/g, '').toLowerCase() || '64748b';
+  return `${kind}-${colorKey}`;
+}
+
+function markerDefinitions(styles) {
+  const seen = new Set();
+  return styles.map(style => {
+    const id = markerId(style);
+    if (seen.has(id)) return '';
+    seen.add(id);
+    const color = style.color || '#64748b';
+    if (style.marker === 'tee') {
+      return `<marker id="${esc(id)}" markerWidth="8" markerHeight="10" refX="1" refY="5" orient="auto" markerUnits="strokeWidth"><rect x="0" y="1" width="2" height="8" fill="${esc(color)}"/></marker>`;
+    }
+    return `<marker id="${esc(id)}" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L8,3 z" fill="${esc(color)}"/></marker>`;
+  }).join('');
 }
 
 function renderGraph(graph) {
@@ -367,10 +483,7 @@ function renderGraph(graph) {
     const s = Math.min(Math.abs(dx) > 1e-6 ? b.hw / Math.abs(dx) : Infinity, Math.abs(dy) > 1e-6 ? b.hh / Math.abs(dy) : Infinity);
     return [b.cx + dx * s, b.cy + dy * s];
   };
-  const markerFor = style => `${style.marker === 'tee' ? 'tee' : 'ah'}-${markerSuffixForColor(style.color)}`;
-  const defs = [['slate', '#64748b'], ['red', '#b91c1c'], ['green', '#059669'], ['drug', '#7c3aed']]
-    .map(([id, c]) => `<marker id="ah-${id}" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L8,3 z" fill="${c}"/></marker><marker id="tee-${id}" markerWidth="8" markerHeight="10" refX="1" refY="5" orient="auto" markerUnits="strokeWidth"><rect x="0" y="1" width="2" height="8" fill="${c}"/></marker>`)
-    .join('');
+  const defs = markerDefinitions((graph.edges || []).map(edge => relationStyle(edge.relation)));
   let edgeSvg = '', labelSvg = '';
   structural.forEach(edge => {
     const sb = boxes[edge.source], tb = boxes[edge.target];
@@ -379,7 +492,7 @@ function renderGraph(graph) {
     const [x2, y2] = boundary(tb, sb.cx, sb.cy);
     const style = relationStyle(edge.relation);
     if (modified.has(edge.id)) edgeSvg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#c4b5fd" stroke-width="7" stroke-linecap="round" opacity="0.7"/>`;
-    edgeSvg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${style.color}" stroke-width="${modified.has(edge.id) ? 2.6 : 1.8}" marker-end="url(#${markerFor(style)})"/>`;
+    edgeSvg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${style.color}" stroke-width="${modified.has(edge.id) ? 2.6 : 1.8}" marker-end="url(#${markerId(style)})"/>`;
     labelSvg += `<text class="edge-label" x="${(x1 + x2) / 2}" y="${(y1 + y2) / 2 - 4}" text-anchor="middle">${esc(style.label)}</text>`;
   });
   modifiers.forEach(edge => {
@@ -389,17 +502,78 @@ function renderGraph(graph) {
     const mid = [(pos[target.source][0] + pos[target.target][0]) / 2, (pos[target.source][1] + pos[target.target][1]) / 2];
     const [sx, sy] = boundary(sourceBox, mid[0], mid[1]);
     const style = relationStyle(edge.relation);
-    edgeSvg += `<line x1="${sx}" y1="${sy}" x2="${mid[0]}" y2="${mid[1]}" stroke="${style.color}" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#${markerFor(style)})"/>`;
+    edgeSvg += `<line x1="${sx}" y1="${sy}" x2="${mid[0]}" y2="${mid[1]}" stroke="${style.color}" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#${markerId(style)})"/>`;
   });
   const nodeSvg = nodes.map(node => {
     const b = boxes[node.id], style = nodeStyle(node);
     return `<g><title>${esc(node.label || node.id)}</title><rect x="${b.cx - b.hw}" y="${b.cy - b.hh}" width="${b.w}" height="${NODE_H}" rx="8" fill="${style.fill}" stroke="${style.stroke}" stroke-width="1.5"/><text class="node-label" x="${b.cx}" y="${b.cy}" text-anchor="middle" dominant-baseline="central" style="fill:${style.text}">${esc(node.id)}</text></g>`;
   }).join('');
   document.getElementById('graph').innerHTML = `<svg viewBox="0 0 ${VW} ${VH}" role="img" aria-label="MoA mechanism graph"><defs>${defs}</defs>${edgeSvg}${nodeSvg}${labelSvg}</svg>`;
-  document.getElementById('edgeList').innerHTML = (graph.edges || []).map(edge => {
-    const ev = (edge.evidence || []).map(item => item.description).join('; ');
-    return `<div class="eq-term"><span class="badge">${esc(relationStyle(edge.relation).label)}</span><b>${esc(edge.id)}</b>: ${esc(edge.source)} to ${esc(edge.target)}, sign ${esc(edge.sign)}, conf ${esc(edge.confidence)}<br><span class="muted">${esc(ev)}</span></div>`;
+  renderGraphProvenance(graph);
+}
+
+function listValues(value) {
+  if (Array.isArray(value)) return value.filter(item => item != null && item !== '');
+  if (value == null || value === '') return [];
+  return [value];
+}
+
+function codeChips(values) {
+  const items = listValues(values);
+  if (!items.length) return '';
+  return `<div class="chip-row">${items.map(item => `<code class="chip code">${esc(item)}</code>`).join('')}</div>`;
+}
+
+function provenanceRows(metadata) {
+  const ext = metadata?.extension || {};
+  const rows = [
+    ['Paper', ext.paper_id],
+    ['Curated id', ext.curated_edge_id || ext.curated_node_id],
+    ['Source records', ext.source_record_ids],
+    ['Evidence anchors', ext.evidence_anchor_ids],
+    ['Source section', ext.source_section],
+    ['Source chunk', ext.source_chunk_id],
+    ['Verdict', ext.verification_verdict],
+    ['Review status', ext.review_status],
+    ['Curation note', ext.curation_note || ext.modeling_note]
+  ];
+  return rows
+    .filter(([, value]) => listValues(value).length)
+    .map(([label, value]) => {
+      const rendered = Array.isArray(value) ? codeChips(value) : esc(value);
+      return `<div class="prov-row"><span>${esc(label)}</span><div>${rendered}</div></div>`;
+    })
+    .join('');
+}
+
+function evidenceRows(evidence) {
+  const items = evidence || [];
+  if (!items.length) return '<div class="muted">No evidence attached.</div>';
+  return items.map(item => {
+    const label = [item.source_label, item.source_type].filter(Boolean).join(' · ');
+    const confidence = item.confidence == null ? '' : ` · conf ${fmtNum(item.confidence)}`;
+    return `<div class="evidence-row"><b>${esc(label || 'Evidence')}</b>${esc(confidence)}<br><span>${esc(item.description || '')}</span></div>`;
   }).join('');
+}
+
+function renderGraphProvenance(graph) {
+  const nodes = graph.nodes || [];
+  const edges = graph.edges || [];
+  const nodeRows = nodes.map(node => {
+    const rows = provenanceRows(node.metadata);
+    return `<div class="prov-card"><div class="prov-title"><span class="badge">${esc(node.type)}</span><b>${esc(node.label || node.id)}</b></div>${rows || '<div class="muted">No node provenance metadata.</div>'}</div>`;
+  }).join('');
+  const edgeRows = edges.map(edge => {
+    const style = relationStyle(edge.relation);
+    const rows = provenanceRows(edge.metadata);
+    return `<div class="prov-card"><div class="prov-title"><span class="badge">${esc(style.label)}</span><b>${esc(edge.id)}</b></div>` +
+      `<div class="muted">${esc(edge.source)} to ${esc(edge.target)} · sign ${esc(edge.sign)} · conf ${esc(edge.confidence)}</div>` +
+      `<div class="prov-subhead">Evidence</div>${evidenceRows(edge.evidence)}` +
+      `<div class="prov-subhead">Provenance</div>${rows || '<div class="muted">No edge provenance metadata.</div>'}</div>`;
+  }).join('');
+  document.getElementById('edgeList').innerHTML =
+    `<div class="prov-section"><h3>Nodes</h3>${nodeRows || '<div class="muted">No nodes.</div>'}</div>` +
+    `<div class="prov-section"><h3>Edges</h3>${edgeRows || '<div class="muted">No edges.</div>'}</div>`;
 }
 
 function expressionText(expr) {
@@ -434,6 +608,43 @@ function renderEquations(compiled) {
   const mods = (compiled.modifiers || []).map(mod => `<div class="eq-term"><span class="badge">${esc(mod.operator)}</span><b>${esc(mod.modifier_id)}</b> on ${esc(mod.target_edge)}: <code>${esc(expressionText(mod.expression))}</code></div>`).join('');
   const terms = (compiled.terms || []).map(term => `<div class="eq-term"><span class="badge">${esc(term.operator)}</span><b>d${esc(term.state)}/dt</b> includes <code>${esc(expressionText(term.expression))}</code><br><span class="muted">source edges: ${esc((term.source_edges || []).join(', ') || 'implicit')}; modifiers: ${esc((term.modifiers || []).join(', ') || 'none')}; ${esc(term.description)}</span></div>`).join('');
   document.getElementById('equations').innerHTML = `<p><span class="badge">${esc(compiled.metadata.execution_model)}</span></p>${mods}${terms}`;
+}
+
+function sourceBlock(source) {
+  if (!source) return '<div class="muted">No source recorded.</div>';
+  const confidence = source.confidence == null ? '' : ` · conf ${fmtNum(source.confidence)}`;
+  return `<div class="source-block"><b>${esc(source.source_label || source.source_type || 'Source')}</b>${esc(confidence)}<br>` +
+    `<span>${esc(source.description || '')}</span>` +
+    (source.reference ? `<br><code>${esc(source.reference)}</code>` : '') +
+    `</div>`;
+}
+
+function renderParameterCatalog(compiled) {
+  const host = document.getElementById('parameterList');
+  if (!compiled) {
+    host.className = 'muted';
+    host.textContent = 'No compiled model loaded.';
+    return;
+  }
+  const catalog = compiled.parameter_catalog || {};
+  const priors = Object.values(catalog.priors || {}).sort((a, b) => String(a.id).localeCompare(String(b.id)));
+  const generated = Object.values(catalog.generated || {}).sort((a, b) => String(a.id).localeCompare(String(b.id)));
+  const priorRows = priors.map(parameter => {
+    const bounds = [parameter.lower, parameter.upper].every(value => value != null)
+      ? `bounds ${fmtNum(parameter.lower)}-${fmtNum(parameter.upper)}`
+      : 'no bounds';
+    return `<div class="param-card"><div class="param-head"><b>${esc(parameter.id)}</b><span>${esc(fmtNum(parameter.value))}${parameter.units ? ` ${esc(parameter.units)}` : ''}</span></div>` +
+      `<div class="muted">${esc(bounds)}</div>${sourceBlock(parameter.source)}</div>`;
+  }).join('');
+  const generatedRows = generated.map(parameter => {
+    const value = parameter.default_value == null ? 'override required' : `default ${fmtNum(parameter.default_value)}`;
+    return `<div class="param-card"><div class="param-head"><b>${esc(parameter.id)}</b><span>${esc(value)}</span></div>` +
+      `<div class="muted">operator ${esc(parameter.operator || 'n/a')}; source edges ${esc((parameter.source_edges || []).join(', ') || 'none')}; required ${esc(parameter.required_for_execution)}</div></div>`;
+  }).join('');
+  host.className = '';
+  host.innerHTML =
+    `<div class="prov-section"><h3>Prior parameters</h3>${priorRows || '<div class="muted">No prior parameters.</div>'}</div>` +
+    `<div class="prov-section"><h3>Generated parameters</h3>${generatedRows || '<div class="muted">No generated parameters.</div>'}</div>`;
 }
 
 function plotSpecies() {
@@ -717,7 +928,11 @@ function renderToyPrediction(prediction, claim, warnings=[], applied=null) {
       `<span class="muted">modifier ${esc(mod.modifier_id)}; source edges ${(mod.source_edges || []).map(esc).join(', ')}</span></div>`;
   }).join('') || '<div class="muted">No compiled modifier terms.</div>';
   const summaries = summaryByState(sim);
-  const keyStates = ['EGFR_total', 'pEGFR', 'pERK', 'pAKT', 'Phenotype'].filter(state => summaries[state]);
+  const configuredStates = [
+    ...(contract?.presentation?.endpoint_states || []),
+    ...(contract?.presentation?.plot_states || []).map(item => item.state)
+  ];
+  const keyStates = Array.from(new Set(configuredStates)).filter(state => summaries[state]).slice(0, 6);
   const impactRows = keyStates.map(state => `<div class="candidate-row"><span class="rank"></span><span><b>${esc(stateLabel(state))}</b><br><span class="muted">${esc(dropText(summaries[state]))}</span></span><span class="score"></span></div>`).join('');
   const logicRows = (sim?.biological_logic || []).map(item => `<span class="badge${item.result ? ' ok' : item.result === false ? ' no' : ''}" title="${esc(item.rationale)}">${esc(item.label)}</span>`).join('');
   const probabilities = (prediction.probabilities || []).map(item => {
@@ -742,6 +957,7 @@ function renderToyPrediction(prediction, claim, warnings=[], applied=null) {
 function renderAll() {
   renderGraph(latestGraph);
   renderEquations(latestCompiled);
+  renderParameterCatalog(latestCompiled);
   renderKeyMetrics(latestSimulation);
   renderHeroChart(latestSimulation);
   renderSmallMultiples(latestSimulation);

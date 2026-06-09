@@ -21,7 +21,7 @@
         <select id="pathway" onchange="loadSelectedPathway()"></select>
         <label for="configuration">Pick a known MoA</label>
         <select id="configuration"></select>
-        <button onclick="runScenario()">Run selected scenario</button>
+        <button id="run-scenario-button" onclick="runScenario()">Run selected scenario</button>
       </div>
       <div>
         <span class="step">B · Structured MoA claim</span>
@@ -39,7 +39,7 @@
             <select id="claim-module" onchange="runStructuredBase()"></select>
           </div>
         </div>
-        <button class="secondary" onclick="runStructuredClaim()">Apply drug modifier and run</button>
+        <button id="structured-claim-button" class="secondary" onclick="runStructuredClaim()">Apply drug modifier and run</button>
       </div>
       <div>
         <span class="step">Run settings</span>
@@ -52,10 +52,11 @@
           <option value="bolus" selected>Bolus washout</option>
           <option value="constant">Sustained</option>
         </select>
-        <button class="secondary" onclick="runToyModel()">Predict graph patch and run</button>
+        <button id="prediction-button" class="secondary" onclick="runToyModel()">Predict graph patch and run</button>
       </div>
     </section>
     <section id="status" class="panel muted">Ready.</section>
+    <section id="pathwayContext" class="panel muted">No pathway loaded.</section>
   </aside>
 
   <div class="content">
@@ -91,6 +92,10 @@
       <details class="ref">
         <summary>Graph edges and provenance</summary>
         <div id="edgeList" class="muted">No graph loaded.</div>
+      </details>
+      <details class="ref">
+        <summary>Parameters, priors, and assumptions</summary>
+        <div id="parameterList" class="muted">No compiled model loaded.</div>
       </details>
       <details class="ref">
         <summary>Raw simulation summary (JSON)</summary>

@@ -90,6 +90,10 @@ def test_frontend_uses_pathway_workbench_controls() -> None:
     assert 'id="claim-target"' in index.text
     assert 'id="claim-module"' in index.text
     assert 'id="prediction-claim"' in index.text
+    assert 'id="pathwayContext"' in index.text
+    assert 'id="parameterList"' in index.text
+    assert 'id="structured-claim-button"' in index.text
+    assert 'id="prediction-button"' in index.text
     assert "Predict graph patch and run" in index.text
     assert "claim-text" not in index.text
     assert "runClaimPrediction" not in index.text
@@ -104,9 +108,21 @@ def test_frontend_uses_pathway_workbench_controls() -> None:
     toy_block = app_js.text[toy_start:toy_end]
     assert "/predict/operators/apply" in toy_block
     assert "selectedPredictionClaim()" in toy_block
+    assert "formatApiError" in app_js.text
+    assert "structuredModifierExpression" in app_js.text
+    assert "expression," in app_js.text
+    assert "hill_inhibition" in app_js.text
+    assert "saturating_activation" in app_js.text
     assert "target_edge_id" not in toy_block
     assert "desired_relation" not in toy_block
     assert "rememberStructuredTarget" in app_js.text
+    assert "renderPathwayContext" in app_js.text
+    assert "renderGraphProvenance" in app_js.text
+    assert "renderParameterCatalog" in app_js.text
+    assert "No prediction tasks configured" in app_js.text
+    assert "source_record_ids" in app_js.text
+    assert "evidence_anchor_ids" in app_js.text
+    assert "parameter_catalog" in app_js.text
     assert "structuredPredictionClaim" not in app_js.text
     assert "predictionKeywordHints" not in app_js.text
     assert "latestGraph = response.graph" in toy_block
@@ -144,6 +160,55 @@ def test_compose_compile_simulate_api_flow() -> None:
     sim = SimulateResponse.model_validate_json(sim_response.text)
     assert sim.ok is True
     assert sim.result.biological_logic
+
+
+def test_sunitinib_structured_modifier_flow_does_not_require_generated_parameter_overrides() -> None:
+    pathway_id = "sunitinib_vegfr2_hcc_demo"
+    expression = {
+        "kind": "add",
+        "terms": [
+            {"kind": "constant", "value": 1.0},
+            {
+                "kind": "saturating_activation",
+                "signal": {"kind": "state_ref", "state": "ActiveExposure"},
+                "half_max": {"kind": "constant", "value": 0.75},
+            },
+        ],
+    }
+    composed = client.post(
+        "/graph/compose",
+        json={
+            "pathway_id": pathway_id,
+            "ad_hoc_modifiers": [
+                {
+                    "target_edge": "e_delta_svegfr2_inhibits_tumor_growth_rate",
+                    "relation": "activates_edge",
+                    "sign": "+",
+                    "expression": expression,
+                    "rationale": "Structured UI activates_edge modifier on sunitinib PD edge.",
+                }
+            ],
+        },
+    )
+    assert composed.status_code == 200
+    graph = composed.json()["graph"]
+
+    compiled_response = client.post("/model/compile", json={"pathway_id": pathway_id, "graph": graph})
+    assert compiled_response.status_code == 200
+    compiled = CompileResponse.model_validate_json(compiled_response.text)
+    assert compiled.ok is True
+    assert not compiled.model.parameter_catalog.generated
+
+    sim_response = client.post(
+        "/simulate",
+        json={
+            "compiled_model": compiled.model.model_dump(mode="json"),
+            "settings": {"dose": 1.0, "t_end": 48, "n_points": 97},
+        },
+    )
+    assert sim_response.status_code == 200
+    sim = SimulateResponse.model_validate_json(sim_response.text)
+    assert sim.ok is True
 
 
 def test_default_simulation_exposure_decays_drug_bolus() -> None:
